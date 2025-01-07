@@ -41,13 +41,78 @@ Zapewnienia wymagań:
 Celem głownym pracy jest
 opracowanie systemu monitoringu radarowego, który realizowałby dwie funkcjonalności w sposób bezdotykowy.
 Jedną z nich jest pomiar parametrów życiowych, czyli tętna i częstości oddechów, a także wykrywanie niebezpiecznych nieprawidłowości w czynnościach życiowych, np. bezdechu sennego.
-Drugą realizowaną funkcjonalnościa jest klasyfikacja zachowań człowieka w kontekście wykrywania upadków.
-Obie funkcjonalności będą realizowane w czasie rzeczywistym. Pod względem pomiaru zostaną przetestowane dwa urządzenia radarowe - XY-DemoRad i radar Analog Devices.
+Drugą realizowaną funkcjonalnością jest klasyfikacja zachowań człowieka w kontekście wykrywania niebezpiecznych upadków.
+Do pomiarów zostaną przetestowane dwa urządzenia radarowe - XY-DemoRad i radar CN0566 firmy Analog Devices.
+Pomiar parametrów życiowych i wykrywanie upadków będą realizowane w czasie rzeczywistym.
+Dodatkowo system będzie realizował wykrywanie obecności człowieka w zasięgu wiązki na podstawie jego ruchów.
+W przypadku radaru CN0566 z rozdzielczością kątową, wiązka będzie automatycznie podążała za człowiekiem.
+Wyniki działania będą wyświetlane dla użytkownika w aplikacji webowej w telefonie lub na monitorze komputera.
 
 Cele szczegółowe związane z celem głównym to 
-- opracowanie, usprawnienie lub porównanie algorytmów przetwarzania sygnałów radarowych w celu pomiaru parametrów życiowych człowieka i wykrywania bezdechu lub zawału serca.
-- opracowanie, usprawnienie lub porównanie algorytmów klasyfikacji zachowań człowieka na podstawie sygnatur radarowych pod względem wykrywania upadków.
-- wykonanie eksperymentów, które wskażą ograniczenia funkcjonalności pomiaru (zweryfikują postawione hipotezy).
-- analiza pozatechniczna
+- opracowanie, usprawnienie lub porównanie i krytyczna ocena algorytmów:
+	-- przetwarzania sygnałów radarowych w celu pomiaru parametrów życiowych człowieka i wykrywania bezdechu lub zawału serca.
+	-- klasyfikacji zachowań człowieka na podstawie sygnatur radarowych pod względem wykrywania upadków.
+- implementacja algorytmu do detekcji obecności i śledzenia ruchów człowieka w pobliżu radaru, a w przypadku urządzenia CN0566 odpowiednie kierowanie wiązki na człowieka
+- postawienie hipotez związanych z fizycznymi ograniczeniami pomiaru (związanymi z graniczną odległością, odpornością na przeszkody) na podstawie wiedzy o propagacji fal radiowych
+- wykonanie eksperymentów, które wskażą ograniczenia funkcjonalności pomiaru - zweryfikują postawione hipotezy
+- implementacja wybranych metod przetwarzania w systemie do pracy w czasie rzeczywistym.
+- wyświetlanie wyników działania (tj. parametrów życiowych i sygnałów o upadkach) w aplikacji webowej do podglądu dla użytkownika
+- analiza dokładności pomiaru i wydajności detekcji
+- analiza techniczna - pobór mocy, natężenie promieniowania, złożoność obliczeniowa itp.
+- analiza pozatechniczna - koszt systemu, bezpieczeństwo, ocena przydatności rozwiązania
+
+
+Abstract - 0.5 str
+
+Wprowadzenie i cele pracy - 1/2 str
+
+Rozdziały:
+Teoretyczne
+1. Przegląd literatury w dziedzinie pomiaru parametrów życiowych - 3 str
+2. Przegląd literatury w dziedzinie wykrywania upadków człowieka - 2/3 str
+3. Podstawy radiolokacji - 1 str (Propagacja sygnału, ogólne wzory)
+	- Radar FMCW - 2 str
+		- Kształt sygnału
+		- Przetwarzanie
+	- Kształtowanie wiązki - 1 str
+4. Teoretyczne ograniczenia pomiaru - 2 str
+	- Ograniczenia odległości
+	- Odporność fali na przeszkody
+
+Praktyczne - eksperymentalne
+5. Eksperymentalna weryfikacja hipotetycznych ograniczeń - 4 str
+	- XY-Demorad
+	- CN0566
+6. Algorytmy do pomiaru parametrów życiowych - 3 str
+7. Algorytmy do wykrywania upadków człowieka - 3 str
+8. Algorytm do detekcji obecności i śledzenia ruchów człowieka - 2 str
+
+Praktyczne - aplikacyjne
+9. Specyfikacja systemu
+	- Wybór algorytmów i narzędzi - 1 str
+	- Działanie systemu - 3 str
+	- Realizowane funkcje - 1 str
+	- Ograniczenia techniczne - 1 str
+		- Pobór mocy
+		- Złożoność obliczeniowa
+	- Ograniczenia pozatechniczne - 2/3 str
+		- Wpływ fal radiowych na zdrowie
+		- Sankcje prawne i dopuszczalna moc
+		- Koszty systemu
+10. Testy systemu
+	- Prezentacja działania - 2 str
+	- Dokładność pomiaru parametrów życiowych - 1 str
+	- Wydajność detekcji upadków - 2 str
+11. Ocena przydatności rozwiązania - 1 str
+	- Zastosowania
+	- Atrakcyjność a koszty systemu
+12. Podsumowanie - 1 str
+
+
+Bibliografia - 4 str
+
+Specyfikacja systemu
+4.
+
 
 
