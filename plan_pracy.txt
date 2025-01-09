@@ -20,6 +20,11 @@ Wymagania pozostałe podstawowe (inż) - jakby niekoniecznie trzeba je spełnić
 - rozwiązania zadania wg specyfikacji
 - zrozumiały opis działania
 
+Element badawczy: (z chatu GPT)
+- badanie efektywności różnych algorytmów przetwarzania do pomiaru parametrów życiowych i wykrywania upadków w konkretnych warunkach
+
+Opracowanie nowego rozwiązania technologicznego
+
 
 
 [https://www.ukw.edu.pl/download/5866/LO_nauki_techniczne.pdf]
@@ -40,7 +45,7 @@ Zapewnienia wymagań:
 
 Celem głownym pracy jest
 opracowanie systemu monitoringu radarowego, który realizowałby dwie funkcjonalności w sposób bezdotykowy.
-Jedną z nich jest pomiar parametrów życiowych, czyli tętna i częstości oddechów, a także wykrywanie niebezpiecznych nieprawidłowości w czynnościach życiowych, np. bezdechu sennego.
+Pierwszą funkcjonalnością jest pomiar parametrów życiowych, czyli tętna i częstości oddechów, a także wykrywanie niebezpiecznych nieprawidłowości w czynnościach życiowych, np. bezdechu sennego.
 Drugą realizowaną funkcjonalnością jest klasyfikacja zachowań człowieka w kontekście wykrywania niebezpiecznych upadków.
 Do pomiarów zostaną przetestowane dwa urządzenia radarowe - XY-DemoRad i radar CN0566 firmy Analog Devices.
 Pomiar parametrów życiowych i wykrywanie upadków będą realizowane w czasie rzeczywistym.
@@ -62,33 +67,35 @@ Cele szczegółowe związane z celem głównym to
 - analiza pozatechniczna - koszt systemu, bezpieczeństwo, ocena przydatności rozwiązania
 
 
+Strona tytułowa - 1 str
 Abstract - 0.5 str
 
 Wprowadzenie i cele pracy - 1/2 str
 
-Rozdziały:
-Teoretyczne
-1. Przegląd literatury w dziedzinie pomiaru parametrów życiowych - 3 str
-2. Przegląd literatury w dziedzinie wykrywania upadków człowieka - 2/3 str
-3. Podstawy radiolokacji - 1 str (Propagacja sygnału, ogólne wzory)
+Rozdziały teoretyczne
+1.2. Przegląd literatury w dziedzinie pomiaru parametrów życiowych - 3 str
+1.2. Przegląd literatury w dziedzinie wykrywania upadków człowieka - 2/3 str
+1.3. Podstawy radiolokacji - 1 str (Propagacja sygnału, ogólne wzory)
 	- Radar FMCW - 2 str
 		- Kształt sygnału
 		- Przetwarzanie
+		- Wady i zalety
 	- Kształtowanie wiązki - 1 str
-4. Teoretyczne ograniczenia pomiaru - 2 str
+1.4. Teoretyczne ograniczenia pomiaru - 2 str
 	- Ograniczenia odległości
 	- Odporność fali na przeszkody
 
-Praktyczne - eksperymentalne
-5. Eksperymentalna weryfikacja hipotetycznych ograniczeń - 4 str
+Rozdziały praktyczne - eksperymentalne
+2.1. Urządzenia wykorzystywane do pomiarów - 1 str
 	- XY-Demorad
 	- CN0566
-6. Algorytmy do pomiaru parametrów życiowych - 3 str
-7. Algorytmy do wykrywania upadków człowieka - 3 str
-8. Algorytm do detekcji obecności i śledzenia ruchów człowieka - 2 str
+2.2. Eksperymentalna weryfikacja hipotetycznych ograniczeń - 4 str
+2.3. Algorytmy do pomiaru parametrów życiowych - 3 str
+2.4. Algorytmy do wykrywania upadków człowieka - 3 str
+2.5. Algorytm do detekcji obecności i śledzenia ruchów człowieka - 2 str
 
-Praktyczne - aplikacyjne
-9. Specyfikacja systemu
+Rozdziały praktyczne - aplikacyjne
+3.1. Specyfikacja systemu
 	- Wybór algorytmów i narzędzi - 1 str
 	- Działanie systemu - 3 str
 	- Realizowane funkcje - 1 str
@@ -99,20 +106,13 @@ Praktyczne - aplikacyjne
 		- Wpływ fal radiowych na zdrowie
 		- Sankcje prawne i dopuszczalna moc
 		- Koszty systemu
-10. Testy systemu
+3.2. Testy systemu
 	- Prezentacja działania - 2 str
 	- Dokładność pomiaru parametrów życiowych - 1 str
 	- Wydajność detekcji upadków - 2 str
-11. Ocena przydatności rozwiązania - 1 str
+3.3. Ocena przydatności rozwiązania - 1 str
 	- Zastosowania
 	- Atrakcyjność a koszty systemu
-12. Podsumowanie - 1 str
 
-
+Podsumowanie - 1 str
 Bibliografia - 4 str
-
-Specyfikacja systemu
-4.
-
-
-
