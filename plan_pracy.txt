@@ -51,3 +51,18 @@ Cele szczegółowe związane z celem głównym to
 - analiza pozatechniczna
 
 
+
+Dear Pedro,
+
+dziękuję za sugestię, skontaktuję się z prof. Smolikiem, czy należy przygotować jakąś prezentację.
+
+Co do raportu z postępów, to dokument jest w przygotowaniu.
+W skrócie, w ostatnim czasie sformułowałem wstępną strukturę pracy, zakres badań i cel główny. Chyba powinienem to skonsultować z tobą, dlatego przesyłam to oddzielnie w załączniku. Być może plany są zbyt ambitne, ale pomyślałem, że implementacja realtime i tak będzie zrobiona na potrzeby Radarconf Challenge. Dodałem do tego jeszcze wyświetlanie w aplikacji webowej, aby dodać element IoT (jak w smart home).
+
+Mam pewne obawy co do wymagania, aby rozwiązanie postawionego zadania wymagało elementów badawczych. Wydaje mi się, że wystarczyłoby porównanie działania różnych algorytmów w konkretnych warunkach i wybór odpowiedniego do implementacji w systemie.
+
+W pracach magisterskich jest jeszcze wymaganie, aby pojawiło się ulepszenie/opracowanie nowego rozwiązania technicznego. Możliwe, że tutaj wystarczy sama struktura systemu - jeśli będzie to coś innego niż istniejące rozwiązania. Być może uda się jeszcze opracować/ulepszyć jakieś algorytmy przetwarzania, w szczególności te z metodami czasowo-częstotliwościowymi.
+
+Więcej 
+
+
