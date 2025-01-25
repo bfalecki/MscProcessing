@@ -1,0 +1,24 @@
+Artykuł SPSympo
+
+Introduction
+
+- przeczytać wstęp poprzedniego artykułu i tutaj napisać wszystko to, co chciałbym zrobić lepiej
+
+
+
+
+- Bezdotykowy pomiar parametrów życiowych przy użyciu radaru w ostatnim czasie zyskuje coraz większą popularność i jest szeroko badany.
+
+- Metody czasowo-częstotliwościowe pozwalają na pełniejszą wizualizację i dekompozycję sygnału na składowe. Jednakże jednym z ograniczeń jest znaczne rozmycie energii po płaszczyźnie czas-częstotliwość, szczególnie w przypadku STFT. Można sztucznie zwiększyć rozdzielczość stosując metody koncentracji spektrogramu, takie jak synchrosqueezing czy reassignment. Metody te w odniesieniu do radarowych nagrań aktywności życiowych są głównym przedmiotem badań niniejszej pracy. Na uwagę zasługuje fakt, że 
+
+
+
+
+W Chociaż w niektórych przypadkach  W niektórych przypadkach estymacja chwilowej częstotliwości sygnału jest ja
+
+
+
+
+Pomiary
+
+Eksperymentalne nagrania radarowe zostały uzyskane przy użyciu systemu XY-DemoRad pracującego na częstotliwości 122 GHz. Antena skierowana prosto 
