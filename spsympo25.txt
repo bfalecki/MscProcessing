@@ -14,11 +14,22 @@ Introduction
 
 
 
-W Chociaż w niektórych przypadkach  W niektórych przypadkach estymacja chwilowej częstotliwości sygnału jest ja
+W niektórych przypadkach estymacja chwilowej częstotliwości sygnału jest ja
 
 
 
 
 Pomiary
+- nagrania, które zostały zrobione na potrzeby pracy inżynierskiej
 
 Eksperymentalne nagrania radarowe zostały uzyskane przy użyciu systemu XY-DemoRad pracującego na częstotliwości 122 GHz. Antena skierowana prosto 
+
+Processing
+most intense RT row -> Synchrosqueezing transform -> 
+
+Results
+- tylko synchrosqueezing
+- 
+
+Conclusion
+
