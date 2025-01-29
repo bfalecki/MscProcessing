@@ -1,0 +1,4 @@
+29.01
+- zrobić korelację słabego sygnału z filtrem dopasowanym silnego sygnału
+- dowiedzieć się jak inni ludzie w literautrze robią pomiar rytmu serca
+- zrobić FFT z jednego cyklu drgań, aby zobaczyć rozkład częstotliwości
