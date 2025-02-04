@@ -1,0 +1,45 @@
+
+
+5.9 GHz, udało się zmierzyć tętno na 1.5 m
+
+
+@INPROCEEDINGS{5135498,
+  author={Li, Changzhi and Xiaogang Yu and Li, Dong and Ran, Lixin and Lin, Jenshan},
+  booktitle={2009 IEEE Radio Frequency Integrated Circuits Symposium}, 
+  title={Software configurable 5.8 GHz radar sensor receiver chip in 0.13 µm CMOS for non-contact vital sign detection}, 
+  year={2009},
+  volume={},
+  number={},
+  pages={97-100},
+  keywords={Radar detection;Circuits;Doppler radar;Digital control;Photonic band gap;1f noise;Baseband;CMOS process;Data acquisition;Radar antennas;Software configure;non-contact;vital sign detection;monolithic integrate;CMOS;radar;sensor},
+  doi={10.1109/RFIC.2009.5135498}}
+
+
+2.24-2.44 GHz, udało się zmierzyć tętno z 1.5m, ale wyniki podejrzane
+
+
+@INPROCEEDINGS{9565286,
+  author={Yuan, Yichao and Wu, Chung-Tse Michael},
+  booktitle={2021 IEEE International Symposium on Radio-Frequency Integration Technology (RFIT)}, 
+  title={Multi-target Vital Sign Detection Using Metamaterial Leaky Wave Antenna-Integrated Super-Regenerative Oscillator}, 
+  year={2021},
+  volume={},
+  number={},
+  pages={1-3},
+  keywords={Radio frequency;Sensitivity;Heart beat;Radar;Radar antennas;Leaky wave antennas;Metamaterials;High sensitivity;leaky wave antenna (LWA);metamaterial (MTM);multi-target vital sign detection;super-regenerative oscillator (SRO).},
+  doi={10.1109/RFIT52905.2021.9565286}}
+
+
+dobry przykład 120 GHz
+
+
+@INPROCEEDINGS{10069957,
+  author={Zhang, Wogong and Li, Nannan and Wang, Dongsheng and Yao, Jialin and Wang, Lulu and Li, Weipeng and Li, Mengmei and Winkler, Wolfgang and Yu, Jinzhong and Kasper, Erich},
+  booktitle={2022 IEEE 10th Asia-Pacific Conference on Antennas and Propagation (APCAP)}, 
+  title={A Compact Commercialization-Aimed 120 GHz Radar Module for Vital Sign Detection}, 
+  year={2022},
+  volume={},
+  number={},
+  pages={1-2},
+  keywords={Antenna measurements;Heart beat;Radar detection;Millimeter wave radar;Radar antennas;Transceivers;Sensors;millimeter-wave radar;vital sign detection;front-end;120 GHz;antenna-in-package (AiP);respiration;heart beat rate;transient Fourier transformation},
+  doi={10.1109/APCAP56600.2022.10069957}}
