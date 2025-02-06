@@ -79,17 +79,29 @@ section{Vertical synchrosqueezing}
 
 Here is a brief introduction to synchrosqueezing method which is used in this paper to decompose the vital signs radar signal. First, let's consider short time Fourier transform według następującej definicji []:
 ....
+
+eq.1 z sync
+
+
 To estimate the exact instantaneous frequency of a supposed signal component in the vicinity of a point (w,t) whose energy is spread out causing an increase in energy at that point, an instantaneous frequency estimator is introduced, which can be calculated from the formula []:
-w^(t,w) = 
+eq 7
 It can be interpreted as the local center of gravity for energy in the frequency axis.
 Fourier synchrosqueezing transform is then obtained by redistribution of each STFT point to the estimated w^(t,w) frequency według następującej reguły[]
-...
+eq 10
 (Równanie z deltą)
 where delta is the Dirac delta function.
 Therefore, the individual distribution points are moved only along the frequency axis, which allows for the full reconstruction of the original signal similarly to the case of the ordinary STFT. The inverse transform is done by simply summing the distribution points along the frequency axis, which is expressed by the equation:
-...
+eq 9
 The distribution can be previously multiplied by a binary mask to extract a particular signal component.
  
+Cześć, zrobiłem wstępną wersję artykułu na SPSympo. Niektóre rozdziały mogą być zrobione trochę na szybko, ale ogólnie wygląda chyba nieźle. Możesz rzucić okiem szczególnie na rozdział o synchrosqueezingu?
+Poniżej link do overleafa
+https://www.overleaf.com/2924675667nrzxpnmgzjnd#45c329
+
+Skopiowałem wzory 1:1 z "Time-Frequency Reassignment and Synchrosqueezing: An overview", ale być może coś źle zinterpretowałem.
+Wygenerowałem nowe wyniki z innego nagrania i wygląda to fajnie.
+Użyłem tutaj tylko synchrosqueezingu 1. rzędu, bo nie chciałem już komplikować w opisie analitycznym, ale w wersji full paper może można to jeszcze uzupełnić.
+Jest jeszcze taka kwestia, że na SPSympo przesyła się abstrakty do 4 stron, a tutaj jest nieco ponad, więc trzeba będzie nieco treści na razie skompresować.
 
 
 
@@ -134,9 +146,53 @@ In the first step, the component related to respiration is extracted from the si
 
 
 
-section{Results}
-- tylko synchrosqueezing
 
+section{Results}
+
+The radar echo of measured vital signs is shown in Fig.~\ref{fig:raw}. Nagranie przedstawia dwa powolne cykle oddechowe. W sygnale widoczne są zmiany częstotliwości Dopplera związane z respiratory-related ruchem klatki piersiowej w przód i w tył.
+Na pierwszy rzut oka nie widać żadnych wibracji związanych z pracą serca, jednak analiza czasowo-częstotliwościowa je ujawnia jako cykliczne zmiany gęstości energii wzdłuż głównej linii echa Fig.~\ref{fig:stft}. Na TF plane znacznie łatwiej zobaczyć kształt przebieg modulacji częstotliwości związanego z oddychaniem.
+
+Fig.~\ref{fig:sstft} przedstawia skoncentrowany spektrogram z wykorzystaniem first-order vertical synchrosqueezing. Prawie cała energia sygnału została skupiona przy głównej linii echa, co ułatwi dalszą dekompozycję na składowe.
+
+Fig.~\ref{fig:heartbeat_sstft} which shows the synchrosqueezed TF plane with the respiratory component cut out by using a mask following the detected TF ridge.
+
+Fig.~\ref{breath_signal} i Fig.~\ref{hb_signal} przedstawiają zrekonstruowany sygnał z zużyciem odwrotnej transformacji w sytuacji, gdy zastosowana maska jest odpowiednio nieodwrócona i odwrócona. Pierwszy przypadek odpowiada komponentowi oddechowemu, natomiast drugi to echo związane z pracą serca. W ostatnim przypadku widać wyraźnie powtarzające się wysokoczęstotliwościowe oscylacje, które odpowiadają cyklom pracy serca.
+
+Warto zauważyć, że echo związane z praca serca jest tak słabe w porównaniu do oddechu, że prawie nie widać różnicy między sygnałem surowym a filtrowanym (por. Fig.~\ref{fig:raw} i Fig.~\ref{breath_signal}).
+
+
+
+
+
+- Wygenerować dla jednego pomiaru
+- SSTFT1, SSTFT2, rekonstrukcja oddechu i tętna, surowy sygnał, maska, tfridges, pspectrum, rms
+- nie podawać tytułów wykresów, tylko opisy osi
+
+
+- breath1
+- breath3
+
+stft window: 
+parametry: rms window: 0.2 s
+ridge vicinity two-side width to generate binary mask 15.125 Hz (15 sampli w jedną stronę)
+Carrier frequency: 121.16 GHz
+Bandwidth: 5 GHz
+Sample frequency of demodulated signal: 1 MHz
+
+
+
+
+
+internal parameters:
+decimation = 20
+fs = 5000/decimation = 250
+
+sigma = 12;         % szerokosc okna (tyle sampli jest równa sigma rozkładu Gaussa), FWHM = 28.2613 sampli, czyli 0.1130 [s]
+gamma_K = 1e-4;     % prog przyciecia nieskonczonego okna Gaussa
+N_FFT = 512;       % ilosc punktow na osi czestotliwoscisigna
+signal_size = 2505
+rec len = 10 s
+vertical sstft rank = {1,2}
 
  
 section{Conclusion}
@@ -182,7 +238,9 @@ PROCESSING
 
 Conclusion
 
-The advantage of time-frequency analysis over phase demodulation is that it is a natural way to represent a signal consisting of many components, which allows for easy decomposition. This is particularly important in radar applications, where many independent signals may be observed simultaneously. In addition, the time-frequency representation contains information about the energy distribution of the signal, while the phase waveform alone may often be not reliable enough. TF-plane can also be used as input to efficient image classification algorithms based on neural networks to deal with.
+
+Podsumowując, synchrosqueezing jest skuteczną metodą dekompozycji radar vital signs signals. Udało się zrekonstruować heartbeat-related echo signal i dokonać estymacji tętna.
+The advantage of time-frequency analysis over phase demodulation is that it is a natural way to represent a signal consisting of many components, which allows for easy decomposition. This is particularly important in radar applications, where many independent signals may be observed simultaneously. In addition, the time-frequency representation contains information about the energy distribution of the signal, while the phase waveform alone may often be not reliable enough. TF-plane can also be used as input to efficient image processing algorithms based on neural networks.
 
 
  
