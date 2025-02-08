@@ -3,6 +3,28 @@ Artykuł SPSympo
 
 Arai, On the noninvasive microwave measurement of respiration and heartbeat
 https://www-1jstage-1jst-1go-1jp-1000098lm0112.eczyt.bg.pw.edu.pl/article/jsmbe1963/15/Supplement2/15_Supplement2_466/_article/-char/ja/
+@article{1977466,
+  title={一般演題 その47},
+  author={},
+  journal={医用電子と生体工学},
+  volume={15},
+  number={Supplement2},
+  pages={466-473},
+  year={1977},
+  doi={10.11239/jsmbe1963.15.Supplement2_466}
+}
+第16回日本ME学会大会
+2a-E-1
+マイクロ波による呼吸および心拍の無侵襲測定に関する 基礎的考察
+Maikuroha ni yoru kokyū oyobi shinpaku no mu shinshū sokutei ni kansuru kiso-teki kōsatsu
+Fundamental Considerations on Non-invasive Measurement of Respiration and Heart Rate Using Microwaves
+○荒井郁男* 鈴木務* 高橋良**
+*電気通信大学
+**三栄測器 K.K.
+呼吸と心拍の非侵襲的マイクロ波測定について
+Ikuo ARAI* Tsutomu SUZUKI*, Ryo TAKAHASHI**
+*電気通信大学、**三栄測器株式会社
+
 
 James C lin
 Noninvasive microwave measurement of respiration
