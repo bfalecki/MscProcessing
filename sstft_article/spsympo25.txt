@@ -42,6 +42,10 @@ Do zrobienia
 - sprawdzić, co się uzyskuje dla zwyklego stft
 - przeczytać wstęp poprzedniego artykułu i tutaj napisać wszystko to, co chciałbym zrobić lepiej
  
+ 
+ 
+ 
+ 
 
 section{Abstract}
 %This paper focuses on radar measurement of vital signs using time-frequency analysis with vertical synchrosqueezing concentration to increase the resolution of the distribution. The signal is decomposed into breath and heartbeat components and their reconstruction is done by an inverse transform of the distribution with a binary mask applied. Finally, the heart rate is estimated using the spectral analysis of instantaneous signal strength.
@@ -183,7 +187,14 @@ Fig.~\ref{breath_signal} i Fig.~\ref{hb_signal} przedstawiają zrekonstruowany s
 Warto zauważyć, że echo związane z praca serca jest tak słabe w porównaniu do oddechu, że prawie nie widać różnicy między sygnałem surowym a filtrowanym (por. Fig.~\ref{fig:raw} i Fig.~\ref{breath_signal}).
 
 
+Warto dodać, że w przypadku high-pass filtering, częstotliwość odcięcia była dobrana w taki sposób, aby otrzymać jak najlepszy peak na spektrum, więc dalsza wyraźna poprawa tej metody nie jest możliwa dla tego nagrania.
 
+
+Metoda z wykorzystaniem synchrosqueezingu wykazuje lepsze zdolności, ponieważ polega na śledzeniu i adaptacyjnym usuwaniu wysokoenergetycznego komponentu sygnału o relatywnie wolnej modulacji z pozostawieniem jego sąsiedztwa.
+Dzięki tej cesze, podejście to daje się z powodzeniem zastosować do ekstrakcji drgań serca przy obecności nagłych ruchów powodujących znaczne zakłócenia.
+
+
+Lepsze uwarunkowanie metody synchrosqueezingu dla nagrania z nagrłymi ruchami oddechowymi wynika z tego, 
 
 
 - Wygenerować dla jednego pomiaru
@@ -202,7 +213,11 @@ Bandwidth: 5 GHz
 Sample frequency of demodulated signal: 1 MHz
 
 
+Cześć, skończyłem poprawiać artykuł na SPSympo.
+Dodałem zdjęcie radaru (wziąłem to z artykułu na IRS). Sekcja z wynikami i podsumowanie zostały trochę szerzej opisane. Tak jak napisałem, filtracja górnoprzepustowa czasem daje równie dobre wyniki, ale nie w przypadku, gdy ruchy ciała są zbyt duże. Wtedy synchrosqueezing jest faktycznie lepszy.
+Można było pewnie opisać lepiej tylko ten trudniejszy przypadek i w sumie zastanawiam się, czy tak nie zrobić, ale żeby się z tym nie zagrzebać, bo zostało niedużo czasu.
 
+Jeśli masz dziś chwilę, to możesz spojrzeć jeszcze czy jest ok i będziemy wysyłać.
 
 
 internal parameters:
