@@ -44,7 +44,7 @@ bartosz.falecki.stud@pw.edu.pl}
 \maketitle
 
 \begin{abstract}
-This paper focuses on the processing of radar measurement-based vital signs using vertical synchrosqueezing to increase the resolution of the time-frequency distribution and component separation. The vertical synchrosqueezing method was used to decompose the signal into breathing and heartbeat components. In the first step, the component related to respiration is extracted from the signal. Then, it is removed to obtain a waveform corresponding to the heart activity with reduced noise and the influence of chest movement. Finally, the heart rate is estimated using the spectral analysis of the instantaneous signal strength.
+This paper focuses on the processing of radar measurement-based vital signs using vertical synchrosqueezing to increase the resolution of the time-frequency distribution and component separation. The vertical synchrosqueezing method was used to decompose the signal into breathing and heartbeat components. In the first step, the component related to respiration is extracted from the signal. Then, it is removed to obtain a waveform corresponding to the heart activity with reduced noise and the influence of chest movement. Finally, the heart rate is estimated using spectral analysis of the signal envelope. In the presence of rapid breathing, the described decomposition method produces better results than simple high-pass filtering.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -67,11 +67,18 @@ To increase the resolution of the TF plane, some techniques can be used to shift
 The origin of TF representation concentration techniques is almost as old as the concept of microwave measurement of vital signs.
 A technique similar to nowadays called reassignment was first described in 1976 \cite{kodera} under the name of the modified moving window method.
 Since then, many different concentration techniques have been developed, and in some cases, a thorough mathematical background has been formulated \cite{sync}.
-With this kind of approach, it is possible to significantly improve the resolution of the TF distribution in one dimension while maintaining satisfactory resolution in the other dimension or to concentrate both dimensions simultaneously.
-The first method, in which points are moved in only one dimension, is called synchrosqueezing \cite{sync}, and its use allows for fully recovering the original signal from the concentrated TF plane.
-Synchrosqueezing can be divided into the vertical type, where the points are moved only along the frequency axis, and the horizontal type, where the points are moved only along the time axis.
-The second method, in which points can be moved in both axes simultaneously, is an above-mentioned reassignment \cite{reas}.
-In this case, the original signal reconstruction is no longer possible from the processed TF plane, but reassignment possibly allows for a better concentration than synchrosqueezing \cite{sync}.
+% With this kind of approach, it is possible to significantly improve the resolution of the TF distribution in one dimension while maintaining satisfactory resolution in the other dimension or to concentrate both dimensions simultaneously.
+% The first method, in which points are moved in only one dimension, is called synchrosqueezing \cite{sync}, and its use allows for fully recovering the original signal from the concentrated TF plane.
+% Synchrosqueezing can be divided into the vertical type, where the points are moved only along the frequency axis, and the horizontal type, where the points are moved only along the time axis.
+% The second method, in which points can be moved in both axes simultaneously, is an above-mentioned reassignment \cite{reas}.
+% In this case, the original signal reconstruction is no longer possible from the processed TF plane, but reassignment possibly allows for a better concentration than synchrosqueezing \cite{sync}.
+With this kind of approach, it is possible to concentrate the TF distribution in both dimensions simultaneously or, alternatively, to significantly improve the resolution in one dimension while maintaining satisfactory resolution in the other dimension.
+The first method, in which points can be moved in both axes simultaneously, is the above-mentioned reassignment.
+The second method, in which the points are moved in one dimension, is called synchrosqueezing. Synchrosqueezing can be divided into the vertical type, where the points are moved only along the frequency axis, and the horizontal type, where the points are moved only along the time axis.
+Reassignment is the best in terms of energy concentration capabilities, but it is non-invertible because the information about the signal phase is lost. Synchrosqueezing, on the other hand, is less effective in terms of concentration, but it is invertible, and signal decomposition is possible \cite{sync}.
+
+This last feature of synchrosqueezing is crucial for its use in reconstructing echoes related to cardiac activity, which has not been presented in the literature so far.
+In this paper, a novel vertical synchrosqueezing-based method for the decomposition of vital signs-related radar signals is proposed.
  
 \section{Vertical synchrosqueezing}
 
@@ -98,12 +105,20 @@ The distribution $T_{f}^{g}(t,\omega)$ can be previously multiplied by a binary 
 
 
 \section{Measurement setup}
-The experimental radar recording of vital signs was obtained using the FMCW XY-DemoRad system \cite{demorad}.
+The experimental radar recording of vital signs was obtained using the FMCW XY-DemoRad system \cite{demorad}, an image of which is shown in Fig.~\ref{fig:demorad}.
 The device transmitted a high-frequency wave of $121.16$ GHz with a bandwidth of $5$~GHz.
 The relaxed person was in a motionless sitting position with a $30$~cm chest-to-antenna distance.
 The radar antenna was pointed directly at the chest without any obstructions.
 The entire recording lasts $10$~s at a baseband signal sampling rate of $1$~MHz and a pulse repetition rate of $5000$~pulses per second.
 The recording was saved to the hard disk and then post-processed in the MATLAB environment.
+
+\begin{figure}
+ \centering
+   \includegraphics[width=\linewidth]{plot/XY_demorad-min.jpg}
+   \caption{XY-DemoRad system.}
+    \label{fig:demorad}
+\end{figure}
+
 
 \section{Processing}
 
@@ -111,7 +126,7 @@ The signal processing scheme is shown in Fig.~\ref{fig:processing}.
 The first step after selecting the appropriate range cell from the range-time map is to calculate the SSTFT. In order to obtain an acceptable time resolution, a Gaussian window with full width at half maximum (FWHM) of about $0.11$~s is used.
 Then, the strongest TF ridge is detected using a penalized forward-backward greedy algorithm (MATLAB \texttt{tfridge} function), which mainly follows the respiratory component.
 If the energy of the respiratory component is too widely distributed on the TF plane, concentration can cause splitting ridges. If this occurrence is significant, several major ridges can be detected.
-Based on the detected TF ridge, a binary mask is generated in its certain neighborhood, which mainly contains the slowly varying respiratory component in the TF plane. In this particular case, the bilateral width of the neighborhood in the frequency axis is approximately $15$~Hz.
+Based on the detected TF ridge, a binary mask is generated in its certain neighborhood, which mainly contains the slowly varying respiratory component in the TF plane. In this particular case, the bilateral width of the neighborhood in the frequency axis is approximately $15$~Hz to achieve a compromise between enhancing cardiac echoes and reducing interfering respiratory echoes.
 If several ridges are detected, the resulting mask can be computed by a logical sum of each ridge-related mask.
 The reconstruction of the respiratory echo signal is achieved using the inverse SSTFT according to (4) with a binary mask applied to filter out unnecessary higher components.
 To obtain the echo signal of cardiac activity with the respiratory component filtered out, the same transformation was applied, but the binary mask was inverted.
@@ -131,28 +146,47 @@ Finally, the spectrum analysis of the envelope is computed to estimate the heart
 
 \section{Results}
 
-The radar echo of measured vital signs is shown in Fig.~\ref{fig:raw}. The recording shows two slow respiratory cycles. The signal shows changes in Doppler frequency related to respiratory-related forward and backward movement of the chest. At first glance, no heart-related vibrations are visible, but TF analysis reveals them as cyclic changes in energy density along the main echo line Fig.~\ref{fig:stft}. In the TF plane, it is also much easier to see the shape of the frequency modulation waveform related to breathing.
+The radar echo of measured vital signs is shown in Fig.~\ref{fig:raw}. The recording shows two slow respiratory cycles. The signal exhibits changes in Doppler frequency related to respiratory-induced forward and backward movement of the chest. At first glance, no heart-related vibrations are visible, but TF analysis reveals them as cyclic changes in energy density along the main echo line Fig.~\ref{fig:stft}. In the TF plane, it is also much easier to see the shape of the frequency modulation waveform related to breathing.
 Fig.~\ref{fig:sstft} shows a concentrated spectrogram using first-order vertical synchrosqueezing. Almost all of the signal energy is focused on the main echo line, which facilitates further decomposition.
 Fig.~\ref{fig:hb_sstft} shows the synchrosqueezed TF plane with the respiratory component cut out by using an inverted mask following the detected TF ridge.
-Fig.~\ref{fig:breath_signal} and Fig.~\ref{fig:hb_signal} show the reconstructed signal using the inverse transform when the applied mask is non-inverted and inverted, respectively. The first case corresponds to the respiratory component, while the second is the echo related to cardiac activity. In the latter case, repetitive high-frequency oscillations that correspond to individual heart cycles are clearly visible.
-It is worth noting that the echo related to the heart is so weak compared to the respiration that there is almost no difference between the raw signal and the reconstructed respiration signal (cf. Fig.~\ref{fig:raw} and Fig.~\ref{fig:breath_signal}).
-The RMS envelope of the reconstructed heartbeat component is shown in Fig.~\ref{fig:env}.
-The envelope window was optimized to obtain a prominent heart rate peak in the spectrum analysis (Fig.~\ref{fig:spectrum}). The main peak located at $1.27$~Hz gives an estimated heart rate of $76$~BPM.
-To view the cardiac cycles at a higher temporal resolution, it would be more appropriate to use a shorter window, but this would result in an increase in harmonics in the frequency analysis.
+Fig.~\ref{fig:breath_signal_real} and Fig.~\ref{fig:breath_signal_imag} show respectively the real part and imaginary part of the reconstructed respiratory signal using the inverse transform with applied non-inverted binary mask.
+Fig.~\ref{fig:hb_signal} shows the reconstructed heartbeat signal in a similar way, but in this case, the mask applied is inverted.
+% Fig.~\ref{fig:breath_signal} and Fig.~\ref{fig:hb_signal} show the reconstructed signal using the inverse transform when the applied mask is non-inverted and inverted, respectively. The first case corresponds to the respiratory component, while the second is the echo related to cardiac activity.
+In the heartbeat signal, repetitive high-frequency oscillations that correspond to individual heart cycles are clearly visible.
+It is worth noting that the echo related to the heart is so weak compared to the respiration that there is almost no difference between the raw signal and the reconstructed respiration signal (compare red and blue waveforms from Fig.~\ref{fig:breath_signal_real} and Fig.~\ref{fig:breath_signal_imag}).
+
+The RMS envelope of the reconstructed heartbeat component is shown in Fig.~\ref{fig:env} with two different window widths.
+The window width of $0.2$~s in the blue case has been optimized to obtain a prominent heart rate peak in the spectrum analysis with possibly reduced side lobes and harmonics.
+Additionally, to obtain more detailed features of the heart activity signal at higher temporal resolution, an envelope with a shorter window of $0.05$~s is presented in green. From this signal, it can be seen that a single heart cycle usually consists of two oscillations, the first of which is stronger than the second.
+
+In Fig.~\ref{fig:spectrum}, the power spectrum of the reconstructed heartbeat signal's envelope is presented using two approaches. The case marked in red corresponds to the raw signal simply filtered with a $10$~Hz high-pass filter. The blue case corresponds to the heart activity signal reconstruction method described in this paper.
+It can be concluded that both methods worked quite well.
+In both cases, there is a main peak located at around $1.27$~Hz, which indicates an estimated heart rate of $76$~BPM.
+
+However, displacements due to breathing or other random body movements cannot always be easily removed by a high-pass filter while leaving the cardiac activity component intact.
+This type of situation, where the respiratory displacements are more rapid, is shown in the spectrogram in Fig.~\ref{fig:stft2}. In this example, detecting two TF ridges was more effective than detecting one due to the broader energy distribution of the main Doppler line (fig.~\ref{fig:sstft2}).
+In the resulting spectrum comparison in Fig.~\ref{fig:spectrum2}, there is a significant advantage of the synchrosqueezing reconstruction method over simple high-pass filtering.
+In the first case, the heart rate peak is about 2 times more prominent than other components in the spectrum.
+It is worth adding that in the case of high-pass filtering, the cut-off frequency was selected in such a way as to achieve the best visibility of the heart rate peak in the spectrum. Therefore, further significant improvement of the result of this method is not possible for this recording.
+The method using synchrosqueezing shows better capabilities because it consists of tracking and adaptively removing the high-energy component of the signal with relatively slow modulation, leaving its vicinity still visible.
+Due to this feature, this approach is more stable and can be successfully used to extract heart activity oscillations in the presence of sudden body movements causing significant interference.
+
+
+% To view the cardiac activity envelope at a higher time resolution to see , it would be more appropriate to use a shorter window, but this can cause an increased in harmonics in the frequency analysis.
 
 
 
 \begin{figure}
  \centering
-   \includegraphics[width=\linewidth]{plot/breath1_rank1_raw_signal.eps}
+   \includegraphics[width=\linewidth]{plot/breath1_raw.eps}
    \caption{Raw measured vital signs.}
     \label{fig:raw}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{plot/breath1_rank1_stft.png}
-    \caption{STFT spectrogram of the signal.}
+    \includegraphics[width=\linewidth]{plot/stft_arrowed.png}
+    \caption{STFT spectrogram of the raw signal. Heartbeat cycles are marked with black arrows, and respiratory movement is marked with a green dashed line.}
     \label{fig:stft}
 \end{figure}
 
@@ -173,22 +207,30 @@ To view the cardiac cycles at a higher temporal resolution, it would be more app
 
 \begin{figure}
  \centering
-   \includegraphics[width=\linewidth]{plot/breath1_rank1_breath_signal.eps}
-   \caption{Breath-related echo signal reconstructed from the synchrosqueezed TF plane with the mask applied.}
-    \label{fig:breath_signal}
+   \includegraphics[width=\linewidth]{plot/real_breath_raw.eps}
+   \caption{Comparison of the real part of the reconstructed breath-related echo signal (blue line) and the real part of the raw signal (red line).}
+    \label{fig:breath_signal_real}
 \end{figure}
 
 \begin{figure}
  \centering
-   \includegraphics[width=\linewidth]{plot/breath1_rank1_heartbeat_signal.eps}
-   \caption{Heartbeat-related echo signal reconstructed from the synchrosqueezed TF plane with the inverted mask applied.}
+   \includegraphics[width=\linewidth]{plot/imag_breath_raw.eps}
+   \caption{Comparison of the imaginary part of the reconstructed breath-related echo signal (blue line) and imaginary part of the raw signal (red line).}
+    \label{fig:breath_signal_imag}
+\end{figure}
+
+
+\begin{figure}
+ \centering
+   \includegraphics[width=\linewidth]{plot/breath1_hb_extracted.eps}
+   \caption{Heartbeat-related echo signal reconstructed from the synchrosqueezed TF plane.}
     \label{fig:hb_signal}
 \end{figure}
 
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{plot/breath1_rank1_env.eps}
+    \includegraphics[width=\linewidth]{plot/envelope_2rms.eps}
     \caption{RMS envelope of the heartbeat-related echo signal.}
     \label{fig:env}
 \end{figure}
@@ -196,17 +238,45 @@ To view the cardiac cycles at a higher temporal resolution, it would be more app
 
 \begin{figure}
  \centering
-   \includegraphics[width=\linewidth]{plot/breath1_rank1_hb_spectrum.eps}
-   \caption{Spectrum of the heartbeat signal envelope.}
+   \includegraphics[width=\linewidth]{plot/breath1_HPF10_vs_SSTFT_spectrum.eps}
+   \caption{Spectrum of the heartbeat signal envelope using two reconstruction methods: simple 10 Hz high-pass filtering (in red) and inverse SSTFT with a binary mask (in blue).}
     \label{fig:spectrum}
 \end{figure}
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{plot/breath2_stft.png}
+    \caption{STFT spectrogram of the vital signs radar signal with more rapid respiratory movements.}
+    \label{fig:stft2}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{plot/breath2_SSTFT_hb_2ridges.png}
+    \caption{Masked SSTFT with two TF ridges detected in a signal with more rapid respiratory movements.}
+    \label{fig:sstft2}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{plot/breath2_HPF20_vs_SSTFT_20_2_spectrum.eps}
+    \caption{Comparison of heart rate estimation from a signal with more rapid respiratory movements using two reconstruction methods: simple 20 Hz high-pass filtering (in red) and inverse SSTFT with a binary mask (in blue).}
+    \label{fig:spectrum2}
+\end{figure}
+
 \section{Conclusions}
-In summary, synchrosqueezing is an effective method for decomposing radar vital signs signals. The echo signal related to the heartbeat has been reconstructed, and the heart rate was estimated.
-The advantage of TF analysis over phase demodulation is that it is a natural way to represent a signal consisting of many components, which allows for easy decomposition. This is particularly important in radar applications, where many independent signals may be observed simultaneously. In addition, the TF representation contains information about the energy distribution of the signal, while the phase waveform alone may often be not reliable enough. TF-plane can also be used as input to efficient image processing algorithms based on neural networks.
+In summary, synchrosqueezing is an effective method for decomposing radar vital signs signals, especially in the presence of rapid chest displacements associated with breathing.
+The echo signal related to the heartbeat has been reconstructed, and the heart rate was estimated, while the high-pass filtering method is less stable and does not always give such good results.
+By adaptively removing the slowly varying high-energy component, the synchrosqueezing-based method can be used to reduce the influence of random body movements when measuring human vital signs.
+
+Another popular approach, which is phase demodulation, differs significantly from the method described in this paper.
+The advantage of TF analysis over phase demodulation is that it is a natural way to represent a signal consisting of many components, which allows for Doppler line tracking and easy decomposition. This is particularly important in radar applications, where many independent signals may be observed simultaneously. In addition, the TF representation contains information about the energy distribution of the signal, while the phase waveform alone may often be not reliable enough. TF-plane can also be used as input to efficient image processing algorithms based on neural networks.
 
 \bibliographystyle{unsrt}
 \bibliography{references}
 
 \end{document}
+
