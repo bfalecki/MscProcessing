@@ -1,0 +1,60 @@
+HEART RATE ESTIMATION{
+źródła:
+https://ieeexplore.ieee.org/abstract/document/7214253
+
+periodicity-based approach
+E. Conte et al., "ML period estimation with application to vital sign monitoring", IEEE Signal Process. Lett., vol. 17, no. 11, pp. 905-908, Nov. 2010.
+- maximum likelihood period estimator that can accurately estimate the periodicity of an arbitrary periodic signal
+
+
+
+
+
+Fourier-based approach{
+- periodograms
+G. Vinci et al., "Six-port radar sensor for remote respiration rate and heartbeat vital-sign monitoring", IEEE Trans. Microw. Theory, vol. 61, no. 5, pp. 2093-2100, May 2013
+
+- spectrograms
+C. Lee et al., "Heart rate tracking using a Doppler radar with the reassigned joint time-frequency transform", IEEE Antennas Wireless Propag. Lett., vol. 10, pp. 1096-1099, 2011.
+
+- maximum entropy method
+D. Nagae and A. Mase, "Measurement of heart rate variability and stress evaluation by using microwave reflectometric vital signal sensing", Rev. Sci. Instrum., vol. 81, no. 9, pp. 094301, 2010.
+
+- RELAX algorithm 
+C. Li et al., "Accurate Doppler radar noncontact vital sign detection using the RELAX algorithm", IEEE Trans. Instrum. Meas., vol. 59, no. 3, pp. 687-695, Mar. 2010.
+
+}
+
+
+
+template-waveform-based approach
+A received signal is then modeled as a summation of these template waveforms with various coefficients and delays. The challenge in using this type of approach is that it is not always easy to compose an ideal template waveform from real measurement data.
+D. Nagae and A. Mase, "Measurement of heart rate variability and stress evaluation by using microwave reflectometric vital signal sensing", Rev. Sci. Instrum., vol. 81, no. 9, pp. 094301, 2010.
+
+
+
+
+
+
+feature-based approach{
+T. Sakamoto et al., "Feature-Based Correlation and Topological Similarity for Interbeat Interval Estimation Using Ultrawideband Radar," in IEEE Transactions on Biomedical Engineering, vol. 63, no. 4, pp. 747-757, April 2016
+
+The most common way to analyze the correlation between electrocardiogram (ECG) data and microwave data is via a comparison of the waveform peaks
+I. V. Mikhelson et al., "Remote sensing of heart rate and patterns of respiration on a stationary subject using 94-GHz millimeter-wave interferometry", IEEE Trans. Biomed. Eng., vol. 58, no. 6, pp. 1671-1677, Jun. 2011.
+
+Hu et al. [16] estimated the HR using the zero crossings of a radar signal after application of various signal processing techniques
+W. Hu et al., "Noncontact accurate measurement of cardiopulmonary activity using a compact quadrature Doppler radar sensor", IEEE Trans. Biomed. Eng., vol. 61, no. 3, pp. 725-735, Mar. 2014.
+
+}
+
+H. Zhao, M. Yang, L. Chang and X. Wang, "Non-contact radar vital signs detection based on DBO-VMD and coefficient discrimination," IET International Radar Conference (IRC 2023), Chongqing, China, 2023, pp. 2226-2231, doi: 10.1049/icp.2024.1432.{
+Filter-based methods
+- band-pass filter (difficult)
+
+Decomposition-based methods
+- EMD (CEEMDAN)
+
+}
+
+
+}
