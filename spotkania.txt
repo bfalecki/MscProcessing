@@ -5,3 +5,11 @@
 - zrobić FFT z jednego cyklu drgań, aby zobaczyć rozkład częstotliwości
 	ZROBIONE
 - zrobić prezentację z powyższymi rzeczami i synchrosqueezingiem
+
+21.02
+Wnioski ze spotkania
+- zamieścić w pracy obie metody przetwarzania:
+	- filtrację dopasowaną,
+	- dekompozycję synchrosqueezingiem
+	Pokazać, że jedna metoda działa, ale nie zawsze, druga działa lepiej, śledząc ruch ciała
+- Poczytać więcej o VMD i EMD
