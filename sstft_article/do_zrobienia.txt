@@ -1,0 +1,6 @@
+Przeczytać recenzję i można powołać się na toolbox
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8081384
+
+Uzupełnić referencję sstft w ECG
+
+Dodać wzrór na tfridge (jest w artykule pierwszym)
