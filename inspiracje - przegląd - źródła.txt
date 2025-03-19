@@ -1,0 +1,57 @@
+Ciekawe źródła/inspiracje:
+
+==============================================
+
+https://www.iotworldtoday.com/smart-cities/radar-sensors-improve-smart-home-security-safety-comfort-and-more#close-modal
+- wymienione wiele realnych deklaracji producentów o możliwościach smart-home
+	- detekcja człowieka
+	- pomiar parametrów życiowych
+	- elder and shut-in care
+	- identifying familiar persons (?)
+- benefits
+	- security and safety
+	- cost-effective, reduced home energy costs, increased comfort (w porównaniu do kamer IR lub video)
+	- non-invasive monitoring applications
+
+==============================================
+
+ChatGPT - gdzie może być przydatny pomiar bezdotykowy?
+
+Bezdotykowy pomiar tętna i oddechu może być przydatny w wielu sytuacjach, szczególnie tam, gdzie kontakt fizyczny jest utrudniony lub niepożądany. Oto kilka przykładów:
+
+### **1. Medycyna i opieka zdrowotna**  
+- **Monitorowanie pacjentów w szpitalach** – szczególnie na oddziałach intensywnej terapii, gdzie minimalizacja kontaktu fizycznego może zmniejszyć ryzyko zakażeń.  
+- **Opieka nad noworodkami i wcześniakami** – delikatna skóra i wrażliwość na bodźce sprawiają, że bezdotykowy pomiar jest mniej inwazyjny.  
+- **Telemedycyna i monitoring domowy** – pacjenci z chorobami przewlekłymi mogą być monitorowani bez konieczności zakładania czujników na ciało.  
+
+### **2. Sytuacje ratunkowe i nagłe przypadki**  
+- **Pomiar parametrów życiowych u nieprzytomnych pacjentów** – ratownicy medyczni mogą ocenić stan poszkodowanego bez konieczności dotykania go.  
+- **Monitorowanie w czasie pandemii** – umożliwia ocenę stanu zdrowia pacjentów bez ryzyka zakażenia personelu medycznego.  
+
+### **3. Opieka nad osobami starszymi i niepełnosprawnymi**  
+- **Bezstresowe monitorowanie zdrowia seniorów** – szczególnie przy demencji lub chorobie Parkinsona, gdzie zakładanie czujników może być trudne.  
+- **Zdalna opieka w domach seniora** – pozwala personelowi monitorować stan podopiecznych w sposób nieinwazyjny.  
+
+### **4. Sport i fitness**  
+- **Analiza wydolności organizmu w czasie treningu** – umożliwia śledzenie parametrów bez przerywania aktywności.  
+- **Monitoring sportowców w warunkach laboratoryjnych** – pozwala na analizę reakcji organizmu na wysiłek fizyczny w kontrolowanych warunkach.  
+
+### **5. Bezpieczeństwo i nadzór**  
+- **Monitorowanie kierowców i operatorów maszyn** – wykrywanie oznak zmęczenia lub stresu w celu zapobiegania wypadkom.  
+- **Ochrona niemowląt przed bezdechem** – w inteligentnych systemach opieki nad dziećmi do wykrywania nagłego zatrzymania oddechu.  
+
+### **6. Badania naukowe i nowe technologie**  
+- **Badania nad snem** – analiza oddechu i tętna w badaniach nad bezdechem sennym lub zaburzeniami snu.  
+- **Rozwój sztucznej inteligencji w diagnostyce medycznej** – dane zbierane bezdotykowo mogą być wykorzystywane do tworzenia algorytmów przewidujących stan zdrowia.  
+
+
+================================================
+
+https://www.infineon.com/cms/en/about-infineon/press/press-releases/2019/INFPMM201910-003.html
+https://www.cnet.com/tech/mobile/whats-the-deal-with-radar-on-a-phone-anyway/
+radar 5x6.5mm wbudowany w telefon Google's Pixel 4 phone
+- rozpoznawanie gestów
+- wykrywanie zbliżania się i oddalania się człowieka (aktywowanie i blokada urządzenia)
+https://www.androidpolice.com/google-pixel-4-killed-motion-soli-radar-future/
+- to okazało się jednak nie do końca dobre rozwiązanie przez politykę (i być może baterię), ale radar jest dalej rozwijany przez Google
+

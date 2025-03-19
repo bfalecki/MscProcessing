@@ -123,42 +123,6 @@ Bibliografia - 4 str
 
 That's less than 50 pages of content, but it can always grow.
 
-Dear Pedro,
-
-dziękuję za sugestię, skontaktuję się z prof. Smolikiem, czy należy przygotować jakąś prezentację.
-
-Co do raportu z postępów, to dokument jest w przygotowaniu - zawarłem w nim krótki opis tematu, planowany zakres prac, krótki opis  XY-DemoRad i CN0566 oraz informację, co udało się zrobić do tej pory. Planuję jeszcze wkleić nowe wyniki z przetwarzania, ewentualnie jakiś ogólny schemat blokowy systemu.
-
-W ostatnim czasie sformułowałem wstępną strukturę pracy, zakres badań i cel główny. Chyba powinienem to skonsultować z tobą, dlatego przesyłam to oddzielnie w załączniku. Być może plany są zbyt ambitne, ale pomyślałem, że implementacja realtime i tak będzie zrobiona na potrzeby Radarconf Challenge. Dodałem do tego jeszcze wyświetlanie w aplikacji webowej, aby dodać element IoT (jak w smart home).
-
-Mam pewne obawy co do wymagania, aby rozwiązanie postawionego zadania wymagało elementów badawczych. Wydaje mi się, że wystarczyłoby porównanie działania różnych algorytmów w konkretnych warunkach i wybór odpowiedniego do implementacji w systemie.
-
-W pracach magisterskich jest jeszcze wymaganie, aby pojawiło się ulepszenie/opracowanie nowego rozwiązania technicznego. Możliwe, że tutaj wystarczy sama struktura systemu - jeśli będzie to coś innego niż istniejące rozwiązania. Być może uda się jeszcze opracować/ulepszyć jakieś algorytmy przetwarzania, w szczególności te z metodami czasowo-częstotliwościowymi.
-
-Proszę daj znać co sądzisz o tym planie pracy. Jestem otwarty na wszelkie zmiany.
 
 
-Thank you for your suggestion, I will contact Prof. Smolik to see if I should prepare a presentation.
 
-As for the progress report, the document is being prepared - I have included a short description of the topic, the planned scope of work, a short description of XY-DemoRad and CN0566 and information on what has been done so far. I also plan to include new processing results, possibly a general block diagram of the system.
-
-Recently, I have formulated a preliminary structure of the work, the scope of research and the main goal. I think I should consult it with you, so I am sending it separately as an attachment. Perhaps the plans are too ambitious, but I thought that the real-time implementation will be done for the Radarconf Challenge anyway. I have also added a display in the web application to add an IoT element (like in a smart home).
-
-I have some concerns about the requirement that the solution to the given task requires research elements. It seems to me that a comparison of the performance of different algorithms in specific conditions and choosing the appropriate one for implementation in the system would be enough.
-
-In master's theses there is still a requirement to improve/develop a new technical solution. It is possible that the structure of the system itself will suffice here - if it is something different from existing solutions. It may be possible to develop/improve some processing algorithms, especially those with time-frequency methods.
-
-Please let me know what you think about this work plan. I am open to any changes.
-
-Best regards,
-Bartosz
-
-
-PPMGR - pytanie o formę zaliczenia
-
-Panie Profesorze,
-
-Uczęszczam na przedmiot Pracownia Problemowa Magisterska (PPMGR) i 20 stycznia będę miał u Pana zaliczenie. Czy powinienem przygotować coś w formie prezentacji na to zaliczenie, czy może wystarczy samo sprawozdanie?
-
-Z poważaniem
-Bartosz Falęcki

@@ -1,0 +1,20 @@
+Paragraph 1.
+
+- general introduction about human observing possibilities using radar
+
+Short range radar is recently widely studied for its micro-Doppler observing capabilities.
+Among other sensors, such as a video camera or thermal imaging camera, radar offers measurements based on determining the distance and speed of an object without collecting imaging data.
+It can operate in almost all conditions while maintaining the near anonymity of observed targets, such as moving people or cars.
+
+One of the possibilities of using theses special features of radar is its integration in smart home systems to improve safety and security.
+It can include various types of functionalities such as unusual movement detection or measurement of human heart rate and respiratory rate, while maintaining comfort and cost-effectiveness.
+This is therefore a great opportunity when there is a need of touch-free vital signs sensor, for example in various medical cases or in the elder care.
+Another life-saving issue is the detection of dangerous falls, especially on steep stairs or while bathing.
+The latter case is particularly important because tactile accelerometers, as in many situations, are not a convenient solution here.
+
+In recent years, much attention has been paid to better understand measurement-related phenomena and develop hardware and signal processing solutions regarding the use of radar in the above areas.
+Furthermore, much research has been conducted on the development of non-contact user-friendly interfaces based on gesture recognition.
+The first commercially available gesture-classifying radar in a mobile phone already appeared a few years ago in the case of the Google Pixel 4.
+
+
+
