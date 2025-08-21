@@ -8,7 +8,9 @@ The general principle of measurement is similar for all types of radar architect
 Micro-Doppler signatures are the frequency changes of the reflected signal due to the specific movements of the  observed surface.
 In this case, respiratory-related displacements and heartbeat-related vibrations of the human chest generate the observable response which is then extracted in processing.
 
-\subsubsection{Leading Radar Architectures}
+\subsubsection{Leading Radar Architectures} 
+% może jednak przesunąć tę sekcję jakoś do 1.3 - Fundamentals of radiolocation
+% trzeba byłoby jednak zmienić początek tego pliku
 
 \paragraph{Continuous Wave Radar}
 CW radar architecture is relatively simple compared to the others. Its main components are oscillator, mixer, amplifiers, and filters. The received signal is compared with the transmitted one in terms of phase, which indicates Doppler shift related to target velocity. The main drawback of CW architecture is the lack of distance resolution.
