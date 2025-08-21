@@ -1,0 +1,19 @@
+\subsection{Literature Review in the Field of Vital Signs Measurement}
+Measurement of human vital signs using radar is a widely studied concept due to its non-contact and attractive manner of operation. The genesis of the idea reaches the early 1970s, and its popularity is still increasing simultaneously with the development of the related radar devices.
+Currently, there is much research effort including different types of radar architectures and signal processing approaches used in this field. The most popular radar architectures for human observation and vital signs monitoring are Continuous Wave (CW), Impulse-Radio Ultra-Wideband (IR-UWB), and Frequency Modulated Continuous Wave (FMCW) radars.
+In this work, the effort is mainly put on the FMCW radar. However, in this chapter, the other types will also be discussed for deployment in the measurement of human heartbeat and respiratory signatures.
+
+\subsubsection{General Measurement Principle}
+The general principle of measurement is similar for all types of radar architectures. Radar can detect human vital signs thanks to the micro-Doppler phenomenon in the radio waves reflected from the human body.
+Micro-Doppler signatures are the frequency changes of the reflected signal due to the specific movements of the  observed surface.
+In this case, respiratory-related displacements and heartbeat-related vibrations of the human chest generate the observable response which is then extracted in processing.
+
+\subsubsection{Leading Radar Architectures}
+
+\paragraph{Continuous Wave Radar}
+CW radar architecture is relatively simple compared to the others. Its main components are oscillator, mixer, amplifiers, and filters. The received signal is compared with the transmitted one in terms of phase, which indicates Doppler shift related to target velocity. The main drawback of CW architecture is the lack of distance resolution.
+CW radar operates on the waveform without using frequency modulation. Therefore, the distance of the target based on the received echo cannot be determined. What is measured is the Doppler frequency shift related to the target velocity. While range resolution is not possible, the responses from objects in different locations can mix with each other, which limits the richness of reflection information.
+
+\paragraph{Impulse-Radio Ultra-Wideband Radar}
+
+\paragraph{Frequency Modulated Continuous Wave Radar}

@@ -61,6 +61,7 @@ Measurement of humen vital signs using radar is a widely studied concept due to 
 Currently, there is much research effort including different types of radar architectures and signal processing approaches used in this field. The most popular radar architectures for human observation and vital signs monitoring are Continuous Wave (CW), Impulse-Radio Ultra-Wideband (IR-UWB), and Frequency Modulated Continuous Wave (FMCW) radars.
 In this work, the effort is mainly put on the FMCW radar. However, in this chapter, the other types will also be discussed for deployment in the measurement of human heartbeat and respiratory signatures.
 
+
 {General Measurement Principle}
 
 The general principle of measurement is similar for all types of radar architectures. Radar can detect human vital signs thanks to the micro-Doppler phenomenon in the radio waves reflected from the human body.
@@ -80,3 +81,7 @@ Frequency Modulated Continuous Wave Radar
 
 
 -czy przejsc juz do metod przetwarzania?
+
+// cały ten plik został wprowadzony do Overleafa
+
+
