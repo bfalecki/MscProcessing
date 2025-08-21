@@ -66,3 +66,14 @@ Zapewnienia wymagań:
 - metody analityczne: równania radarowe
 - hipotezy: np. zasięgu pomiaru czynności życiowych jest większy niż 1m (najpierw wnioskowanie analityczne, potem eksperyment), można mierzyć parametry życiowe kliku osób nawet przy jednej antenie, ubrania/okrycia nie wpływają na pomiar
 
+
+Jeśli pisanie odbywa się na telefonie, należy utworzyć nowy plik txt adresujący rozdział, chyba że poprzedni nie został jeszcze wysłany.
+Jeśli jakiś plik został wysłany, na telefonie należy go oznaczyć jako wykorzystany i nie może być potem modyfikowany.
+
+Jeśli pisanie jest w overleaf, należy potem zaktualizować lokalne repozytorium o nowe zmiany
+
+Jeśli pisanie jest w lokalnym repozytorium, należy zaznaczyć tę treść i wszystkie zrobione zmiany tak, aby było jasne co wprowadzić do overleaf.
+
+Aktualizować zmiany z poziomu komputera każdorazowo po zakończeniu pracy.
+
+Przed rozpoczęciem pracy na komputerze upewnić się, że zmiany na telefonie zostały wprowadzone do bierzącego miejsca pisania.
