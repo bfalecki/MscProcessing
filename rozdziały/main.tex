@@ -1,0 +1,166 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bachelor's & Master's Thesis Template             %%
+%% Copyleft by Artur M. Brodzki & Piotr Woźniak      %%
+%% Faculty of Electronics and Information Technology %%
+%% Warsaw University of Technology, 2019-2020        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[
+    left=2.5cm,         % Sadly, generic margin parameter
+    right=2.5cm,        % doesnt't work, as it is
+    top=2.5cm,          % superseded by more specific
+    bottom=3cm,         % left...bottom parameters.
+    bindingoffset=6mm,  % Optional binding offset.
+    nohyphenation=false % You may turn off hyphenation, if don't like.
+]{eiti/eiti-thesis}
+
+\langeng % Dla języka angielskiego mamy \langeng
+\graphicspath{{img/}}             % Katalog z obrazkami.
+\addbibresource{references.bib} % Plik .bib z bibliografią
+
+\begin{document}
+
+%--------------------------------------
+% Strona tytułowa
+%--------------------------------------
+\MasterThesis % Dla pracy inżynierskiej mamy \EngineerThesis
+\instytut{Radioelectronics}
+\kierunek{Electronics}
+\specjalnosc{Electronics and Computer Science in Medicine}
+\title{
+    Touch-Free Health Monitoring and Accident Detection \\
+    in Smart-Home Applications Exploiting Radar Signals
+}
+\engtitle{ % Tytuł po angielsku do angielskiego streszczenia
+    Touch-Free Health Monitoring and Accident Detection \\
+    in Smart-Home Applications Exploiting Radar Signals
+}
+\poltitle{
+    Bezdotykowy pomiar parametrow zyciowych i wykrywanie wypadków \\
+    w aplikacjach smart home wykorzystujących sygnały radarowe
+}
+\author{Bartosz Falęcki}
+\album{310545}
+\promotor{Dr. Pedro Jose Gomez del Hoyo}
+\date{\the\year}
+\maketitle
+
+% %--------------------------------------
+% % Streszczenie po polsku
+% %--------------------------------------
+% \cleardoublepage % Zaczynamy od nieparzystej strony
+% \streszczenie
+% Streszczenie po Polsku.
+% \slowakluczowe XXX, XXX, XXX
+
+% %--------------------------------------
+% % Streszczenie po angielsku
+% %--------------------------------------
+% \newpage
+% \abstract
+% Abstract in English.
+% \keywords XXX, XXX, XXX
+
+% %--------------------------------------
+% % Oświadczenie o autorstwie
+% %--------------------------------------
+% \cleardoublepage  % Zaczynamy od nieparzystej strony
+% \pagestyle{plain}
+% \makeauthorship
+
+%--------------------------------------
+% Spis treści
+%--------------------------------------
+\cleardoublepage % Zaczynamy od nieparzystej strony
+\tableofcontents
+
+% %--------------------------------------
+% % Rozdziały
+% %--------------------------------------
+% \cleardoublepage % Zaczynamy od nieparzystej strony
+% \pagestyle{headings}
+
+% \input{tex/1-wstep}         % Wygodnie jest trzymać każdy rozdział w osobnym pliku.
+% \input{tex/2-de-finibus}    % Umożliwia to również łatwą migrację do nowej wersji szablonu:
+% \input{tex/3-code-listings} % wystarczy podmienić swoje pliki main.tex i eiti-thesis.cls
+                            % na nowe wersje, a cały tekst pracy pozostaje nienaruszony.
+
+\input{tex/0-introduction}
+
+\section{Theoretical Background}
+
+Before going to practical aspects of the work, mentioning current advances in radar and signal processing is needed to ensure that the opened doors are not kicked down unnecessarily. Providing also a short view on the theoretical fundamentals in the described field will help referring the most common problems and limitations. These are the main purposes for the theoretical part of this work, which is composed of the next few chapters.
+
+\input{tex/1.1-Fundamentals-of-radiolocation}
+\input{tex/1.2-Lit-rev-vital-signs}
+\input{tex/1.3-Lit-rev-fall-detection}
+\input{tex/1.4-Theoretical-limitations-of-measurement}
+
+\section{Experimental Chapters}
+\input{tex/2.1-Devices-used-for-measurements}
+\input{tex/2.2-Experimental-verification-of-hypothetical-limitations}
+\input{tex/2.3-Algorithms-for-measuring-vital-signs}
+\input{tex/2.4-Algorithms-for-detecting-human-falls}
+\input{tex/2.5-Human-detection-tracking}
+
+\section{Application Chapters}
+
+\input{tex/3.1-System-specification}
+\input{tex/3.2-System-tests}
+\input{tex/3.3-usefulness-of-the-solution}
+
+\input{tex/Summary}
+
+
+% \newpage % Rozdziały zaczynamy od nowej strony
+% \section{Summatio}          % Można też pisać rozdziały w jednym pliku.
+% \lipsum[5-10]
+
+% %--------------------------------------------
+% % Literatura
+% %--------------------------------------------
+% \cleardoublepage % Zaczynamy od nieparzystej strony
+% \printbibliography
+
+% %--------------------------------------------
+% % Spisy (opcjonalne)
+% %--------------------------------------------
+% \newpage
+% \pagestyle{plain}
+
+% Wykaz symboli i skrótów.
+% Pamiętaj, żeby posortować symbole alfabetycznie
+% we własnym zakresie. Ponieważ mało kto używa takiego wykazu,
+% uznałem, że robienie automatycznie sortowanej listy
+% na poziomie LaTeXa to za duży overkill.
+% Makro \acronymlist generuje właściwy tytuł sekcji,
+% w zależności od języka.
+% Makro \acronym dodaje skrót/symbol do listy,
+% zapewniając podstawowe formatowanie.
+% //AB
+% \vspace{0.8cm}
+% \acronymlist
+% \acronym{EiTI}{Wydział Elektroniki i Technik Informacyjnych}
+% \acronym{PW}{Politechnika Warszawska}
+% \acronym{WEIRD}{ang. \emph{Western, Educated, Industrialized, Rich and Democratic}}
+
+% \listoffigurestoc     % Spis rysunków.
+% \vspace{1cm}          % vertical space
+% \listoftablestoc      % Spis tabel.
+% \vspace{1cm}          % vertical space
+% \listofappendicestoc  % Spis załączników
+
+% % Załączniki
+% \newpage
+% \appendix{Nazwa załącznika 1}
+% \lipsum[1-8]
+
+% \newpage
+% \appendix{Nazwa załącznika 2}
+% \lipsum[1-4]
+
+% Używając powyższych spisów jako szablonu,
+% możesz tu dodać swój własny wykaz bądź listę,
+% np. spis algorytmów.
+
+\end{document} % Dobranoc.
