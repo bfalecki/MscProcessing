@@ -13,6 +13,20 @@ https://www.iotworldtoday.com/smart-cities/radar-sensors-improve-smart-home-secu
 	- cost-effective, reduced home energy costs, increased comfort (w porównaniu do kamer IR lub video)
 	- non-invasive monitoring applications
 
+https://arxiv.org/html/2402.05649v2
+A Comprehensive Overview on UWB Radar: Applications, Standards, Signal Processing Techniques, Datasets, Radio Chips, Trends and Future Research Directions
+Mohammad Cheraghinia,  Adnan Shahid,  Stijn Luchie, Gert-Jan Gordebeke,  Olivier Caytan,  Jaron Fontaine, Ben Van Herbruggen, Sam Lemey,  and Eli De Poorter
+- Bardzo szeroko opisane zastosowania UWB - łącznie z obserwacją ludzi i sygnałami życiowymi
+- Definicja UWB:
+	- fractional bandwidth > 0.2
+	- bandwidth > 500 MHz
+	- generalnie short pulse duration in the order of sub-nanoseconds or picoseconds
+- ISAC
+- DS-UWB vs IR-UWB
+
+https://cdn.intechopen.com/pdfs/6881/InTech-Short_range_radar_based_on_uwb_technology.pdf
+- rodzaje impulsów do UWB - gaussian and derivative (monocycle), gegenbauer, hermite
+
 ==============================================
 
 ChatGPT - gdzie może być przydatny pomiar bezdotykowy?
