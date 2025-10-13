@@ -13,3 +13,19 @@ Wnioski ze spotkania
 	- dekompozycję synchrosqueezingiem
 	Pokazać, że jedna metoda działa, ale nie zawsze, druga działa lepiej, śledząc ruch ciała
 - Poczytać więcej o VMD i EMD
+
+
+Spotkanie 13.10.2025
+* Agree on the table of contents
+Show what's already there,
+- i.e., an introduction,
+- a general description of radar, a brief description of individual radar types,
+- then a planned description of FMCW radar and basic signal processing, along with its limitations,
+- then a literature review on vital signal processing,
+- then a review on behavior classification and fall detection.
+- Then chapters on experimental scenarios and combinations of processing methods:
+	- Vital signs (distance tests and measurement accuracy, perspective tests, several people simultaneously, obstacle tests)
+	- Fall detection (several movements and gestures with radars and a camera from a fixed distance, repeated several times, preferably on a larger test group), illustrate sample results and describe them, referencing camera recordings (preferably from several cameras), implement some classification algorithms,
+- If time allows, create a complete system that would detect signals life and the fall of man, and the results would be displayed on the phone (using chatGPT), so it would be a smart home application.
+
+* Agree on a work plan

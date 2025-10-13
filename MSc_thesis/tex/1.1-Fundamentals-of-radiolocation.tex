@@ -2,13 +2,37 @@
 Radar is a device which allows us to observe the surrounding environment based on the radio wave reflection.
 Classical radar consists of a transmitter and receiver being in the same location, for signal emission and reception. Only this type of radar is considered in this study. In brief, the received signal is then processed to extract the range and velocity corresponding to each detected target. By range, the distance from the target to the radar antennas is meant. Velocity is simply understood as a divergence of range with respect to time. Range and velocity are the most basic target's features that can be considered as measured directly by time delay and phase increments of the echo pulses.
 
-Currently, there is much research effort including different types of radar architectures and signal processing approaches used for human observation and vital signs monitoring. The most popular radar architectures used in this field are Continuous Wave (CW), Impulse-Radio Ultra-Wideband (IR-UWB), and Frequency Modulated Continuous Wave (FMCW) radars.
+Currently, there is much research effort including different types of radar architectures and signal processing approaches used for human observation and vital signs monitoring. The most popular radar types in terms of waveform shape used in this field are Continuous Wave (CW), Impulse-Radio Ultra-Wideband (IR-UWB), and Frequency Modulated Continuous Wave (FMCW) radars.
 In this work, the effort is mainly put on the FMCW radar. However, in this chapter, the other types will also be discussed for deployment in the measurement of human motion and vital signs signatures.
 
 \paragraph{Continuous Wave Radar}
-CW radar architecture is relatively simple compared to the others. Its main components are oscillator, mixer, amplifiers, and filters. The received signal is compared with the transmitted one in terms of phase, which indicates Doppler shift related to target velocity. The main drawback of CW architecture is the lack of distance resolution.
-CW radar operates on the waveform without using frequency modulation. Therefore, the distance of the target based on the received echo cannot be determined. What is measured is the Doppler frequency shift related to the target velocity. While range resolution is not possible, the responses from objects in different locations can mix with each other, which limits the richness of reflection information.
+CW radar architecture is relatively simple and cheap compared to the other types.
+It operates on the constant frequency waveform, without frequency modulation.
+%Its main components are oscillator, mixer, amplifiers, and filters.
+The received signal is compared with the transmitted one in terms of phase, which indicates Doppler frequency shift related to target velocity. The main drawback of CW architecture is the lack of distance resolution. It indicates that the responses from targets being in different locations can irreversibly mix with each other.
+%CW radar operates on the waveform without using frequency modulation. 
+Also, the distance between radar and target based on the received echo cannot be determined.
+%What is measured is the Doppler frequency shift related to the target velocity. 
+%While range resolution is not possible, the responses from objects in different locations can irreversibly mix with each other.
 
 \paragraph{Impulse-Radio Ultra-Wideband Radar}
+IR-UWB radar is a special case of an UWB radar. It means that bandwidth is more than 500 MHz and the occupied bandwidth to carrier frequency ratio is more than 0.2.
+%[https://arxiv.org/html/2402.05649v2].
+IR-UWB operates on short pulses with a duration of nanoseconds or less. Various shapes can be used for pulse generation, including Gaussian function and its derivatives, Hermite functions, or Gegenbauer functions.
+%[https://cdn.intechopen.com/pdfs/6881/InTech-Short_range_radar_based_on_uwb_technology.pdf].
+The measurement is based on the delay between the transmitted and received pulses which allows precise distance determination. Also, Doppler frequency features are easily extracted from the signal.
+% ISAC
+% fractional bandwidth i 
 
 \paragraph{Frequency Modulated Continuous Wave Radar}
+FMCW radar is yet another architecture, most often using linear frequency modulation. The wave is transmitted and received simultaneously, which can result in lower signal strength than pulse radars. Thanks to frequency modulation, FMCW radars can also determine the distance to targets. 
+The phase relationships of the received set of pulses can also provide Doppler frequency information related to target echoes. 
+FMCW radars combine the features of CW and IR-UWB radars in terms of satisfactory system capabilities while maintaining a relatively simple design.
+
+\subsubsection{Fundamentals of FMCW Radar}
+
+\paragraph{Signal Shape}
+\paragraph{Basic Pre-Processing}
+\paragraph{Advantages and Disadvantages}
+
+\subsubsection{Beamforming}
