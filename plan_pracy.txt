@@ -83,5 +83,87 @@ Bibliografia - 4 str
 That's less than 50 pages of content, but it can always grow.
 
 
+SCHEDULE:
+
+Theoretical Background
+18.10.2025 - Fundamentals of Radiolocation
+25.10.2025 - Fundamentals of FMCW Radar (planned 5 pages in total - to be compressed from 14 pages in Bachelor Thesis)
+	- Operation birefly explained (1.5 pages)
+	- Tx, Rx, and IF waveform shapes (1 page)
+	- Range and velocity determination (0.5 page)
+	- Micro-Doppler extraction (phase unwrapping, time-frequency analysis) (1 page)
+01.11.2025 - Literature Review on Vital Signs
+08.11.2025 - Literature Review on Fall Detection
+
+Experimental Chapters
+08.11.2025 - All Experiments Performed
+22.11.2025 - Algorithms for Measuring Vital Signs (Descriptions, Test Results, Comparison)
+29.11.2025 - Algorithms for Detecting Human Falls (Descriptions, Test Results, Comparison)
+06.12.2025 - Human Detection and Tracking (Development, Description, Test Results)
+
+Application Chapters
+13.12.2025 - Complete system implemented with all planned functionalities
+20.12.2025 - System description, presentation, and tests
+31.12.2025 - System Usefulness and Attractiveness Analysis, Overall Summary.
+	The preliminary version of the work should be now ready to have a margin for possible corrections, formalities, printing, and submission on time.
+
+Formalities
+08.02.2026 - Last day of registration for PDYM
+15.02.2026 - Deadline for submitting the document
 
 
+Fundamentals of Radiolocation
+  General Principle of Operation
+  Various Radar Types
+  Theoretical Limitations of measurement
+    Radar Equation
+    Propagation Loses (air, fog and rain)
+    Obstacle Penetration and Multipath Propagation (walls, layers of snow)
+    Range, Velocity and Angular Resolutions
+Fundamentals of FMCW Radar
+  System Composition
+  Waveform Shape
+  Range and Velocity Determination (here maximum unambiguous range and velocity, formulas for range and velocity)
+  Micro-Doppler Extraction
+    Phase Extraction (formula transforming displacement to phase)
+    Time-Frequency Analysis (STFT, TF-resolution)
+
+
+Devices Used for Measurement
+  XY-DemoRad
+  ADI CN0566
+    Beamforming
+
+
+Human movements (all 5 times, i.e. 5 sequences to obtain somehow different conditions):
+- walking (in some sequence)
+- squat
+- standing up from squat
+- sitting on chair
+- arms stretching
+- quick folding of hands (to the chest)
+- arc movement of the hand (in the air)
+- standing up from sitting on chair
+- sitting on the floor
+- standing up from sitting on the floor
+- lying down on the floor
+- standing up from lying on the floor
+- falling (maybe several times depending on how to feed training set)
+
+We need then to separate these fragments of recording with help of at least one camera.
+Then, generate time-frequency-range point cloud and perform detection (fall / not fall).
+
+
+
+Vital signs:
+Phaser: detection of motionless human on the exact angle and range
+  - not tracking - simple threshold
+  - short frames - human detected by respiratory movement
+  - clutter resistant - if human is breathing
+
+General:
+Phaser: Enable beamforming or ensure if it is done in default presentation script
+
+
+  
+  
