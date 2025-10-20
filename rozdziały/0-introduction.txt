@@ -1,0 +1,33 @@
+\newpage % Rozdziały zaczynamy od nowej strony.
+\section*{Introduction}
+
+Short range radar is recently widely studied for its micro-Doppler observing capabilities.
+Among other sensors, such as a video camera or thermal imaging camera, radar offers measurements based on determining the distance and speed of an object without collecting imaging data.
+It can operate in almost all conditions while maintaining the near anonymity of observed targets, such as moving people or cars.
+
+One of the possibilities of using these special features of radar is its integration in smart home systems to improve safety and security.
+It can include various types of functionalities such as unusual movement detection or measurement of human heart rate and respiratory rate, while maintaining comfort and cost-effectiveness.
+This is therefore a great opportunity when there is a need of touch-free vital signs sensor, for example in various medical cases or in the elder care.
+Another life-saving issue is the detection of dangerous falls, especially on steep stairs or while bathing.
+The latter case is particularly important because tactile accelerometers, as in many situations, are not a convenient solution here.
+
+In recent years, much attention has been paid to better understand measurement-related phenomena and develop hardware and signal processing solutions regarding the use of radar in the above areas.
+Furthermore, much research has been conducted on the development of non-contact user-friendly interfaces based on gesture recognition.
+The first commercially available gesture-classifying radar in a mobile phone already appeared a few years ago in the case of the Google Pixel 4.
+Recognizing human gestures and behaviors is not directly related to the topic of this work, but classifiers used for accident detection should also take these types of events into account.
+This is particularly important for inferring serious accidents based on entire sequences of actions, not just the moment of a fall.
+
+The work is practical in nature and also includes research elements. In particular, significant attention was paid to comparing algorithms and hardware solutions, combined with the design of a system demonstrator.
+Efforts were also made to utilize all current advances in the fields discussed, thus maintaining the current state of research and presenting new, proprietary methods in a relevant light.
+
+\subsection*{Scope of the Work}
+The main objective of the work is to develop a radar monitoring system that would perform 
+two functionalities in a non-contact manner. The first functionality is the measurement of 
+vital signs, i.e. heart rate and respiratory rate. The second functionality is the classification 
+of human behavior in the context of detecting dangerous falls. Two radar devices will be 
+tested for the measurements - XY-DemoRad and the CN0566 radar from Analog Devices. 
+The measurement of vital signs and detection of falls will be performed continuously in near real time. 
+Additionally, the system will be able to detect the presence of a person within the range of the beam 
+based on their movements. In the case of the CN0566 phased array radar with angular resolution, the 
+beam will automatically follow the person. The results of the operation will be displayed to 
+the user in a web application on the phone or on a computer monitor.
