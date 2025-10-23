@@ -1,0 +1,117 @@
+\subsection{Fundamentals of FMCW Radar} 
+% general description, Advantages and Disadvantages
+In this section, the FMCW radar architecture is explained in detail to provide a brief background for further considerations on signal processing and system limitations. In particular, the operation of the system will be described in terms of data collection and use of signal features to determine the speed and distance of targets. At the end of the section, the presented methods for extracting micro-Doppler signatures from FMCW radar data will be briefly discussed.
+
+
+\subsubsection{System Composition}
+The general block diagram of the FMCW radar system is shown in Fig.\ref{fig:FMCW_scheme}. 
+In reality, the radar structure is slightly more complex, but for explanatory purposes, this diagram reflects the principle of operation of the system quite well.
+First, the linear frequency modulation signal needs to be generated. For this reason, a sawtooth signal generator in connection with a voltage controlled oscillator can be used \cite{FMCW_implementation}.
+The next step is to divide the signal power into the transmission path and the reference path. The transmission path goes through a power amplifier, ending with the transmit antenna. The signal emitted in a form of radio waves can then reflect from the surrounding targets and reach the receive antenna.
+After low-noise amplification of the reflected signal, it is mixed with the reference signal for the purpose of analog shift to the baseband, making the digitization process possible. The mixer output is a signal consisting of the sum and difference of the frequencies of the transmitted and received signals. The mathematical background of this operation will be presented in more detail in the next section. Only the difference-frequency component of the signal is useful, while the sum-frequency component must be removed. For this purpose, a low-pass filter is used to prevent aliasing \cite{FMCW_aliasing}.
+The next step is to adjust the signal's power for the analog-to-digital converter input using another amplifier. The digitized signal can then be stored or processed with built-in/external signal processing unit.
+
+Additionally, an FMCW radar is typically equipped with two signal paths, one of them being in a quadrature and the other in phase.
+For this purpose, after the oscillator output, two power dividers can be used in series, producing two reference signals. One of the reference signals is then phase-shifted by 90 degrees, creating the quadrature component. The second signal, called the in-phase component, remains unchanged.
+Both reference signals are independently mixed with the same received signal, so the signal in the receiving path must first be split into two paths. After the mixer outputs, the acquisition path for both signals remains independent and corresponds to the one shown in Fig.\ref{fig:FMCW_scheme}.
+
+The in-phase and quadrature components are then saved as a single complex-valued signal, referred to as IQ.
+Using IQ acquisition allows for a doubling of the signal bandwidth, as a single complex sample is composed of two real values. The great advantage of this solution is that the impact  of unfavorable phase relationships between the transmitted and received signals is reduced. Using only one component would make the extracted signal phase less resistant to noise. Furthermore, the phase would be susceptible to drops in displacement sensitivity at certain distances \cite{Alizadeh2019}.
+
+
+\begin{figure}
+  \centering
+ \includesvg[width=\linewidth,inkscapelatex=true]{"img/FMCW_scheme.drawio.svg"}
+  \caption{Simplified block diagram of FMCW radar.}
+  \label{fig:FMCW_scheme}
+\end{figure}
+
+\subsubsection{Waveform Shape}
+To explain what exactly happens to the signal when it interacts with the target and is mixed with the reference, this section describes this path in mathematical language.
+
+\paragraph{Transmitted Signal}
+First of all, the transmitted signal can be considered as a waveform with linear frequency modulation, cyclically repeating every Pulse Repetition Interval $T_\mathrm{PRI}$.
+A single period of the signal, i.e., for the time interval $t \in \left[0 , T_\mathrm{PRI} \right)$, can be expressed as \cite{Alizadeh2019}
+
+\begin{equation}
+x_t(t) = A_t \exp\left[\mathrm{j}\left(2 \uppi \left( f_0 - \frac{B}{2}\right)t + \uppi K t^2 + \upvarphi_n(t)\right)\right],
+\tag{3}
+\end{equation}
+
+where:  
+\begin{itemize}
+    \item $A_t$ – amplitude of the transmitted signal,
+    \item $B$ – modulation bandwidth, expressed in Hz,
+    \item $K$ – modulation rate, $K = \frac{B}{T_{\mathrm{PRI}}}$,
+    \item $f_0$ – carrier (center) frequency,
+    \item $\upvarphi_n(t)$ – nonlinearity of the oscillator characteristic and phase noise.
+\end{itemize}
+
+Variations of the above signal shape are also common, in which, for example, a triangular frequency modulation is used instead of a sawtooth modulation.
+
+\paragraph{Received Signal}
+% TO DO: ensure about the considerations on the Doppler frequency
+If we assume that the received signal is ideally a transmitted signal reflected from a moving target, it will contain a Doppler frequency shift and some delay due to the propagation time.
+Therefore, the corresponding part of the received signal for $t \in \left[0 , T_\mathrm{PRI} \right)$ can be approximated as
+\begin{equation}
+x_r(t) = A_r \exp\!\left[
+    \mathrm{j}\!\left(
+        2\uppi\!\left(f_0 - \frac{B}{2}\right)(t - t_d)
+        + \uppi K (t - t_d)^2
+        % + 2\uppi f_d (t - t_d) % this phase component is included in the first term
+        + \upvarphi_n(t - t_d)
+    \right)
+\right],
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $A_r$ – amplitude of the received signal,
+    \item $t_d$ – time delay between the transmitted and received signals, $t_d = 2R/c$, where $R$ is the radar-to-target distance \cite{Scherr2017},
+    \item $f_d$ – Doppler frequency shift related to the target's movement.
+\end{itemize}
+
+The simplified Doppler frequency change introduced there as a direct modulation by a constant $f_d$ is not an exact representation of reality. As the instantaneous frequency of the signal changes in time according to the modulation, the Doppler frequency is also affected by this change. However, if we assume  $f_0 \gg B$, the Doppler frequency can be assumed to be \cite{FMCW_implementation}
+\begin{equation}
+    f_d = - \frac{2v f_0}{c},
+    \label{eq:doppler_freq}
+\end{equation}
+where $v$ is the target's radial velocity with respect to the radar ($v > 0$ means moving away and $v < 0$ means moving closer). (\ref{eq:doppler_freq}) also uses a simplification related to neglecting relativistic effects, which is applicable for $v \ll c$.
+
+\paragraph{Intermediate Frequency Signal}
+In this paragraph, the result of mixing the received and transmitted signals, after eliminating higher components using a low-pass filter, is briefly described. It is called the demodulated signal or the intermediate frequency signal, as it no longer has frequency modulation and is shifted to baseband.
+The signal has a frequency equal to the instantaneous difference between the frequencies of the transmitted and received signals.
+The intermediate frequency signal can be represented by \cite{Ding2016} (quoted after \cite{Alizadeh2019})
+\begin{equation}
+    x_i(t) = x_t^*(t) x_r(t)\approx A_t A_r
+    \exp\!\left[
+        \mathrm{j}\!\left(
+            2\uppi K t_d t
+            + 2\uppi\left(f_0-\frac{B}{2}\right)t_d
+            %- 2\uppi f_d (t - t_d) % this phase component is the same as the second one
+            + \Delta\upvarphi_n(t)
+        \right)
+    \right],
+    \label{eq:demod_signal}
+\end{equation}
+
+where $\Delta \upvarphi_n(t) = \upvarphi_n(t - t_d) - \upvarphi_n(t)$ is the phase noise remaining after the mixing operation. The amplitude of $\Delta \upvarphi_n(t)$ is smaller the closer the observed target is, because then the noise $\upvarphi_n(t - t_d)$ is more correlated with $\upvarphi_n(t)$ \cite{Budge1993}.
+The term $- 2\uppi f_d (t - t_d)$ responsible for the Doppler frequency shift does not originally appear in \cite{Alizadeh2019}. It becomes significant for the set of received signal periods, consistently causing increments in their phase due to the target's velocity.
+The intermediate frequency signal can be digitized ...
+
+
+\subsubsection{Range and Velocity Determination} %  (here maximum unambiguous range and velocity, formulas for range and velocity, Basic Pre-Processing)
+\subsubsection{Micro-Doppler Extraction}
+\paragraph{Phase Extraction} %  (formula transforming displacement to phase)
+It is worth noting that taking advantage of some assumptions, it is possible to measure the exact displacement waveform of the target based on the phase changes between consecutive pulses. If the reflection mostly originates from a single target, the signal's phase in the slow time corresponds to the relative displacement according to the equation:
+\[\Phi(t) = ??? \cdot r(t).\] % uzupelnic
+
+One of the problems is that the measured phase is wrapped within the interval $[0, 2\pi)$. For this reason, the raw phase waveform needs to be unwrapped to extract a valid displacement waveform. This causes the noise impact to be additionally problematic. 
+%%% jakies zrodlo potwierdzajace
+Either way, signal phase analysis is the most commonly used method to observe human breathing and heart rate.
+
+
+\paragraph{Time-Frequency Analysis} %  (STFT, TF-resolution)
+
+
+

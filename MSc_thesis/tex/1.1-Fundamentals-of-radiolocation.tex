@@ -1,38 +1,93 @@
 \subsection{Fundamentals of Radiolocation}
+\subsubsection{General Principle of Operation}
 Radar is a device which allows us to observe the surrounding environment based on the radio wave reflection.
-Classical radar consists of a transmitter and receiver being in the same location, for signal emission and reception. Only this type of radar is considered in this study. In brief, the received signal is then processed to extract the range and velocity corresponding to each detected target. By range, the distance from the target to the radar antennas is meant. Velocity is simply understood as a divergence of range with respect to time. Range and velocity are the most basic target's features that can be considered as measured directly by time delay and phase increments of the echo pulses.
+Classical radar consists of a transmitter and receiver being in the same location, for signal emission and reception. Only this type of radar is considered in this study. In brief, the received signal is then processed to extract the range and velocity corresponding to each detected target. By range, the distance from the target to the radar antennas is meant. Velocity is simply understood as a divergence of range with respect to time, often referred to as a radial velocity. Range and velocity are the most basic target's features that can be considered as measured directly by time delay and phase relationships of the echo pulses.
+% explanatory picture is needed.
+
+\subsubsection{Various Radar Types}
 
 Currently, there is much research effort including different types of radar architectures and signal processing approaches used for human observation and vital signs monitoring. The most popular radar types in terms of waveform shape used in this field are Continuous Wave (CW), Impulse-Radio Ultra-Wideband (IR-UWB), and Frequency Modulated Continuous Wave (FMCW) radars.
-In this work, the effort is mainly put on the FMCW radar. However, in this chapter, the other types will also be discussed for deployment in the measurement of human motion and vital signs signatures.
+In this work, the effort is mainly focused on the FMCW radar. However, in the following chapters, other types will also be discussed for deployment in the measurement of human motion and vital sign signatures. 
+% % % % THEN, it need to be discussed in some further section
 
 \paragraph{Continuous Wave Radar}
 CW radar architecture is relatively simple and cheap compared to the other types.
 It operates on the constant frequency waveform, without frequency modulation.
 %Its main components are oscillator, mixer, amplifiers, and filters.
-The received signal is compared with the transmitted one in terms of phase, which indicates Doppler frequency shift related to target velocity. The main drawback of CW architecture is the lack of distance resolution. It indicates that the responses from targets being in different locations can irreversibly mix with each other.
-%CW radar operates on the waveform without using frequency modulation. 
-Also, the distance between radar and target based on the received echo cannot be determined.
-%What is measured is the Doppler frequency shift related to the target velocity. 
-%While range resolution is not possible, the responses from objects in different locations can irreversibly mix with each other.
+The received signal is compared with the transmitted one in terms of phase, which indicates Doppler frequency shift related to target velocity. The main drawback of CW architecture is the lack of distance resolution. This is due to the fact that CW radar operates on the waveform without using frequency modulation. It indicates that the responses from targets being in different locations can irreversibly mix with each other. Also, the distance between radar and single target based on the received echo cannot be determined.
+
 
 \paragraph{Impulse-Radio Ultra-Wideband Radar}
-IR-UWB radar is a special case of an UWB radar. It means that bandwidth is more than 500 MHz and the occupied bandwidth to carrier frequency ratio is more than 0.2.
-%[https://arxiv.org/html/2402.05649v2].
-IR-UWB operates on short pulses with a duration of nanoseconds or less. Various shapes can be used for pulse generation, including Gaussian function and its derivatives, Hermite functions, or Gegenbauer functions.
-%[https://cdn.intechopen.com/pdfs/6881/InTech-Short_range_radar_based_on_uwb_technology.pdf].
+IR-UWB radar is a special case of an UWB radar. It means that bandwidth is more than 500 MHz and the occupied bandwidth to carrier frequency ratio is more than 0.2 \cite{Overview_on_UWB}.
+IR-UWB operates on short pulses with a duration of nanoseconds or less. Various shapes can be used for pulse generation, including Gaussian function and its derivatives, Hermite functions, or Gegenbauer functions \cite{short_range_UWB}.
 The measurement is based on the delay between the transmitted and received pulses which allows precise distance determination. Also, Doppler frequency features are easily extracted from the signal.
+IR-UWB radar is particularly valued for its ability to penetrate obstacles. An example application is detecting people behind solid materials and walls for rescue purposes.
 % ISAC
-% fractional bandwidth i 
 
 \paragraph{Frequency Modulated Continuous Wave Radar}
 FMCW radar is yet another architecture, most often using linear frequency modulation. The wave is transmitted and received simultaneously, which can result in lower signal strength than pulse radars. Thanks to frequency modulation, FMCW radars can also determine the distance to targets. 
 The phase relationships of the received set of pulses can also provide Doppler frequency information related to target echoes. 
 FMCW radars combine the features of CW and IR-UWB radars in terms of satisfactory system capabilities while maintaining a relatively simple design.
 
-\subsubsection{Fundamentals of FMCW Radar}
+\subsubsection{Theoretical Limitations of measurement}
 
-\paragraph{Signal Shape}
-\paragraph{Basic Pre-Processing}
-\paragraph{Advantages and Disadvantages}
+The radar can work in all weather conditions, day and night, without interruption. Despite this, it has its fundamental limitations, which will be discussed in this chapter. This will allow to generally determine the radar parameters needed for use in smart home systems and distinguish them from radars used in other areas.
 
-\subsubsection{Beamforming}
+\paragraph{Radar Equation}
+First of all, the signal to noise ratio connected to the power distribution of the radio wave needs to be addressed. Under ideal propagation conditions, i.e., without losses due to power absorption in the medium, the maximum distance of a detectable target can be expressed as \cite{wolff2014radarrange}
+\begin{equation}
+R_{\text{max}} = \sqrt[4]{\frac{P_t G_t G_r \uplambda^2 \upsigma}{P_{r,\text{min}} (4 \uppi)^3}}, 
+\label{eq:radar_equation}
+\end{equation}
+
+where:  
+\begin{itemize}
+  \item $P_t$ – transmitted power,
+  \item $P_{r,\text{min}}$ – minimum detectable received power,
+  \item $\uplambda$ – wavelength,
+  \item $\upsigma$ – radar cross-section of the target,
+  \item $G_t$ – transmit antenna gain,
+  \item $G_r$ – receive antenna gain.
+\end{itemize}
+(\ref{eq:radar_equation}) means that a change in distance $R$ causes a drastic change in the received echo power proportional to $1/R^4$. This is because the signal first propagates from the radar to the target, and after reflecting off the target, it travels back to the radar. How much of the total power of the transmitted signal $P_t$ is reflected back to the target depends on its radar cross-section $\upsigma$ from a given perspective and on the transmit antenna gain $G_t$. The selectiveness of the signal reception in the context of the direction of the incoming echo is expressed by the receive antenna gain $G_r$.
+
+
+\paragraph{Propagation Loses} %  (air, fog and rain)
+In real-world conditions, in addition to the calculations related to lossless propagation, losses due to energy absorption in the medium are also important. These losses depend on both the carrier frequency and atmospheric conditions in the case of outdoor operation. The general rule is that attenuation primarily increases with increasing frequency of radio wave. This relationship is not strictly monotonic, as regions of increased absorption occur due to the composition of the air \cite{attenuation_thz}. The situation also changes in various weather conditions. In the case of increased humidity, especially shorter waves are susceptible to attenuation by water molecules, while higher temperature of the air has a positive effect on signal propagation \cite{weather_radio_wave}.
+
+
+\paragraph{Obstacle Penetration and Multipath Propagation} % (walls, layers of snow)
+Wave's frequency is also critical for radar applications such as penetrating solid materials or observing humans through obstacles. Longer waves generally perform better in penetrating various media, such as building materials \cite{material_penetration}, human body \cite{body_penetration}, or snow layers \cite{snow_penetration}. However, a lower wave frequency also means a proportionally lower sensitivity to the Doppler effect, which is important when radar is used to observe relatively slight human movements. Selecting a carrier frequency to achieve a compromise between penetration abilities, body reflectivity, and Doppler sensitivity will be explored in more detail in later chapters dedicated to specific applications.
+
+\paragraph{Range, Velocity and Angular Resolutions}
+% TODO: remove content adressing amiguities - to be placed within FMCW section as it is not fundamental limitation
+% While considering radar limitations, it is necessary to mention range resolution and range ambiguity. 
+While considering general knowledge on radar technology, it is needed to mention its fundamental limitations in terms of range, velocity, and angular resolutions. These three basic parameters are described in this paragraph.
+
+Range resolution is a limiting ability to distinguish two targets based on their range difference. This is possible by measuring the time delay between transmitted and received waves. Range resolution depends on signal bandwidth $B$ according to \cite{rao_presentation}
+\[\Delta R = \frac{c}{2B},\]
+where $c$ is the wave propagation speed.
+% Unambiguous range measurement using a system with a constant pulse repetition interval $T_\mathrm{PRI}$ is only possible when the actual target's range is less than
+% \[R_\mathrm{max} = c \cdot T_\mathrm{PRI}/2\].
+
+Except for range, radar can also measure a target's velocity thanks to the Doppler frequency shift. Velocity resolution is a limiting ability to distinguish two targets based on their velocity difference. It depends on the wavelength $\uplambda$ and the signal integration time $T$, according to \cite{rao_presentation}
+\[\Delta v = \frac{\uplambda}{2 T} .\] 
+Taking advantage of the velocity resolution, it is possible to separate echoes originating from different parts of the human body performing some specific movements. Analysis of how coexisting velocity components change in time is a typical way for observation and classification of human behavior using radar.
+% Unambiguous velocity measurement using a system with constant pulse repetition interval is only possible when the actual target's velocity is less than
+% \[v_\mathrm{max} = \]  % uzupelnic
+% Otherwise, the echo wraps around the speed range $[-v_\mathrm{max}, v_\mathrm{max}]$.
+
+Some radars also provide the ability to measure the direction of echo arrival based on the angular resolution. Classic outdoor radar for detecting flying targets can often be associated with a rotating directional antenna, the movement of which provides information about the azimuth of the echo. In this case, the angular resolution is simply determined by the antenna beamwidth \cite{wolff_angle}.
+In the case of radars for indoor applications, azimuth or elevation estimation is typically performed using electrical beam steering with antenna array. Steering an antenna array for transmission to or reception from a given angle is based on introducing an appropriate delay or phase shift between the array elements. The angular resolution of the linear antenna array can be approximated as \cite{ADI_beamsteering}
+\begin{equation}
+\Delta \uptheta = \frac{0.886 \uplambda}{N d \cos{\uptheta}},
+\label{eq:angle_resolution}
+\end{equation}
+where:  
+\begin{itemize}
+  \item $\uplambda$ – wavelength,
+  \item $N$ – number of equally spaced elements,
+  \item $d$ – receive antenna gain,
+  \item $\uptheta$ - an angle to which the beam is pointed ($0  \degree $ means perpendicular to the array).
+\end{itemize}
+(\ref{eq:angle_resolution}) means that the angular resolution is finer for a longer array. In other words, beamforming performance is better for more elements $N$ separated by a fixed distance $d$, which is typically half of a wavelength $\uplambda$. Beamwidth also depends on the angle to which antenna array is pointed, and the best angular resolution is obtained when the wave propagates perpendicular to the array ($\uptheta = 0  \degree $). The beam steering issue will be discussed in detail in the section describing ADI CN0566 Phased Array (Phaser). 

@@ -65,6 +65,12 @@
 \RequirePackage{xkeyval}    % Keys and class parameters
 \RequirePackage{xspace}     % Remove duplicated spaces
 
+% own needs
+\RequirePackage{gensymb} % add \degree symbol
+% \RequirePackage[inkscapeformat=png]{svg}
+\RequirePackage{svg} % vector figure
+\RequirePackage{upgreek} % not titled greek letters in formulas
+
 %--------------------------------------
 % PdfTeX specific configuration
 %--------------------------------------
