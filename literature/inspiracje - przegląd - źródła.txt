@@ -1,6 +1,8 @@
 Ciekawe źródła/inspiracje:
 
 ==============================================
+OGÓLNE INFORMACJE POPARTE W ARTYKUŁACH LUB NA STRONACH
+==============================================
 
 https://www.iotworldtoday.com/smart-cities/radar-sensors-improve-smart-home-security-safety-comfort-and-more#close-modal
 - wymienione wiele realnych deklaracji producentów o możliwościach smart-home
@@ -27,6 +29,15 @@ Mohammad Cheraghinia,  Adnan Shahid,  Stijn Luchie, Gert-Jan Gordebeke,  Olivier
 https://cdn.intechopen.com/pdfs/6881/InTech-Short_range_radar_based_on_uwb_technology.pdf
 - rodzaje impulsów do UWB - gaussian and derivative (monocycle), gegenbauer, hermite
 
+
+Beam steering
+	https://www.analog.com/en/resources/analog-dialogue/articles/phased-array-antenna-patterns-part1.html
+	
+Relfection from human body
+	https://pmc.ncbi.nlm.nih.gov/articles/PMC7085580/
+
+
+ASKED CHATGPT
 ==============================================
 
 ChatGPT - gdzie może być przydatny pomiar bezdotykowy?
@@ -59,6 +70,7 @@ Bezdotykowy pomiar tętna i oddechu może być przydatny w wielu sytuacjach, szc
 - **Rozwój sztucznej inteligencji w diagnostyce medycznej** – dane zbierane bezdotykowo mogą być wykorzystywane do tworzenia algorytmów przewidujących stan zdrowia.  
 
 
+OTHER
 ================================================
 
 https://www.infineon.com/cms/en/about-infineon/press/press-releases/2019/INFPMM201910-003.html
@@ -68,4 +80,5 @@ radar 5x6.5mm wbudowany w telefon Google's Pixel 4 phone
 - wykrywanie zbliżania się i oddalania się człowieka (aktywowanie i blokada urządzenia)
 https://www.androidpolice.com/google-pixel-4-killed-motion-soli-radar-future/
 - to okazało się jednak nie do końca dobre rozwiązanie przez politykę (i być może baterię), ale radar jest dalej rozwijany przez Google
+
 

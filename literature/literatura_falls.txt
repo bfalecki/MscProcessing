@@ -38,10 +38,3 @@ M. Chen, Z. Yang, J. Lai, P. Chu and J. Lin, "A Three-Stage Low-Complexity Human
 	3-etapowy, support vector data description (SVDD) detector, Mahalanobis distance classifier
 	spory przegląd dostępnych rozwiązań
 
-
-
-Beam steering
-	https://www.analog.com/en/resources/analog-dialogue/articles/phased-array-antenna-patterns-part1.html
-	
-Relfection from human body
-	https://pmc.ncbi.nlm.nih.gov/articles/PMC7085580/

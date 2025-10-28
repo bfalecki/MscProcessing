@@ -112,27 +112,6 @@ Formalities
 15.02.2026 - Deadline for submitting the document
 
 
-Fundamentals of Radiolocation
-  General Principle of Operation
-  Various Radar Types
-  Theoretical Limitations of measurement
-    Radar Equation
-    Propagation Loses (air, fog and rain)
-    Obstacle Penetration and Multipath Propagation (walls, layers of snow)
-    Range, Velocity and Angular Resolutions
-Fundamentals of FMCW Radar
-  System Composition
-  Waveform Shape
-  Range and Velocity Determination (here maximum unambiguous range and velocity, formulas for range and velocity)
-  Micro-Doppler Extraction
-    Phase Extraction (formula transforming displacement to phase)
-    Time-Frequency Analysis (STFT, TF-resolution)
-
-
-Devices Used for Measurement
-  XY-DemoRad
-  ADI CN0566
-    Beamforming
 
 
 Human movements (all 5 times, i.e. 5 sequences to obtain somehow different conditions):
@@ -164,6 +143,9 @@ Phaser: detection of motionless human on the exact angle and range
 General:
 Phaser: Enable beamforming or ensure if it is done in default presentation script
 
+- change application part to results
+- change experiments part to algorithms descriptions
+- do measurements asap
 
   
   

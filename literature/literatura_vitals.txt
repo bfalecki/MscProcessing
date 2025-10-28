@@ -1,0 +1,135 @@
+===============================================
+OVERVIEW DOCUMENTS
+===============================================
+kryteria:
+- prace ogólne przeglądowe
+- stosunkowo długie
+- stosunkowo nowe
+
+Radar-Based Monitoring of Vital Signs: A Tutorial Overview
+https://ieeexplore.ieee.org/document/10049295
+40 pages, 2023, first google site
+
+
+
+===============================================
+MOST ADVANCED METHODS (AT LEAST LOOKING ADVANCED)
+===============================================
+Detection of vital signs based on millimeter wave radar
+2025, first google site
+    FMCW
+    Own MRVS method:
+    - signal processing, decomposition, and reconstruction
+    - removing clutter, DWT decomposition, Adaptive Kalman Filer for reconstruction
+    
+
+Remote Monitoring of Human Vital Signs Based on 77-GHz mm-Wave FMCW Radar
+https://www.mdpi.com/1424-8220/20/10/2999
+2020, first google site
+    DC phase correction (circle center dynamic tracking algorithm)
+    two algorithms:
+    - compressive sensing based on orthogonal matching pursuit (CS-OMP)
+    - rigrsure adaptive soft threshold noise reduction based on discrete wavelet transform (RA-DWT)
+    to separate and reconstruct the interference-suppressed breathing and heartbeat signals.
+    FFT and correlation for heart rate and breath rate estimation
+
+A high precision vital signs detection method based on millimeter wave radar
+https://www.nature.com/articles/s41598-024-77683-1
+2024, journal, first google site
+    very long, seems advanced
+
+Multidimensional Physiology-Inspired Enhanced Vital Sign Monitoring Using MIMO mmWave Bio-radar
+https://arxiv.org/html/2510.15278v1
+2025
+    very long, seems advanced
+
+FMCW Radar-Based Human Activity Recognition Based on Higher Order Synchrosqueezing Transform
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=11053192
+2025, 8 pages
+    synchrosqueezing od KA
+
+
+==============================================
+OTHER INFORMATION
+==============================================
+Contactless and short‐range vital signs detection with doppler radar millimetre‐wave (76–81 GHz) sensing firmware
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11665778/#htl212075-bib-0033
+	Conventional sensors can detect cardiac arrhythmia, heart conduction disorders, coronary ischemia, myocardial infarction, and atrial fibrillation
+	Described problems with ECG i PPG
+	?:  Why respiratory signal looks so strange? Is it a raw signal (not a phase)?
+	    Why radar measured heart cycles look so perfect? This is not a simulation
+            Why baseband signal is real-, no complex-valued
+    Methods:
+      Frequency domain: for heartbeat and for breath: FFT of baseband signal (from real(baseband signal) or from phase ? - less probable, phase not mentioned)
+      Time domain: equivalent to findpeaks(minpeakdist, minpeakheight) of baseband signal
+
+Remote Vital Sensing in Clinical Veterinary Medicine: A Comprehensive Review of Recent Advances, Accomplishments, Challenges, and Future Perspectives
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11988085/
+- CW, FMCW, UWB for vital signs
+
+
+===============================================
+ALL TYPES OF PROCESSING METHODS
+===============================================
+
+======================
+HEART RATE ESTIMATION{
+źródła:
+https://ieeexplore.ieee.org/abstract/document/7214253
+
+periodicity-based approach
+E. Conte et al., "ML period estimation with application to vital sign monitoring", IEEE Signal Process. Lett., vol. 17, no. 11, pp. 905-908, Nov. 2010.
+- maximum likelihood period estimator that can accurately estimate the periodicity of an arbitrary periodic signal
+
+
+
+
+
+Fourier-based approach{
+- periodograms
+G. Vinci et al., "Six-port radar sensor for remote respiration rate and heartbeat vital-sign monitoring", IEEE Trans. Microw. Theory, vol. 61, no. 5, pp. 2093-2100, May 2013
+
+- spectrograms
+C. Lee et al., "Heart rate tracking using a Doppler radar with the reassigned joint time-frequency transform", IEEE Antennas Wireless Propag. Lett., vol. 10, pp. 1096-1099, 2011.
+
+- maximum entropy method
+D. Nagae and A. Mase, "Measurement of heart rate variability and stress evaluation by using microwave reflectometric vital signal sensing", Rev. Sci. Instrum., vol. 81, no. 9, pp. 094301, 2010.
+
+- RELAX algorithm 
+C. Li et al., "Accurate Doppler radar noncontact vital sign detection using the RELAX algorithm", IEEE Trans. Instrum. Meas., vol. 59, no. 3, pp. 687-695, Mar. 2010.
+
+}
+
+
+
+template-waveform-based approach
+A received signal is then modeled as a summation of these template waveforms with various coefficients and delays. The challenge in using this type of approach is that it is not always easy to compose an ideal template waveform from real measurement data.
+D. Nagae and A. Mase, "Measurement of heart rate variability and stress evaluation by using microwave reflectometric vital signal sensing", Rev. Sci. Instrum., vol. 81, no. 9, pp. 094301, 2010.
+
+
+
+
+
+
+feature-based approach{
+T. Sakamoto et al., "Feature-Based Correlation and Topological Similarity for Interbeat Interval Estimation Using Ultrawideband Radar," in IEEE Transactions on Biomedical Engineering, vol. 63, no. 4, pp. 747-757, April 2016
+
+The most common way to analyze the correlation between electrocardiogram (ECG) data and microwave data is via a comparison of the waveform peaks
+I. V. Mikhelson et al., "Remote sensing of heart rate and patterns of respiration on a stationary subject using 94-GHz millimeter-wave interferometry", IEEE Trans. Biomed. Eng., vol. 58, no. 6, pp. 1671-1677, Jun. 2011.
+
+Hu et al. [16] estimated the HR using the zero crossings of a radar signal after application of various signal processing techniques
+W. Hu et al., "Noncontact accurate measurement of cardiopulmonary activity using a compact quadrature Doppler radar sensor", IEEE Trans. Biomed. Eng., vol. 61, no. 3, pp. 725-735, Mar. 2014.
+
+}
+
+H. Zhao, M. Yang, L. Chang and X. Wang, "Non-contact radar vital signs detection based on DBO-VMD and coefficient discrimination," IET International Radar Conference (IRC 2023), Chongqing, China, 2023, pp. 2226-2231, doi: 10.1049/icp.2024.1432.{
+Filter-based methods
+- band-pass filter (difficult)
+
+Decomposition-based methods
+- EMD (CEEMDAN)
+
+}
+
+
+}

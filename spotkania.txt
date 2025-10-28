@@ -29,3 +29,6 @@ Show what's already there,
 - If time allows, create a complete system that would detect signals life and the fall of man, and the results would be displayed on the phone (using chatGPT), so it would be a smart home application.
 
 * Agree on a work plan
+- change application to results
+- change experiments to algorithms descriptions
+- do measurements
