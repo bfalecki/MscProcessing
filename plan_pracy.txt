@@ -1,4 +1,4 @@
-Celem tego dokumentu jest zapisanie zakresu pracy
+⁷Celem tego dokumentu jest zapisanie zakresu pracy
 Najpierw trzeba sformułować cel rozprawy, aby ustalić strukturę pracy
 
 
@@ -174,3 +174,41 @@ Algorithm Development and Test Environment
 
 
   
+
+==========
+
+Pomiary wstepne
+W kolejności:
+- Uruchomienie Demorada:
+  1. Sprawdzenie aplikacji
+  2. Nagranie przykladowe 5 s (zapisać parametry, upewnić sie ze znamy dokladna sygnature czasu, prf ok 100 Hz)
+  3. Wczytanie do Matlaba i wyswietlenie spektrogramu
+  (Parametry dowolne)
+  4. Sprawdzic czy aplikacja nie wysypie po kilka min nagraniu. Jesli wysypie to zrobic to samo nagranie w cmd i powtorzyc 3.
+  5. Pomiar 10 s sygnałów życiowych z odleglosci 0.5 m, wyswietlenie fazy i upewnienie sie ze cos widac.
+  6. Proba przetworzenia w sposob podobny do tego z challange (skrypt matlab, a jesli nie zadziala działa, to w sprawdzony sposob) w szczególności, wykres tętna i szybkości oddechów
+
+- uruchomienie Phasera
+  1. Zrobić przykladowe nagranie 30s sygnalow zyciowych, 0.5m (Upewnić się że zawsze znamy dokładną sygnature czasu i ze coś widać)
+
+- pomiar referencyjny - sprawdzic czy na pewno dobrze dziala
+
+- pomiar jednoczesny sygnałów zyciowych
+ 1. Ustawic oba radary obok siebie (potrzebne 2 laptopy), zrobić zdjęcie stanowiska
+ 2. Zrobić 60s nagranie sygnałów zyciowych dwoma radarami i sensorem EKG
+ 3. Przetworzyc i upewnienic sie ze coś widać na obu sygnalach i że pomiar referencyjny jest poprawny. Zapisać do prezentacji figury .fig.
+ 4. Zapisać wszystkie kroki jak nagrano i przetworzono sygnaly, aby mozna było latwo to odtworzyć po ulepszeniach
+
+- pomiar jednoczesny zachowań
+ 1. vmax musi byc >10
+
+
+
+
+
+
+
+Pomiary finalne
+Zrobienie skryptu do nagrywania z beamformingiem
+
+Jeśli beamformi
