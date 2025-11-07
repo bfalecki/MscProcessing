@@ -92,19 +92,19 @@ Theoretical Background
 	- Tx, Rx, and IF waveform shapes (1 page)
 	- Range and velocity determination (0.5 page)
 	- Micro-Doppler extraction (phase unwrapping, time-frequency analysis) (1 page)
-01.11.2025 - Literature Review on Vital Signs
-08.11.2025 - Literature Review on Fall Detection
 
-Experimental Chapters
-08.11.2025 - All Experiments Performed
-22.11.2025 - Algorithms for Measuring Vital Signs (Descriptions, Test Results, Comparison)
-29.11.2025 - Algorithms for Detecting Human Falls (Descriptions, Test Results, Comparison)
-06.12.2025 - Human Detection and Tracking (Development, Description, Test Results)
+15.11 - First experiments with joint measurement   (first test trials);   Literature Review on Vital Signs (fast, brief, general)
+22.11 - All Experiments Performed    (second trials, beamforming);   Algorithms for Measuring Vital Signs (Descriptions, Comparison)
+29.11 - Literature Review on Fall Detection   ;  Algorithms for Detecting Human Falls (Descriptions, Comparison)
+06.12.2025 - All results placed
+13.12.2025 - Technical limitations
+20.12.2025 - Non-Technical Limitations
+31.12.2025 - First Version of Finished Document
 
-Application Chapters
-13.12.2025 - Complete system implemented with all planned functionalities
-20.12.2025 - System description, presentation, and tests
-31.12.2025 - System Usefulness and Attractiveness Analysis, Overall Summary.
+
+//13.12.2025 - Complete system implemented with all planned functionalities
+//20.12.2025 - System description, presentation, and tests
+//31.12.2025 - System Usefulness and Attractiveness Analysis, Overall Summary.
 	The preliminary version of the work should be now ready to have a margin for possible corrections, formalities, printing, and submission on time.
 
 Formalities
@@ -148,4 +148,29 @@ Phaser: Enable beamforming or ensure if it is done in default presentation scrip
 - do measurements asap
 
   
+
+///////////////////////
+Changed structure
+
+Algorithm Development and Test Environment
+
+\subsection{Results on Vital Signs Measurement}
+\subsubsection{Breath-Based Human Detection}
+
+\subsection{Results on Detecting Human Falls}
+
+
+\subsection{Technical Limitations}
+\subsubsection{Power Consumption}
+\subsubsection{Computational Complexity}
+
+\subsection{Non-Technical Limitations}
+\subsubsection{Impact of Radio Waves on Health}
+\subsubsection{Legal Sanctions and Permissible Power}
+
+\subsection{Assessment of the Usefulness of the Solution}
+\subsubsection{Possible Applications}
+\subsubsection{System Costs and Attractiveness}
+
+
   
