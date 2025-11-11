@@ -21,6 +21,7 @@ Detection of vital signs based on millimeter wave radar
     Own MRVS method:
     - signal processing, decomposition, and reconstruction
     - removing clutter, DWT decomposition, Adaptive Kalman Filer for reconstruction
+    - Daubechies (db) wavelet: "Therefore, despite its lack of symmetry, the db wavelet is the best choice for vital signs signal processing due to its excellent properties, including strong orthogonality, high vanishing moments, and suitable support length."
     
 
 Remote Monitoring of Human Vital Signs Based on 77-GHz mm-Wave FMCW Radar

@@ -163,12 +163,11 @@ In practice, an efficient implementation called Fast Fourier Transform (FFT) is 
 Due to the finite sampling frequency $f_s$ of the demodulated signal $x_i(t,n)$, components with frequencies higher than $f_s$ are not possibly to observe without ambiguity. For this reason, the FMCW radar has a maximum unambiguous range, which is the longest distance at which it can observe targets without ambiguities related to the Nyquist condition. Substituting $f_s$ for $f_b$ into (\ref{eq:range}), the maximum unambiguous range can be expressed as
 \begin{equation}
     R_\mathrm{max} = \frac{c f_s}{2K}.
-    \label{eq:range}
+    \label{eq:max_range}
 \end{equation}
 A similar limitation occurs for velocity and it is related to a pulse repetition interval, because in this context, the slow time signal is sampled once per chirp. Therefore, the maximum unambiguous velocity for a constant pulse repetition interval $T_\mathrm{PRI}$ can be derived from (\ref{eq:slow_time}) as
 \begin{equation}
     V_\mathrm{max} = \frac{c}{4 f_\mathrm{min} T_\mathrm{PRI}}.
-    \label{eq:range}
 \end{equation}
 It is worth noting that targets can also be observed unambiguously at negative velocities, i.e., the total interval of unambiguous velocity is $\left[-V_\mathrm{max}, V_\mathrm{max}\right)$. In the case of range, only positive values are considered, giving the unambiguous range interval of $\left[0, R_\mathrm{max}\right)$.
 
@@ -189,7 +188,6 @@ If the reflection originates mostly from a single target, the phase of the slow 
 From (\ref{eq:phase}), displacement can be derived as
 \begin{equation}
     r_d(n) = \frac{c\left(\Phi(n) - \uptheta (R)\right)}{4 \uppi f_\mathrm{min}},
-    \label{eq:phase}
 \end{equation}
 which means that for the precise determination of the displacement waveform $r_d(n)$, only the signal phase extraction is needed.
 One of the problems is that the measured phase is wrapped within the interval $[0, 2\pi)$. For this reason, the raw phase waveform needs to be unwrapped to extract a valid displacement waveform. % mention common algorithms

@@ -179,19 +179,21 @@ Algorithm Development and Test Environment
 
 Pomiary wstepne
 W kolejności:
-- Uruchomienie Demorada:
-  1. Sprawdzenie aplikacji
-  2. Nagranie przykladowe 5 s (zapisać parametry, upewnić sie ze znamy dokladna sygnature czasu, prf ok 100 Hz)
-  3. Wczytanie do Matlaba i wyswietlenie spektrogramu
+- Uruchomienie Demorada: (w sumie max 2h15min)
+  0. Wybranie modułu 122 GHz (W pomiarach finalnych można spróbować też 24) (max 10 minut)
+  1. Sprawdzenie aplikacji (max 10 min)
+  2. Nagranie przykladowe 5 s (zapisać parametry, upewnić sie ze znamy dokladna sygnature czasu, prf ok 100 Hz) (max 10 min)
+  3. Wczytanie do Matlaba i wyswietlenie spektrogramu (max 10 min)
   (Parametry dowolne)
-  4. Sprawdzic czy aplikacja nie wysypie po kilka min nagraniu. Jesli wysypie to zrobic to samo nagranie w cmd i powtorzyc 3.
-  5. Pomiar 10 s sygnałów życiowych z odleglosci 0.5 m, wyswietlenie fazy i upewnienie sie ze cos widac.
-  6. Proba przetworzenia w sposob podobny do tego z challange (skrypt matlab, a jesli nie zadziala działa, to w sprawdzony sposob) w szczególności, wykres tętna i szybkości oddechów
+  4. Sprawdzic czy aplikacja nie wysypie po kilka min nagraniu. Jesli wysypie to zrobic to samo nagranie w cmd i powtorzyc 3. (max 20 minut)
+  5. Pomiar 10 s sygnałów życiowych z odleglosci 0.5 m, wyswietlenie fazy i upewnienie sie ze cos widac. (max 15 minut)
+  6. Proba przetworzenia w sposob podobny do tego z challange (skrypt matlab, a jesli nie zadziala działa, to w sprawdzony sposob) w szczególności, wykres tętna i szybkości oddechów (max 1 h)
 
-- uruchomienie Phasera
+- uruchomienie Phasera (25 min)
   1. Zrobić przykladowe nagranie 30s sygnalow zyciowych, 0.5m (Upewnić się że zawsze znamy dokładną sygnature czasu i ze coś widać)
 
-- pomiar referencyjny - sprawdzic czy na pewno dobrze dziala
+- pomiar referencyjny (15 min)
+  sprawdzic czy na pewno dobrze dziala
 
 - pomiar jednoczesny sygnałów zyciowych
  1. Ustawic oba radary obok siebie (potrzebne 2 laptopy), zrobić zdjęcie stanowiska
@@ -200,7 +202,7 @@ W kolejności:
  4. Zapisać wszystkie kroki jak nagrano i przetworzono sygnaly, aby mozna było latwo to odtworzyć po ulepszeniach
 
 - pomiar jednoczesny zachowań
- 1. vmax musi byc >10
+ 1. vmax musi byc przynajmniej 10, czyli PRF=5000, moduł 24 GHz, to będzie 15.625 m/s
 
 
 

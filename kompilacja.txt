@@ -1,0 +1,1 @@
+latexmk -pdf -shell-escape -silent -use-make -f main.tex; latexmk -c
