@@ -182,7 +182,7 @@ W kolejności:
 - Uruchomienie Demorada: (w sumie max 2h15min)
   0. Wybranie modułu 122 GHz (W pomiarach finalnych można spróbować też 24) (max 10 minut)
   1. Sprawdzenie aplikacji (max 10 min)
-  2. Nagranie przykladowe 5 s (zapisać parametry, upewnić sie ze znamy dokladna sygnature czasu, prf ok 100 Hz) (max 10 min)
+  2. Nagranie przykladowe 5 s (zapisać parametry, upewnić sie ze znamy dokladna sygnature czasu, prf 1 kHz) (max 10 min)
   3. Wczytanie do Matlaba i wyswietlenie spektrogramu (max 10 min)
   (Parametry dowolne)
   4. Sprawdzic czy aplikacja nie wysypie po kilka min nagraniu. Jesli wysypie to zrobic to samo nagranie w cmd i powtorzyc 3. (max 20 minut)

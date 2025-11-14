@@ -16,13 +16,13 @@
 %   7. Run extract_matrix, range-time, extract_slow_time_signal, and phase_demodulation
 %   8. save("extracted"+filesep+"{recname}_phase_diff.mat", "PRF", "velocity_MDACM", "time_base_phase")
 
-% parse inputs
-folder = "/home/user/Documents/praca_inz/matlab/old_measures_and_simulations/extracted/";
-% filename = "heartBeat_phase_diff.mat";
-filename = "breath_phase_diff.mat";
-file = load(folder + filename);
-signal = file.velocity_MDACM;
-PRF = file.PRF;
+% % parse inputs
+% folder = "/home/user/Documents/praca_inz/matlab/old_measures_and_simulations/extracted/";
+% % filename = "heartBeat_phase_diff.mat";
+% filename = "breath_phase_diff.mat";
+% file = load(folder + filename);
+% signal = file.velocity_MDACM;
+% PRF = file.PRF;
 
 % measured signal needs to be filtered regarding outstanding peaks...
 signal_filt = filter_noise_peaks(signal, ...
