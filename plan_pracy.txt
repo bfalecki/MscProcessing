@@ -202,7 +202,7 @@ W kolejności:
  4. Zapisać wszystkie kroki jak nagrano i przetworzono sygnaly, aby mozna było latwo to odtworzyć po ulepszeniach
 
 - pomiar jednoczesny zachowań
- 1. vmax musi byc przynajmniej 10, czyli PRF=5000, moduł 24 GHz, to będzie 15.625 m/s
+ 1. vmax musi byc przynajmniej 10, czyli PRF=5000, moduł 24 GHz, to będzie 15.625 m/s (v_max = (PRF * λ) / 4)
 
 
 
@@ -213,4 +213,35 @@ W kolejności:
 Pomiary finalne
 Zrobienie skryptu do nagrywania z beamformingiem
 
-Jeśli beamformi
+Jeśli beamforming
+
+
+Demorad
+IP Address  192.168.10.1
+Subnet Mask 255.255.255.0
+Default Gateway 192.168.10.2
+
+
+Pomiary na 18.11:
+  Zachowania (wszystko na raz, bez przerw ani sprawdzania, najpierw demorad 24 GHz, potem krótkie klatki 0.1 s Phaser):
+  	- walking
+	- rapid squat (like a fall)
+	- standing up from squat
+	- sitting on chair
+	- arms stretching
+	- quick folding of hands (to the chest)
+	- arc movement of the hand (in the air)
+	- standing up from sitting on chair
+  Przetwarzanie:
+        - wyświetlić zwykły spektrogram dla każdego przypadku
+
+
+  Vital signs:
+        - zrobić pomiar 3 minutowy (0.5 m, najpierw demorad, potem Phaser)
+  Przetwarzanie:
+        - generalnie to samo przetwarzanie co w challenge (lub dodać jakiś krok z DWT)
+
+19.11:
+	- Zrobić pomiar zachowań z długością klatki 0.25 s
+
+

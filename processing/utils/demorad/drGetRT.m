@@ -10,6 +10,9 @@ function [RT,range_ax, t_ax] = drGetRT(data,cfg,opts)
         opts.fast_time_data_end = cfg.SamplingFreq / cfg.PRF
     end
     
+    if(isempty(opts.fast_time_data_end))
+        opts.fast_time_data_end = cfg.SamplingFreq / cfg.PRF;
+    end
     
     data = data(opts.fast_time_data_start:opts.fast_time_data_end, :);
     

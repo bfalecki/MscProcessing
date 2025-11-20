@@ -1,0 +1,61 @@
+Human Health Ascpects of radar operation
+Gregory Barshtein
+
+electro-bio-physical phenomena, not health effects
+
+Background:
+
+
+Skin reaction,
+pains
+headaches
+Dizziness
+
+Cellular level:
+EM penetrates a few milimeeters
+
+Non thermal effects
+
+blood: plasma, platelets, cells, perfect target fo rEM
+Half of the blood is cells
+Plasma can respond to EM, 
+
+EM field: Mutation can happen, membrane deformation. Therefore it can impact blood flow
+
+
+NEar field exposure, far field exposure
+Red Blood Cells
+Proteins
+
+Increased deformability due to EM field
+Deformability
+
+
+sedimantation rate
+
+
+PROTEIN LEVEL
+Method
+Dielectric spectroscopy
+complex permitivity - fingerprint of material
+
+Dielectric relaxation: how quickly material respond to E field
+
+alpha/beta/gamma dispersion
+
+Cole-Cole Model
+Property description of material before and after exposure
+
+Methemoglobin was tested
+
+Measurement:
+relaxation timie before and after EM field
+
+Hemolysis was tested (highly concentrated hemoglobine)
+
+
+Low level observation, didn't find adequacy to the current EM exposure standards
+
+10dBm 50% Duty Cycle was used in experiments for 40 minutes
+
+Different frequencies has different mechanisms

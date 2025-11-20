@@ -1,0 +1,57 @@
+
+30 slajdów minimum
+
+
+- Introduction
+  - Micro-Doppler (2 slides)
+  - Vital Signs Measurement ()
+  - Fall/Accident Detection
+
+
+
+
+
+
+
+  XY-DemoRad (Single-Antenna 122/24 GHz Radar)
+  - 
+
+Plan prezentacji:
+- [S] Presentation Overview
+  - Introduction
+- Introduction
+  -[S:OK] Micro-Doppler in Radar Signals
+    - [Slajd z challenge]
+  -[S:Zrobić dobry rysunek] Fall Detection
+    - [Rysunek z przewracającym się człowiekiem i radarem]
+  -[S] Breath Rate and Heart Rate Measurement
+    - [Slajd z jakiejś prezentacji - vital signs i radar]
+  -[S] Radar Integration in Smart Home System
+    - Maintaining privacy
+    - Contactless
+    - [Rysunek, salon, stół, krzesła, kilka ludzi, radar na suficie, połączenie do DSP i wyniki do chmury]
+    - Actually not facing the problem of system integration, but hardware and signal processing issues.
+-[S] Common Methods for Fall Detection
+  - spectrograms and classifiers (neural networks, knn, etc.)
+-[S] Common Methods for Vital Signs Measurement
+-[]
+
+
+
+Do umieszczenia:
+
+-[S] My Research on Fall Detection
+  - performing experiments
+  - Optimization of Processing based on time-frequency analysis
+  - Behavior Features Extraction from spectrograms
+
+
+
+- Measurements and Results:
+  ADI CN0566 (10 GHz Phased Array "Phaser") (Zdjecie od ADI z prezentacji )
+  - RadarConf'25 Challenge presentation (Vital Signs)
+    - video
+    - 
+  - Human Movements (short frames) TO DO:
+  XY-DemoRad
+

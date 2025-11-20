@@ -9,3 +9,5 @@
 *.bbl
 svg-inkscape
 *.bin
+*.fig
+*.asv
