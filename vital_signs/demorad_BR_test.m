@@ -4,13 +4,13 @@
 
 % see demorad_HR_test.m for input file generation
 
-% parse inputs
-folder = "/home/user/Documents/praca_inz/matlab/old_measures_and_simulations/extracted/";
-% filename = "heartBeat_phase_diff.mat";
-filename = "breath_phase_diff.mat";
-file = load(folder + filename);
-signal = file.velocity_MDACM;
-PRF = file.PRF;
+% % parse inputs
+% folder = "/home/user/Documents/praca_inz/matlab/old_measures_and_simulations/extracted/";
+% % filename = "heartBeat_phase_diff.mat";
+% filename = "breath_phase_diff.mat";
+% file = load(folder + filename);
+% signal = file.velocity_MDACM;
+% PRF = file.PRF;
 
 % we need to set proper fs
 desired_fs = 100;
@@ -61,3 +61,6 @@ results.sstft.cdata_sstft = prep_cdata(synchrosqueezed, "QuantileVal",0.5);
 
 handles = initBreathPlots();
 plotBreathResults(results,handles);
+
+figure(21)
+legend off
