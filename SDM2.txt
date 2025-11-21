@@ -8,6 +8,14 @@
   - Fall/Accident Detection
 
 
+Kolekcjonowanie bazy danych
+Detekcja Vital signs abnormalities
+Accident detection
+Detection of gait asymmetry
+Determining sleep stages
+Determining emotions
+And more...
+
 
 
 
@@ -24,9 +32,9 @@ Plan prezentacji:
     - [Slajd z challenge]
   -[S:Zrobić dobry rysunek] Fall Detection
     - [Rysunek z przewracającym się człowiekiem i radarem]
-  -[S] Breath Rate and Heart Rate Measurement
+  -[S:OK] Breath Rate and Heart Rate Measurement
     - [Slajd z jakiejś prezentacji - vital signs i radar]
-  -[S] Radar Integration in Smart Home System
+  -[S:OK] Radar Integration in Smart Home System
     - Maintaining privacy
     - Contactless
     - [Rysunek, salon, stół, krzesła, kilka ludzi, radar na suficie, połączenie do DSP i wyniki do chmury]
@@ -40,10 +48,21 @@ Plan prezentacji:
 
 Do umieszczenia:
 
--[S] My Research on Fall Detection
+-[S] Human Behavior and Fall Detection - Experiments
+  - XY-Demorad
   - performing experiments
   - Optimization of Processing based on time-frequency analysis
   - Behavior Features Extraction from spectrograms
+
+-[S] Human Behavior and Fall Detection - Processing
+
+
+-[S] Human Behavior and Fall Detection - Results
+ - znaleźć jak najwięcej zdetekowanych zachowań i umieścić je na slajdzie (lub kilku)
+ - podpisać co to było
+ - może wyciągnąć jakiś wniosek jak wygląda 
+
+
 
 
 
@@ -51,7 +70,7 @@ Do umieszczenia:
   ADI CN0566 (10 GHz Phased Array "Phaser") (Zdjecie od ADI z prezentacji )
   - RadarConf'25 Challenge presentation (Vital Signs)
     - video
-    - 
+    - processing 
   - Human Movements (short frames) TO DO:
   XY-DemoRad
 
