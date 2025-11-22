@@ -123,7 +123,6 @@ T. Sakamoto et al., "Feature-Based Correlation and Topological Similarity for In
 The most common way to analyze the correlation between electrocardiogram (ECG) data and microwave data is via a comparison of the waveform peaks
 I. V. Mikhelson et al., "Remote sensing of heart rate and patterns of respiration on a stationary subject using 94-GHz millimeter-wave interferometry", IEEE Trans. Biomed. Eng., vol. 58, no. 6, pp. 1671-1677, Jun. 2011.
 
-Hu et al. [16] estimated the HR using the zero crossings of a radar signal after application of various signal processing techniques
 W. Hu et al., "Noncontact accurate measurement of cardiopulmonary activity using a compact quadrature Doppler radar sensor", IEEE Trans. Biomed. Eng., vol. 61, no. 3, pp. 725-735, Mar. 2014.
 
 }
@@ -134,6 +133,8 @@ Filter-based methods
 
 Decomposition-based methods
 - EMD (CEEMDAN)
+Dong, X.; Feng, Y.; Cui, C.; Lu, J. CEEMDAN-ICA-Based Radar Monitoring of Adjacent Multi-Target Vital Signs. Electronics 2023, 12, 2732. https://doi.org/10.3390/electronics12122732
+
 
 }
 

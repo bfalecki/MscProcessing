@@ -73,4 +73,106 @@ Do umieszczenia:
     - processing 
   - Human Movements (short frames) TO DO:
   XY-DemoRad
+  
+  
+  
+  
+  
+  
+
+1. Thank you.
+First, I would like to welcome my supervisor, dr. Pedro Gomez.
+Because his native language is not polish, we decided that I could do the presentation in English so that we could better understand each other.
+I hope that you are okay with that and my pronunciation will be understandable to you as well.
+So, the topic of my Master's thesis is Remote health monitoring and accident detection using radar in smart home applications.
+This is a continuation of my Bachelor, which was supervised by prof. Piotr Samczyński from Insitute of Electronic Systems.
+
+2. This is an overview of my presentation.
+In the introduction, I will show the general idea of radar-based human observation.
+How is it possible, how actual radar works, what is the motivation of the research, and still what are the concerns about the impact of exposure to radio waves on human health.
+Next, I will show radar devices that I use for experiments. Then I will mention some state-of-the-art vital signs extraction algorithms, and I will proceed with my own experiments, including vital signs and human behavior observation using two radar devices.
+Finally, I will summarize my work so far and show the next steps.
+
+3. This is an illustration of how we can measure surface movement, observing Doppler frequency changes in the received signal. This is called micro-Doppler phenomenon.
+
+4. More specifically, in my work, these micro-Doppler signatures are extracted from Frequency Modulated Continuous Wave radars. Typical construction of the FMCW radar is depicted on the slide. The general principle of FMCW is that the received signal is shifted to the baseband and demodulated in analog way, by mixing it with the reference. After such a procedure, the signal can be easily digitized and further processed. FMCW is relatively a low cost solution, but allows for the determination of target range and velocity.
+
+5. One of the areas of my work is remote radar-based fall detection, which in the future can possibly be deployed in elder care or hospitals. Of course, there are already IoT accelerometers that are worn with clothing, but it's easy to forget about them and they are not always comfterble, for example when washing. In contrast, vision-based monitoring has indispensable privacy issues. However, the radar operates remotely and maintains privacy, which can be attractive.
+
+6. We can also use radar for observing human vital signs thanks to slight movements of the chest during heartbeat activity and breathing. Also, the main advantage is the touch-free operation.
+
+7. Besides, there are many other potential applications of radar-based human observation which can be integrated in smart home systems. Some of them are mentioned on the slide, including human detection, gait assymmetry detection, or even determining of sleep stages and emotions based on detected movements.
+
+8. However, we must ask, is it truly non-invasive? On the slide I included the results published in recent studies on the non-thermal effects of radio waves exposure on human blood. As you can see there is a spectrum of low-level phenomena, including red blood cells deforming, increased blood sedimentation, and changed dielectriv properties. And we still don't know exactly how these changes affect human health. We know that some peaple reported pains and dizziness. It is also too early to refer to the validity of the current guidelines related to exposure to radio waves. These guidelines were made based on the thermal effects, but the non-thermal effects start at much lower signal powers.​ In addition to power, the exposure effect also depends on the frequency and modulation of the signal.
+
+9. Here you can see how various dielectric properties of the hemolystate change after exposure. What is most disturbing is that the parameters do not return to normal after a longer period of time, suggesting that the changes are irreversible.
+
+10. Nevertheless, in this work, I will not worry about it much.
+The scope of my research mainly includes mentioned fall detection and vital parameters monitoring. At this stage, I decided not to integrate it into the smart home system. Therefore, my work is experimental and proof of concept.
+
+11. For the experimets, I have two radar devices, the both are FMCW. On the left hand side, you can see XY-DemoRad, which is a single-antenna system with two exchangeable frontends: 24 or 122 GHz. This device was used in my Bachelor.
+On the right hand side, there is another radar, Phaser, developed by Jon Kraft from Analog Devices. It's a 10 GHz, 8-ellement phased array, which allows for receiver beam steering.
+
+12. Several words about encoutered problems.
+In case of DemoRad, I realised some stron interferences depending on device configuration. Also, some minor signal discontinuities produce outstanding values after phase differentation. This is also a problem of Phaser as visible on the bottom right.
+Although, most serious problem with Phaser is that due to the hardware limitations the signal contains gaps between frames and their length is proportional to the length of single frame, as seen on the bottom left. Later, I will tell on how I deal with these problems.
+
+13. Here you can see the most widely used processing steps for vital signs extraction from radar signals. The first step after typical processing of raw FMCW radar data is phase extraction and unwrapping which corresponds to the chest displacement. To increase heartbeat component, the phase is differentiated.
+Respiratory and heartbeat-related chest displacement signals are typically considered as sinusoids, which can be further decomposed or denoised using some specific algorithms.
+
+14. Here you can see various processing approaches used for extracting vital signs. Some of them use iterative decomposition, such as VMD, other ones are based on Fourier analysis. Minor part utilize feature-based approaches, and correlation with templates. Sometimes, simple band-pass filtering is enogh to separate vital signs.
+
+15. This is my investigation on heartbeat signal. The data was obtained using 122 GHz DemoRad during Bachelor realization. As you can see, the signal is much different than a simple sinusoid as it is typically assumed to be. It contains prominent harmonics up to 30 Hz or more. I decided that it would be good to make use of them, not only from heart rate frequency component.
+
+16. Short Time Fourier Transform is useful for analyzing non-stationary signals, so in Bachelor thesis, I proposed the approach visible on this slide. The general idea is that it detects periodicity of the higher frequency heart oscillations.
+
+17. Here are the results of the STFT-based method applied on the 122 GHz DemoRad data. As you can see, the high frequency heart oscillations are detected and heart rate is easily obtained. Using the same data, FFT of phase signal doesn't give us prominent heart rate value. 
+
+18. However, I found this approach not working for lower frequencies, such as 10 GHz.
+Therefore, new heartbeat extraction pipeline is shown in this slide. Actually, it was developed during the Radar Challenge for RadarConf'25, which will be mentioned later. In general, it consitst of filtering out too slow components, then the signal is transformed to time-frequnecy domain using short time fourier transform.
+Then, the distribution is summed in specific range of frequencies, high-pass filtered, and analyzed in time-frequency domain using synchrosqueezing short time fourier transform to show the signal in super-resolution. Finally, the most significant time-frequency ridge is detected, which corresponds to actual heart rate.
+
+
+19. Here is how the measurement looked like. The person was sitting in motionless position, basically about half meter from the radar. Both Phaser and DemoRad are visible on the right hand side. I also used a reference ECG sensor to ensure about the radar results.
+
+20. Here you can see the results of heartbeat extraction from 24 GHz DemoRad data.
+On top left there is a spectrogram with heart cycles detected. Below, there is one-dimensional signal extracted from the distribution. Top right figure shows result of of applying time-frequnecy analysis in super-resolution and finding most prominent frequnecy component. Bottom right figure shows the comparison of radar-measured heart rate with reference ECG sensor, and it looks quite promising.
+
+21. Regarding breath extraction, it consists of filtering out too slow components, and the final steps are the same as in case of heartbeat extraction, which is super-resolution time-frequency analysis, and most intense frequency ridge detection. You can see the example results on the bottom.
+
+22. Now we can move to the human behavior and falls observation using DemoRad. Here is how the experiment actually looked like. A person was performed some typical movements and also some accidents on the mattress. In addition to the radar, video was recorded for the reference.
+
+23. So far, I processed the captured radar data using similar method as in my Bachelor. The general idea is to compute independet spectrograms of multiple range cells, and then make fusion of them. This is particularly useful in cases when Doppler signatures are significant spread in range. The example result of gait signature fusion from my BSc thesis is shown on the right.
+
+24. This is the new result using 24 GHz DemoRad module. The spectrogram contains signatures from walking, falls, and standing up. As you can see standing up is similar to walking, while falls have usually some rapid spikes in Doppler frequnecy.
+
+25. Here you can see that lying down on the floor is very similar to standing up from the floor. What is more interesting is that the different perspectives of falls observation results in slightly different signature. For example, fall towards radar produce signature which is segmentated in Doppler, while fall to the side is produce more uniform spike. Whereas fall against the radar doesn't look like frequnecy spike anymore.
+
+26. Now I would like to proceed with experiments with Phaser which was a part of the Radar Challenge for RadarConf'25 held in Krokow this year.
+
+27. Our team was representing Warsaw University of Technology with the project about vital signs measurement using Phaser. The goal was to develop and test measurement platform. The maing focus was on developing signal processing pipeline in MATLAB.
+
+
+28. First, how do I deal with the problems with data mentioned earlier
+The raw signal is zero-padded to fill breaks, then phase is extracted and differentatied, outstanding values are removed and segment-edges are denoised. I won't go into much detail, but here is the example result of removing outsanding values of the singal, causing a lot of interferences. It uses some threshold to detect unexpected values and replaces them with an average of adjacent ones. After Pre-Processing, we can then use specific algorithms to extract heartbeat and breath activities.
+
+29. Regarding breath extraction, the process is basically the same as in case of DemoRad, but it starts from differentiated phase, which is linearly interpolated in breaks, and then it is integrated to get the displacement signal again. This procedure restores the unknown phase offsets between frames and makes parabolic gap filling.
+
+30. In case of hearbeat extraction from Phaser data, the only significant difference relative to demorad data is the applied autoregressive prediction in signal breaks based on the last frame.
+
+31. Except of offline processing, I also made some near real-time application to measure vital signs contiuously. Here is a short video (if we will be able to see it)... The processing is done in a parralel thread during signal reception... Breathing test... As you can see, heart rate measurement is consisistent with reference sensor.
+
+32. I performed also some longer measurement to check what is the error relative to ECG sensor, and it seems suprisingly good. Unfortunately, I didn't have a reference breath measurement, but the radar result looks reasonable here.
+Also, I made some more tests to check the system performance in various conditions, for example, I investigated the impact of distance, measurement perspective, clothes thickness, and body state. I will not go into much details, but I can say that to some extent, the system passed all the tests.
+
+33. Here is the result of behavior observation with Phaser. I used 0.1-second frames and bidirectional prediction in complex-valued signal to lower interferences. As in the case of DemoRad, individual behaviors are distinguishable, including walking, squats, hand movements, and sitting on chair.
+
+34. In summary, I managed to optimize the Phaser configuration in terms of recording data in frames. The near real-time application of vital parameters extraction using phaser was developed in MATLAB. Breaks in data were mitigated by autoregressive prediction. I performed also new experiments for both devices and the so far results are promising.
+
+35. Nevertheless, there is still much work to do, for example, I will need to implement fall detector, and respiratory movement detector as I planned before.
+I will need to also make investigation on beam-steering using Phaser, and perform final experiments with sufficient data amount.
+Probably one of the most interesting steps is to apply existing state-of-the-art vital signs extraction and fall detection methods as a reference to compare them with those that I proposed. That's the end. Thank you for your attention.
+
+
+
 
