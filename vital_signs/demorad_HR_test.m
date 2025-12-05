@@ -24,21 +24,21 @@
 % signal = file.velocity_MDACM;
 % PRF = file.PRF;
 
-% measured signal needs to be filtered regarding outstanding peaks...
-figure(1)
-signal_filt = filter_noise_peaks(signal, ...
-    "Display", 1, ...
-    'ThresholdQuantile', 0.9, ...
-    'ThresholdMultiplier',3);
-% signal_filt = signal;
+% % measured signal needs to be filtered regarding outstanding peaks...
+% figure(1)
+% signal_filt = filter_noise_peaks(signal, ...
+%     "Display", 1, ...
+%     'ThresholdQuantile', 0.9, ...
+%     'ThresholdMultiplier',3);
+signal_filt = signal; % or filtered before
 
 % we need to set proper fs
 desired_fs = 100;
 [signal_filt,actual_fs, t_resampled]= set_fs(signal_filt, PRF,desired_fs);
 
 % % we need then high-pass filter to cancel clutter and breath movement in spectrogram
-% phase_cutoff_freq_low = 5; % Hz
-phase_cutoff_freq_low = 2;
+phase_cutoff_freq_low = 5; % Hz
+% phase_cutoff_freq_low = 2;
 signal_filt = highpass(signal_filt, phase_cutoff_freq_low / (actual_fs/2));
 
 
@@ -46,11 +46,11 @@ signal_filt = highpass(signal_filt, phase_cutoff_freq_low / (actual_fs/2));
 
 [sp,f_ax,t_ax,fs_stft,overlap_len] = stft_general(signal_filt,actual_fs,...
     "DesiredTimeRes",1/40, "FrequencyResolution",1,...
-    "WindowWidth",0.25, "MaximumVisibleFrequency",40);
+    "WindowWidth",0.2, "MaximumVisibleFrequency",40);
 
 % sp = sp ./ sum(abs(sp),2);
 % extract heart cycles signal
-heart_oscillation_freq_range = [0 30]; % Hz - fast oscillations of heartbeat
+heart_oscillation_freq_range = [10 20]; % Hz - fast oscillations of heartbeat
 heart_cycles_detected = extract_env_sp(sp,f_ax,"FreqRange",heart_oscillation_freq_range, "LogScale",0, "Normalize",0);
 % we do not expect heart rate below 0.5 Hz, so better to get rid of i
 cutoff_freq_low = 0.5;
@@ -59,15 +59,21 @@ heart_cycles_detected = highpass(heart_cycles_detected,cutoff_freq_low / (fs_stf
 
 %% synchrosqueezing
 [synchrosqueezed,f_ax_fsst,t_ax_fsst] = synchrosqueezing_general(heart_cycles_detected,fs_stft,...
-    "FrequencyResolution",1/60,"MaximumVisibleFrequency",3, "WindowWidth",5);
+    "FrequencyResolution",1/60,"MaximumVisibleFrequency",3, "WindowWidth",7);
 
 % then find tfridge
 f_low_hb_expected = 0.6; % minimum heart rate expected
 f_high_hb_expexcted = 3; % maximum heart rate expected
-[ridge, synchrosqueezed, f_ax_fsst] = find_tfridge(synchrosqueezed, f_ax_fsst,...
-    "JumpPenalty",1, "NuberOfRidges",1,...
+[ridges, synchrosqueezed, f_ax_fsst] = find_tfridge(synchrosqueezed, f_ax_fsst,...
+    "JumpPenalty",0.5, "NuberOfRidges",4,...
     "PossibleHighFrequency",f_high_hb_expexcted,...
     "PossibleLowFrequency",f_low_hb_expected);
+
+[~,lower_ridge_nr] = min(mean(ridges));
+[~, ridge_nearest_80_nr] =  min(abs(mean(ridges) - 80/60));
+ridge = ridges(:,ridge_nearest_80_nr);
+
+% ridge = ridges(:,1);
 
 % plot Result
 f_ax_bpm = f_ax_fsst*60;
@@ -111,7 +117,8 @@ if(compare_with_reference)
     % ref_path = ref_folder + "eu2231dc9cce5eb99169_2025-11-18_fitness.fit"; % phaser_rec_18-Nov-2025_15-01-06_vital-signs1.mat
     % ref_path = ref_folder + "eu2c4ef44ec1b408eb74_2025-11-18_fitness.fit"; % demorad24
     % ref_path = ref_folder + "2025-11-20_demorad180s-0.5m.fit";
-    ref_path = ref_folder + "2025-11-20_demorad30s-1m.fit";
+    % ref_path = ref_folder + "2025-11-20_demorad30s-1m.fit";
+    ref_path = ref_folder + "2025-12-04.fit";
     [heart_rate_ref, time_ref] = parse_fit(ref_path);
     time_ref = time_ref + hours(1); % UTC fix - or hours(2)
 
