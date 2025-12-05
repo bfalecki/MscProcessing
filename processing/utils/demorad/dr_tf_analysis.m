@@ -1,7 +1,8 @@
-% folder = "C:\Users\bfalecki\Documents\praca_mgr\measurements\demorad\new\vs\";
+folder = "C:\Users\bfalecki\Documents\praca_mgr\measurements\demorad\new\pomiary2811\";
 % filename = "0.5.bin";
-folder = "C:\Users\bfalecki\Documents\XY-DemoRad\Recordings\";
-filename = "falls-behavior.bin";
+% folder = "C:\Users\bfalecki\Documents\XY-DemoRad\Recordings\"; 
+% filename = "falls-behavior.bin";
+filename = "Behvior2811.bin";
 
 config_name = filename + ".conf";
 
@@ -21,16 +22,18 @@ ylim([0 5])
 %%
 range_cell_width = mean(diff(range_ax));
 % range_cell_of_choice = (8-1)*range_cell_width; % meters
-range_cell_of_choice = [1 2];
+range_cell_of_choice = [0.5 3];
 
 dt_start = datetime(cfg.StartedAt);
+
+upsampling = 5;
 
 radar_signal = drGetSlowTime(RT, range_cell_of_choice,range_ax);
 % radar_signal = compensateDc(radar_signal);
 win_width = 0.05;
 [sp,f_ax,t_ax] = stft_fused(radar_signal, cfg.PRF,...
-    "WindowWidth",win_width, "FrequencyResolution",1/win_width/3, "DesiredTimeRes",win_width/3,...
-    "thresholdDb",40);
+    "WindowWidth",win_width, "FrequencyResolution",1/win_width/upsampling, "DesiredTimeRes",win_width/upsampling,...
+    "thresholdDb",50);
 
 %%
 figure(4)

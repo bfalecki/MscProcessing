@@ -14,3 +14,10 @@ svg-inkscape
 *.jfif
 *.mp4
 *.zip
+
+*.aux
+*.bcf
+*.log
+*.out
+*.run.xml
+*.toc
