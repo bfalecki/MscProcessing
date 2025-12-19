@@ -10,9 +10,13 @@ arguments
     method = "atan"
 end
 
+if(length(IQSignal) ~= size(IQSignal,1)) % fix transposition
+    IQSignal = IQSignal.';
+end
+
 if(strcmp(method, "atan"))
     phase = unwrap(angle(IQSignal));
-elseif(strcmp(method, "dacm"))
+elseif(strcmp(method, "dacm")) % TO DO : OPTIMIZE AND VECTORIZE
     %%% Φ[n] = ∑k=2...n (I[k]{Q[k]−Q[k−1]}−{I[k]−I[k−1]}Q[k])/(I[k]^2+Q[k]^2)
     I = real(IQSignal);
     Q = imag(IQSignal);

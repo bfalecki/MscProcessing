@@ -1,0 +1,26 @@
+function rawData = readRawPhaser(filename,opts)
+%READRAWPHASER Summary of this function goes here
+%   Detailed explanation goes here
+% output : rawData, RawData instance
+arguments
+    filename % path to file with data, 
+    % example "C:\Users\bfalecki\Documents\challenge\rec\phaser_rec_04-Dec-2025_18-46-23_vs2m.mat"
+    opts.lengthSeconds = 10 % [s], length of the data with precision of a single break
+    opts.offsetSeconds = 0 % [s], how much to skip from the beggining
+end
+sc = SignalCapturerSimulator("RecFilePath",filename,"TotalRecLength", opts.lengthSeconds, "TimeOffset", opts.offsetSeconds, "GeneratePause",0);
+sc.record();
+signalInfo = SignalInfo( ...
+    "bandWidth",sc.rampbandwidth, ...
+    "carrierFrequency",sc.fc, ...
+    "device","phaser", ...
+    "PRF",sc.prf, ...
+    "samplingFrequency", sc.fs, ...
+    "timeStart",sc.signalStartTimeStamp, ...
+    "frameStartTimes",sc.times_post_tx, ...
+    "postRxTimes",sc.times_post_rx);
+
+rawData = RawData(sc.data,signalInfo);
+
+end
+
