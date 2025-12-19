@@ -1,0 +1,30 @@
+Phaser Beamforming:
+Callibrate_Antenna.mlx
+  - wygenerowanie cyfrowej kalibracji kanałów: wzmocnienia i fazy elementów; fc HB100
+Antenna_Pattern_Collerction_Lab.mlx
+  - obracanie phaserem zamiast kierowania wiązką - w teorii bliższy rzeczywistości antenna pattern phasera
+Antenna_Pattern_Lab.mlx
+  - AntennaInteractor object
+  - jak silny jest odbierany sygnał z HB100 przy różnym wysterowaniu kątów patrzenia receivera w azymucie
+  - steering: przed rx() wywołać setAnalogBfWeights(bf,analogWeights) lub wywołać ai.steerAnalog
+
+Grating_Lobe_Lab
+  - jak zbyt duży element spacing powoduje grating loby
+Monopulse_Tracking_Lab
+  - WOW, tracking transmitera filtrem Kalmana
+MVDR_Lab
+  - filtering out Jammerów na stałych znanych azymutach
+Pattern_Nulling_Lab
+  - insert null in antenna pattern to filter out jammer
+Pattern_Tapering_Lab
+  - stosowanie okna, aby obniżyć listki boczne kosztem poszerzenia mainlobe
+
+
+fmcwBeamsteeringDemo
+  
+
+receiverDataCollection - przykłady trochę starsze niż mlx
+  - monopulseFollower - coś podobnego do Monopulse_Tracking_Lab, ale bez filtru Kalmana, tylko iteracyjne dodawanie/odejmowanie 1 st. na podstawie monopulsu. Tutaj gdy poruszamy Phaserem szybciej niż 1st/iteracje, to gubimy śledzenie, a w filtrze Kalmana jest to trochę lepiej - chyba przyspieszenie nie może przekroczyć progowej wartości
+  - scanAntenna - pokazanie jak wygląda pattern anteny przed połączeniem obu kanałów,
+    To jest coś w rodzaju robust trackingu kąta z refresh rate np 2s
+w fmcwDemo.m wszystkie elementy mają to samo wzmocnienie i tę samą fazę

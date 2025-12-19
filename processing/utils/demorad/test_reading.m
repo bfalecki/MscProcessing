@@ -8,7 +8,7 @@
 % folder = "C:\Users\bfalecki\Documents\praca_inz\matlab\old_measures_and_simulations\vital_signs\";
 % filename = "breath3.bin";
 folder = "C:\Users\bfalecki\Documents\praca_mgr\measurements\demorad\new\pomiary0412\";
-filename = "vitsin2m.bin";
+filename = "vitsin1m.bin";
 
 config_name = filename + ".conf";
 
@@ -52,7 +52,7 @@ range_cell_width = mean(diff(range_ax));
 % plot_surf(phaseRT2plt ,"","",0,"","gray")
 % range_cell_of_choice = (13-1)*range_cell_width; % meters
 %%
-range_cell_of_choice =1.93;
+range_cell_of_choice =1;
 
 [slow_time, range_cell_no] = drGetSlowTime(RT,range_cell_of_choice, range_ax);
 
