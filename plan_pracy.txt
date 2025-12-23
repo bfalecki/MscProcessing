@@ -265,6 +265,7 @@ Dla przedstawienia zmienności tętna i breathing rate w czasie, wykorzystywana 
 
 
 Ogólnie pokazać działanie metod bazujących na końcu na transformacie Fouriera
+C:\Users\bfalecki\Documents\praca_mgr
 
 - zrobić moduł do przetwarzania coś na kształt CVD (2h)
 	- pozbycie się clutteru, czyli składowej stałej (czy to zawsze zadziała?)
@@ -272,6 +273,8 @@ Ogólnie pokazać działanie metod bazujących na końcu na transformacie Fourie
 	- automatyczny wybór przedziału prędkości Dopplera do pracy serca i oddechu
 - zrobić moduł do dekompozycji synchrosqueezingiem i porównać z CVD
 	- dosłownie tak jak w artykule, tylko na końcu 
+	C:\Users\bfalecki\Documents\praca_inz\matlab\old_measures_and_simulations\scripts
+	C:\Users\bfalecki\Documents\praca_inz\matlab\old_measures_and_simulations\scripts\BF_synchrosqueezing
 - zrobić moduł z transformatą falkową i filtrem Kalmana (2h)
 - zrobić moduł z VMD/CEEMDAN jako state of the art z metod iteracyjnej dekompozycji
 - zrobić moduł feature-based jako state of the art z wydobywania dokładnych parametrów pracy serca

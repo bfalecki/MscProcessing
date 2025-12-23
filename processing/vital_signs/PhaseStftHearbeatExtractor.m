@@ -49,7 +49,7 @@ classdef PhaseStftHearbeatExtractor < handle
             % only after process()
             max_val = max(db(obj.sp),[], "all");
             clim_min = quantile(db(nonzeros(obj.sp)),0.1,"all");
-            clim_max = quantile(db(nonzeros(obj.sp)),0.95,"all");
+            clim_max = quantile(db(nonzeros(obj.sp)),0.99,"all");
             clims = [clim_min clim_max] - max_val; % max_value is substracted
             % cmap = flip(gray);
             cmap = "jet";
