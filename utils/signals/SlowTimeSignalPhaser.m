@@ -1,4 +1,4 @@
-classdef SlowTimeSignalPhaser < SlowTimeSignalAny & SlowTimeSignalPhaserAny
+classdef SlowTimeSignalPhaser < SlowTimeSignal & SlowTimeSignalPhaserAny
     %SLOWTIMESIGNALPHASER Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -6,7 +6,7 @@ classdef SlowTimeSignalPhaser < SlowTimeSignalAny & SlowTimeSignalPhaserAny
         % segmentStartIndices % vector of segment start indices, for example [1 201 401]
         % segmentEndIndices % vector of segment end indices, for example [150 350 550]
         % segmentDuration % what is the length of a signle frame [s]
-        signal % IQ signal
+        % signal % IQ signal
     end
     
     methods
@@ -17,7 +17,7 @@ classdef SlowTimeSignalPhaser < SlowTimeSignalAny & SlowTimeSignalPhaserAny
 
         function initialize(obj, varargin)
             % 1. wywołanie implementacji bazowej
-            initialize@SlowTimeSignalAny(obj, varargin{:});
+            initialize@SlowTimeSignalPhaserAny(obj, varargin{:});
 
             % 2. nadpisanie / ustawienie na stałe
             obj.signalInfo.device = "phaser";
@@ -37,9 +37,9 @@ classdef SlowTimeSignalPhaser < SlowTimeSignalAny & SlowTimeSignalPhaserAny
         %     % obj.segmentDuration = opts.segmentDuration;
         % end
 
-        function setSignal(obj,signal)
-            obj.signal = signal;
-        end
+        % function setSignal(obj,signal)
+        %     obj.signal = signal;
+        % end
         
     end
 
