@@ -33,6 +33,16 @@ classdef  (Abstract) SlowTimeSignalAny < handle
             obj.resamplingWasApplied = opts.resamplingWasApplied;
             obj.phaseDiscontinuitiesRemoved = opts.phaseDiscontinuitiesRemoved;
         end
+
+        function relative_idx = selectSingleCell(obj, rangeCellMeters)
+            % change the object to cantain only a single range cell signal
+            % rangeCellMeters - desired range cell to select [m]
+            [~,relative_idx] = min(abs(obj.actualRangeCellsMeters - rangeCellMeters));
+            rangeCellNumbersAll = obj.rangeCellNumber(1):obj.rangeCellNumber(end);
+            obj.rangeCellNumber = rangeCellNumbersAll(relative_idx);
+            obj.desiredRangeCellMeters = rangeCellMeters;
+            obj.actualRangeCellsMeters = obj.actualRangeCellsMeters(relative_idx);
+        end
     end
 end
 

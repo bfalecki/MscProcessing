@@ -5,6 +5,7 @@ arguments
     signalInfo % instance of SignalInfo class
     opts.samples = Inf % how many samples to read
     opts.skipSamples = 0 % how many samples to skip on the beggining
+    opts.Conjugated = 0 % if we want to apply conjugation (sometimes it is needed, sometimes not)
 end
 
     
@@ -26,7 +27,7 @@ end
     dechirped = complex(ch0,ch1);
 
     % conversion from vector to matrix
-    data_matr = drGetMatrix(dechirped,signalInfo);
+    data_matr = drGetMatrix(dechirped,signalInfo, "Conjugated", opts.Conjugated);
 
     rawData = RawData(data_matr,signalInfo);
 

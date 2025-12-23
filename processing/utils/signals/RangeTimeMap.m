@@ -22,6 +22,17 @@ classdef RangeTimeMap
             obj.timeAxis = timeAxis;
             obj.signalInfo = signalInfo;
         end
+
+        function plotMap(obj, npulses_max)
+            arguments
+                obj 
+                npulses_max = 5000 % max number of pulses to plot (from the beggining)
+            end
+            npulses_max(npulses_max > size(obj.data,2)) = size(obj.data,2);
+            plot_surf(obj.data(:,1:npulses_max),obj.timeAxis, obj.rangeAxis)
+            xlabel("Slow Time [s]")
+            ylabel("Range [m]")
+        end
         
     end
 end

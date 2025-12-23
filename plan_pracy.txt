@@ -283,3 +283,18 @@ Ogólnie pokazać działanie metod bazujących na końcu na transformacie Fourie
   Co nas interesuje? Prawdopodobnie wystarczy mapa RT lub surowe dane. Konfiguracja wczytywania może być w oddzielnym pliku tekstowym.
 
 ExtractedSignal
+
+
+Co mogło zostać usunięte:
+
+Changes not staged for commit:
+
+modified:   literature/literatura_vitals.txt - ???
+modified:   processing/utils/signals/SlowTimePhase.m - selectSingleCell [OK], ???
+modified:   processing/utils/signals/SlowTimeSignal.m - selectSingleCell [OK], ???
+modified:   processing/utils/signals/SlowTimeSignalAny.m - selectSingleCell [OK], ???
+modified:   processing/utils/signals/sts2stp.m - ???
+modified:   processing/vital_signs/FsstDecomposer.m - wkleic kod z praca inż
+
+
+
