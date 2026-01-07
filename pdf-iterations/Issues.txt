@@ -1,0 +1,54 @@
+FORMAT:
+
+----------------------------------[CLOSED / READY (to implement) / OPEN (needs fix)]
+DOCUMENT_NAME
+page 
+"Content"
+
+COMMENT:
+
+
+FIX:
+
+
+
+----------------------------------READY
+MSc_thesis_25.10_PG.pdf
+page 5.9
+"The second functionality is the classification of human behavior in the context of detecting dangerous falls."
+
+COMMENT
+maybe we can talk about explore the use of radar for detecting dangerous falls instead of talsk directly about classification as we will not be able to finis a classification module for different human behavior
+
+FIX:
+"The second functionality is the detection of dangerous human falls."
+
+
+
+----------------------------------OPEN
+MSc_thesis_25.10_PG.pdf
+page 5.99
+"The measurement of vital signs and the detection of falls will be performed continuously in near real time."
+
+COMMENT:
+do this real time works for both systems?
+
+FIX:
+if I manage to implement fall detection in real-time for CN0566
+"In case of CN0566, the measurement of vital signs and the detection of falls will be performed continuously in near real time."
+
+
+----------------------------------OPEN
+DOCUMENT_NAME
+page 6
+"Additionally, the system will be able to detect the presence
+of a person within the range of the beam based on their movements. In the case of the
+CN0566 phased array radar with angular resolution, the beam will automatically follow
+the person. The results of the operation will be displayed to the user in a web application
+on the phone or on a computer monitor."
+
+COMMENT:
+this may be change based on actual final development of the system
+
+FIX:
+

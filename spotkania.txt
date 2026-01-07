@@ -26,7 +26,7 @@ Show what's already there,
 - Then chapters on experimental scenarios and combinations of processing methods:
 	- Vital signs (distance tests and measurement accuracy, perspective tests, several people simultaneously, obstacle tests)
 	- Fall detection (several movements and gestures with radars and a camera from a fixed distance, repeated several times, preferably on a larger test group), illustrate sample results and describe them, referencing camera recordings (preferably from several cameras), implement some classification algorithms,
-- If time allows, create a complete system that would detect signals life and the fall of man, and the results would be displayed on the phone (using chatGPT), so it would be a smart home application.
+- If time allows, create a complete system that would detect vital signs and falls, and the results would be displayed on the phone (using chatGPT), so it would be a smart home application.
 
 * Agree on a work plan
 - change application to results

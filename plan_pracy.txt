@@ -1,4 +1,6 @@
-⁷Celem tego dokumentu jest zapisanie zakresu pracy
+=============== SCOPE OF THE WORK =================
+
+Celem tego dokumentu jest zapisanie zakresu pracy
 Najpierw trzeba sformułować cel rozprawy, aby ustalić strukturę pracy
 
 
@@ -24,82 +26,42 @@ Cele szczegółowe związane z celem głównym to
 - analiza techniczna - pobór mocy, natężenie promieniowania, złożoność obliczeniowa itp.
 - analiza pozatechniczna - koszty systemu, bezpieczeństwo, ocena przydatności rozwiązania.
 
+================ SPECIFIC IDEAS TO INCLUDE =========
+
+- zaprezentować analizę FFT sygnału pracy serca
+- zamieścić następujące metody z parametrów życiowych
+  - filtrację dopasowaną
+  - dekompozycję synchrosqueezingiem
+  - i pozostałe z MATLABA
+- Pokazać, że niektóre metody VS działają, ale nie zawsze, a inne działają lepiej
+  - śledznie ruchu ciała na spektrogramie FSST jest lepsze niż filtracja górnoprzepustowa
+  - W przypadku radaru o niższej Fc nie działają metody TF w IQ
 
 
 
 
-Strona tytułowa - 1 str
-Abstract - 0.5 str
-
-Wprowadzenie i cele pracy - 1/2 str
-
-Rozdziały teoretyczne
-1.2. Przegląd literatury w dziedzinie pomiaru parametrów życiowych - 3 str
-1.2. Przegląd literatury w dziedzinie wykrywania upadków człowieka - 2/3 str
-1.3. Podstawy radiolokacji - 1 str (Propagacja sygnału, ogólne wzory)
-	- Radar FMCW - 2 str
-		- Kształt sygnału
-		- Przetwarzanie
-		- Wady i zalety
-	- Kształtowanie wiązki - 1 str
-1.4. Teoretyczne ograniczenia pomiaru - 2 str
-	- Ograniczenia odległości
-	- Odporność fali na przeszkody
-
-Rozdziały praktyczne - eksperymentalne
-2.1. Urządzenia wykorzystywane do pomiarów - 1 str
-	- XY-Demorad
-	- CN0566
-2.2. Eksperymentalna weryfikacja hipotetycznych ograniczeń - 4 str
-2.3. Algorytmy do pomiaru parametrów życiowych - 3 str
-2.4. Algorytmy do wykrywania upadków człowieka - 3 str
-2.5. Algorytm do detekcji obecności i śledzenia ruchów człowieka - 2 str
-
-Rozdziały praktyczne - aplikacyjne
-3.1. Specyfikacja systemu
-	- Wybór algorytmów i narzędzi - 1 str
-	- Działanie systemu - 3 str
-	- Realizowane funkcje - 1 str
-	- Ograniczenia techniczne - 1 str
-		- Pobór mocy
-		- Złożoność obliczeniowa
-	- Ograniczenia pozatechniczne - 2/3 str
-		- Wpływ fal radiowych na zdrowie
-		- Sankcje prawne i dopuszczalna moc
-		- Koszty systemu
-3.2. Testy systemu
-	- Prezentacja działania - 2 str
-	- Dokładność pomiaru parametrów życiowych - 1 str
-	- Wydajność detekcji upadków - 2 str
-3.3. Ocena przydatności rozwiązania - 1 str
-	- Zastosowania
-	- Atrakcyjność a koszty systemu
-
-Podsumowanie - 1 str
-Bibliografia - 4 str
-
-1+1+1+2+3+3+1+2+1+2+1+4+3+3+2+1+3+1+1+3+3+2+1+2+1+1+4=53
-
-That's less than 50 pages of content, but it can always grow.
-
-
-SCHEDULE:
+===================== SCHEDULE ====================
 
 Theoretical Background
-18.10.2025 - Fundamentals of Radiolocation
-25.10.2025 - Fundamentals of FMCW Radar (planned 5 pages in total - to be compressed from 14 pages in Bachelor Thesis)
+[DONE] 18.10.2025 - Fundamentals of Radiolocation	
+[DONE] 25.10.2025 - Fundamentals of FMCW Radar (planned 5 pages in total - to be compressed from 14 pages in Bachelor Thesis)
 	- Operation birefly explained (1.5 pages)
 	- Tx, Rx, and IF waveform shapes (1 page)
 	- Range and velocity determination (0.5 page)
 	- Micro-Doppler extraction (phase unwrapping, time-frequency analysis) (1 page)
 
-15.11 - First experiments with joint measurement   (first test trials);   Literature Review on Vital Signs (fast, brief, general)
-22.11 - All Experiments Performed    (second trials, beamforming);   Algorithms for Measuring Vital Signs (Descriptions, Comparison)
-29.11 - Literature Review on Fall Detection   ;  Algorithms for Detecting Human Falls (Descriptions, Comparison)
-06.12.2025 - All results placed
-13.12.2025 - Technical limitations
-20.12.2025 - Non-Technical Limitations
-31.12.2025 - First Version of Finished Document
+[DONE] 15.11 - First experiments with joint measurement   (first test trials);   
+[20%] 10.01.2026 - Literature Review on Vital Signs (fast, brief, general)
+[DONE OR ALMOST DONE] All Experiments Performed    (second trials, beamforming);
+- Implement Pedro's comments  [+2 days]
+[30%] - Vital signs algorithms implementations [+1 week]
+- Algorithms for Measuring Vital Signs (Descriptions, Comparison) [+1 week]
+- Literature Review on Fall Detection [+1 week]
+- Algorithms for Detecting Human Falls (Descriptions, Comparison) [+1 week]
+- All results placed  [+1 week]
+- Technical limitations [+1 week]
+- Non-Technical Limitations [+1 week]
+- First Version of Finished Document  [+2 weeks]
 
 
 //13.12.2025 - Complete system implemented with all planned functionalities
@@ -111,6 +73,11 @@ Formalities
 08.02.2026 - Last day of registration for PDYM
 15.02.2026 - Deadline for submitting the document
 
+
+
+  
+
+========== MEASUREMENTS PLANNING ================
 
 
 
@@ -147,35 +114,8 @@ Phaser: Enable beamforming or ensure if it is done in default presentation scrip
 - change experiments part to algorithms descriptions
 - do measurements asap
 
-  
-
-///////////////////////
-Changed structure
-
-Algorithm Development and Test Environment
-
-\subsection{Results on Vital Signs Measurement}
-\subsubsection{Breath-Based Human Detection}
-
-\subsection{Results on Detecting Human Falls}
 
 
-\subsection{Technical Limitations}
-\subsubsection{Power Consumption}
-\subsubsection{Computational Complexity}
-
-\subsection{Non-Technical Limitations}
-\subsubsection{Impact of Radio Waves on Health}
-\subsubsection{Legal Sanctions and Permissible Power}
-
-\subsection{Assessment of the Usefulness of the Solution}
-\subsubsection{Possible Applications}
-\subsubsection{System Costs and Attractiveness}
-
-
-  
-
-==========
 
 Pomiary wstepne
 W kolejności:
@@ -203,9 +143,6 @@ W kolejności:
 
 - pomiar jednoczesny zachowań
  1. vmax musi byc przynajmniej 10, czyli PRF=5000, moduł 24 GHz, to będzie 15.625 m/s (v_max = (PRF * λ) / 4)
-
-
-
 
 
 
@@ -250,22 +187,8 @@ Pomiary na 18.11:
 
 
 
+====================== Implementacje algorytmów =============
 
-
-Metody przetwarzania
-
-W metodach ekstrakcji parametrów życiowych z sygnałów radarowych można wyróżnić kilka głównych ścieżek, na których bazują bardziej specyficzne i ulepszone podejścia.
-Znaczna część metod przynajmniej w części bazuje na transformacie Fouriera [], co jest dość naturalnym wyborem, bo charakter aktywności serca i oddechu generuje przeważnie sygnały quasi-okresowe.
-
-Także w tej pracy, opisywane metody przetwarzania będą na ostatnim wspólnym etapie używać transformaty Fouriera bazując na quasi-periodicity of the signals to extract heart rate and respiratory rate. The only exception is feature-based approach which detects each heart activity cycle to compute inter-beat intervals.
-
-Część podejść wykorzystuje transformację falkową, przeważnie do dekompozycji sygnałów na składowe lub filtracji szumu []. Inne podejścia, w celu dekompozycji wykorzystują metody iteracyjne, najczęściej Variational Mode Decomposition [], oraz pochodne Empirical Mode Decomposition []. Są one szczególnie istotne w random body movements cancellation.
-
-Dla przedstawienia zmienności tętna i breathing rate w czasie, wykorzystywana jest transformacja synchrosqueezingowa, bazująca na transformacji Fouriera. W ten sposób, czasowo-częstotliwościowe dystrybucje zawierające komponenty związane z wartościami parametrów życiowych są przedstawione w czytelny sposób i stanowią wejście do algorytmu ich selekcji. Ta czasowo częstotliwościowa metoda jest szczególnie istotna do określenia chwilowego poziomu zgodności poszczególnych metod przetwarzania w porównaniu z pomiarem referencyjnym pracy tętna.
-
-
-Ogólnie pokazać działanie metod bazujących na końcu na transformacie Fouriera
-C:\Users\bfalecki\Documents\praca_mgr
 
 - zrobić moduł do przetwarzania coś na kształt CVD (2h)
 	- pozbycie się clutteru, czyli składowej stałej (czy to zawsze zadziała?)

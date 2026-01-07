@@ -140,3 +140,23 @@ Dong, X.; Feng, Y.; Cui, C.; Lu, J. CEEMDAN-ICA-Based Radar Monitoring of Adjace
 
 
 }
+
+
+====================== CONTENT TO ADD ======================
+
+
+Metody przetwarzania
+
+W metodach ekstrakcji parametrów życiowych z sygnałów radarowych można wyróżnić kilka głównych ścieżek, na których bazują bardziej specyficzne i ulepszone podejścia.
+Znaczna część metod przynajmniej w części bazuje na transformacie Fouriera [], co jest dość naturalnym wyborem, bo charakter aktywności serca i oddechu generuje przeważnie sygnały quasi-okresowe.
+
+Także w tej pracy, opisywane metody przetwarzania będą na ostatnim wspólnym etapie używać transformaty Fouriera bazując na quasi-periodicity of the signals to extract heart rate and respiratory rate. The only exception is feature-based approach which detects each heart activity cycle to compute inter-beat intervals.
+
+Część podejść wykorzystuje transformację falkową, przeważnie do dekompozycji sygnałów na składowe lub filtracji szumu []. Inne podejścia, w celu dekompozycji wykorzystują metody iteracyjne, najczęściej Variational Mode Decomposition [], oraz pochodne Empirical Mode Decomposition []. Są one szczególnie istotne w random body movements cancellation.
+
+Dla przedstawienia zmienności tętna i breathing rate w czasie, wykorzystywana jest transformacja synchrosqueezingowa, bazująca na transformacji Fouriera. W ten sposób, czasowo-częstotliwościowe dystrybucje zawierające komponenty związane z wartościami parametrów życiowych są przedstawione w czytelny sposób i stanowią wejście do algorytmu ich selekcji. Ta czasowo częstotliwościowa metoda jest szczególnie istotna do określenia chwilowego poziomu zgodności poszczególnych metod przetwarzania w porównaniu z pomiarem referencyjnym pracy tętna.
+
+
+
+<Ogólnie pokazać działanie metod bazujących na końcu na transformacie Fouriera>
+
