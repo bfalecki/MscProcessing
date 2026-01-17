@@ -3,7 +3,7 @@ classdef SlowTimePhase < SlowTimeSignalAny
     %   Detailed explanation goes here
     
     properties
-        phase
+        phase % phase signal
     end
     
     methods
@@ -33,6 +33,20 @@ classdef SlowTimePhase < SlowTimeSignalAny
             end
             xlabel("Time [s]")
             ylabel("Unwrapped Phase [rad]")
+        end
+
+        function plotPhaseDiff(obj)
+            % display phase diff signal
+            t_ax = obj.getTimeAx();
+            plot(t_ax(1:end-1),diff(obj.phase.')*obj.signalInfo.PRF);
+            if(obj.resamplingWasApplied)
+                warning("Missing amplitude correction due to resampling: obj.signalInfo.PRF / decimRank")
+            end
+            if(~isscalar(obj.actualRangeCellsMeters))
+                legend(string(obj.actualRangeCellsMeters) + " m")
+            end
+            xlabel("Time [s]")
+            ylabel("Unwrapped Phase Diff. [rad/s]")
         end
 
         function t_ax = getTimeAx(obj)

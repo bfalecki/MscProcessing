@@ -1,6 +1,8 @@
 FORMAT:
 
-----------------------------------[CLOSED / READY (to implement) / OPEN (needs fix)]
+----------------------------------[CLOSED (fixed and applied) / READY (to implement) / OPEN (needs fix)]
+				  [OPEN/CLOSED (fixed but can be improved)]
+PERSON
 DOCUMENT_NAME
 page 
 "Content"
@@ -10,9 +12,10 @@ COMMENT:
 
 FIX:
 
+============================================================================
 
-
-----------------------------------READY
+----------------------------------CLOSED
+Pedro
 MSc_thesis_25.10_PG.pdf
 page 5.9
 "The second functionality is the classification of human behavior in the context of detecting dangerous falls."
@@ -25,7 +28,8 @@ FIX:
 
 
 
-----------------------------------OPEN
+----------------------------------OPEN/CLOSED
+Pedro
 MSc_thesis_25.10_PG.pdf
 page 5.99
 "The measurement of vital signs and the detection of falls will be performed continuously in near real time."
@@ -36,10 +40,13 @@ do this real time works for both systems?
 FIX:
 if I manage to implement fall detection in real-time for CN0566
 "In case of CN0566, the measurement of vital signs and the detection of falls will be performed continuously in near real time."
+if not, then
+"Almost all the processing methods will be performed offline, but in case of CN0566, the measurement of vital signs will be also performed continuously in near real time."
 
 
 ----------------------------------OPEN
-DOCUMENT_NAME
+Pedro
+MSc_thesis_25.10_PG.pdf
 page 6
 "Additionally, the system will be able to detect the presence
 of a person within the range of the beam based on their movements. In the case of the
@@ -51,4 +58,30 @@ COMMENT:
 this may be change based on actual final development of the system
 
 FIX:
+
+
+----------------------------------OPEN
+Bartosz
+MSc_thesis_25.10_PG.pdf
+page 5.8
+"Scope of the work"
+
+COMMENT:
+This section needs to be dramatically changed:
+- actually not developing the monitoring system, but the investigation on processing methods and two different radars
+- own methods vs state-of-the-art
+- XY-DemoRad and CN0566 'for a comparison'
+- "functionalities" -> "applications", as functionalities is a word related to a complete system
+"based on their movement" -> "based on the respiratory-related movements"
+- "the beam will automatically follow the person" -> "the receiving beam will find the direction of human-echo"
+	https://www.passion-radio.com/shf/vivaldi18-779.html
+	file:///home/user/Downloads/5-18GHzSweep.pdf
+	
+	szerokość wiązki anteny nadawczej to będzie 55-70 stopni w azymucie (3dB spadek mocy) wg chatGPT
+	https://chatgpt.com/share/696b8dbc-2f78-8003-8cfe-74643257bdea
+	To znaczy że sterowanie wiązką odbiorczą jak najbardziej ma sens!
+
+
+
+
 

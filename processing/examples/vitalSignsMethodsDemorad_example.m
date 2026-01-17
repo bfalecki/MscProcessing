@@ -19,6 +19,7 @@ fast_time_data_end = [];
 rangeCellMeters = [0.25 0.35];
 skipSamples = 1e6*0;
 readSamples = 1e6*10;
+conjugated = 1;
 
 config_name = filename + ".conf";
 filePath = folder + filename;
@@ -32,7 +33,8 @@ cfg = readConfigDemorad(configPath);
 rawData = readRawDemorad(filePath, ...
     drcfg2signalInfo(cfg), ...
     "SkipSamples",skipSamples, ...
-    "Samples",readSamples);
+    "Samples",readSamples, ...
+    "Conjugated",conjugated);
 
 %% Pre-Processing and Display
 % create range time map
@@ -48,22 +50,34 @@ slowTimeSignal = rtm2sts(rangeTimeMap,rangeCellMeters);
 slowTimePhase = sts2stp(slowTimeSignal,"method","atan");
 
 % demonstration
-figure(1); plot(slowTimePhase.phase.'); legend(string(slowTimePhase.actualRangeCellsMeters) + " m")
+figure(1); slowTimePhase.plotPhase()
 figure(2); rangeTimeMap.plotMap()
 figure(3); rawData.plotIQ()
+
 
 %% manually select range cell - later it will be auto-detection here
 range_cell_of_choice = 0.28;
 slowTimePhase.selectSingleCell(range_cell_of_choice);
+slowTimeSignal.selectSingleCell(range_cell_of_choice);
+figure(4); slowTimeSignal.plotSignal();
+figure(5); slowTimePhase.plotPhaseDiff()
 
 %% Perhaps some pre-processing (if needed)
+
 % peaksFiltering
+figure(10)
+slowTimePhase = slowTimeSignal.removePhaseDiscontinuities("Display",1);
+figure(40); slowTimeSignal.plotSignal();
+figure(41); slowTimePhase.plotPhase();
+figure(50); slowTimePhase.plotPhaseDiff();
+
+% for now, we can skip resampling
 
 %% PhaseStftHearbeatExtractor
 pshe = PhaseStftHearbeatExtractor();
 pshe.process(slowTimePhase);
-figure(11); pshe.plotHeartbeatSignal;
-figure(12); pshe.plotStft;
+figure(111); pshe.plotHeartbeatSignal;
+figure(121); pshe.plotStft;
 
 %% FsstDecomposer
 fsstDec = FsstDecomposer();
