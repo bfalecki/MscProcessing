@@ -26,6 +26,9 @@ end
     ch1 = data(2:2:end);
     dechirped = complex(ch0,ch1);
 
+    % add offset regarding opts.skipSamples
+    signalInfo.timeStart = signalInfo.timeStart + seconds(opts.skipSamples/1e6);
+
     % conversion from vector to matrix
     data_matr = drGetMatrix(dechirped,signalInfo, "Conjugated", opts.Conjugated);
 

@@ -53,6 +53,19 @@ classdef SlowTimePhase < SlowTimeSignalAny
             t_ax = 0: 1/obj.signalInfo.PRF : (size(obj.phase,2)-1) / obj.signalInfo.PRF;
         end
 
+        % abstract methods implementations for TimeFrequencyAnalyzable
+        function startDateTime = getStartDateTime(obj)
+            startDateTime = obj.signalInfo.timeStart;
+        end
+        function samplingFrequency = getSamplingFrequency(obj)
+            if(obj.resamplingWasApplied)
+                error("Resampling not supported")
+            end
+            samplingFrequency = obj.signalInfo.PRF;
+        end
+        function signal = getSignal(obj)
+            signal = obj.phase;
+        end
     end
 end
 

@@ -1,4 +1,4 @@
-classdef PhaseStftHearbeatExtractor < handle
+classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
     %PHASESTFTHEARBEATEXTRACTOR Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -20,6 +20,7 @@ classdef PhaseStftHearbeatExtractor < handle
         t_ax % [s] time axis of stft
         f_ax % [Hz] frequency axis of stft
         sp % stft IQ samples
+        fs_stft % sampling frequency of the stft (along time axis)
     end
     
     methods
@@ -98,7 +99,7 @@ classdef PhaseStftHearbeatExtractor < handle
             
             % STFT calculation
             
-            [obj.sp,obj.f_ax,obj.t_ax,fs_stft,overlap_len] = stft_general( ...
+            [obj.sp,obj.f_ax,obj.t_ax,obj.fs_stft,overlap_len] = stft_general( ...
                 signal,slowTimePhase.signalInfo.PRF,...
                 "DesiredTimeRes",obj.desiredTimeRes, ...
                 "FrequencyResolution",obj.frequencyResolution,...
@@ -112,7 +113,7 @@ classdef PhaseStftHearbeatExtractor < handle
                 "LogScale",0);
 
             obj.heartbeatSignal = highpass(heart_cycles_detected, ...
-                obj.resultCutoffFreqLow / (fs_stft/2));
+                obj.resultCutoffFreqLow / (obj.fs_stft/2));
 
             % if phaser, we do the autoregressive prediction
             if(strcmp(slowTimePhase.signalInfo.device, "phaser"))
@@ -120,7 +121,7 @@ classdef PhaseStftHearbeatExtractor < handle
                 [start_samples_stft,end_samples_stft] = convert_segments_sp(...
                     slowTimePhase.segmentStartIndices, ...
                     slowTimePhase.segmentEndIndices, ...
-                    slowTimePhase.signalInfo.PRF, fs_stft, overlap_len);
+                    slowTimePhase.signalInfo.PRF, obj.fs_stft, overlap_len);
                 % also binary idxes are necessary
                 segments_idxes_stft = get_segments_idxes(start_samples_stft,end_samples_stft, length(obj.heartbeatSignal));
 
@@ -130,13 +131,26 @@ classdef PhaseStftHearbeatExtractor < handle
 
                 % now we must perform signal prediction in breaks
                 obj.heartbeatSignal = fill_gaps_ar_wrapped(obj.heartbeatSignal,...
-                    fs_stft, segments_idxes_stft,slowTimePhase.segmentDuration,"PartConsidered",1);
+                    obj.fs_stft, segments_idxes_stft,slowTimePhase.segmentDuration,"PartConsidered",1);
                 
                 % also, we can zero-out sp in breaks
                 obj.sp(:,~segments_idxes_stft) = 0;
             end
 
         end
+
+
+        % Abstract methods implementations for TimeFrequencyAnalyzable
+        function startDateTime = getStartDateTime(obj)
+            startDateTime = obj.slowTimePhase.signalInfo.timeStart;
+        end
+        function samplingFrequency = getSamplingFrequency(obj)
+            samplingFrequency = obj.fs_stft;
+        end
+        function signal = getSignal(obj)
+            signal = obj.heartbeatSignal;
+        end
+
     end
 end
 
