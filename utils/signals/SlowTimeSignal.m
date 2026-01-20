@@ -16,6 +16,7 @@ classdef SlowTimeSignal < SlowTimeSignalAny
 
         function setSignal(obj,signal)
             obj.signal = signal;
+            
         end
 
         function selectSingleCell(obj, rangeCellMeters)
@@ -87,6 +88,22 @@ classdef SlowTimeSignal < SlowTimeSignalAny
             obj.signal = filter_phase_jumps(obj.signal, unwrapped_phase_diff,filtered_phase_diff);
             obj.phaseDiscontinuitiesRemoved = 1;
         end
+
+        % abstract methods implementations
+        function startDateTime = getStartDateTime(obj)
+            startDateTime = obj.signalInfo.timeStart;
+        end
+        function samplingFrequency = getSamplingFrequency(obj)
+            if(obj.resamplingWasApplied)
+                error("Resampling not supported")
+            end
+            samplingFrequency = obj.signalInfo.PRF;
+        end
+        function signal = getSignal(obj)
+            signal = obj.signal;
+        end
+
     end
+
 end
 

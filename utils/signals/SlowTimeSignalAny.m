@@ -1,4 +1,4 @@
-classdef  (Abstract) SlowTimeSignalAny < handle
+classdef  (Abstract) SlowTimeSignalAny < handle & TimeFrequencyAnalyzable
     %SLOWTIMESIGNALANY kind of abstract class as a base
     
     properties

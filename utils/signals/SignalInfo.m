@@ -26,7 +26,7 @@ classdef SignalInfo
                 opts.postRxTimes = []
             end
             obj.PRF = opts.PRF;
-            obj.timeStart = opts.timeStart;
+            obj.timeStart = datetime(opts.timeStart);
             obj.device = opts.device;
             obj.carrierFrequency = opts.carrierFrequency;
             obj.bandWidth =  opts.bandWidth;
