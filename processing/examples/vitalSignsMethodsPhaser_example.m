@@ -2,7 +2,7 @@ folder = "C:\Users\bfalecki\Documents\challenge\rec\";
 filename = "phaser_rec_04-Dec-2025_18-23-11_vs0.5m.mat";
 rangeCellMeters = [0.25 1];
 
-rawData = readRawPhaser(folder+filename,"lengthSeconds",30,"offsetSeconds",40);
+rawData = readRawPhaser(folder+filename,"lengthSeconds",120,"offsetSeconds",30);
 
 %%
 figure(1); rawData.plotIQ()
@@ -56,12 +56,15 @@ bphe = BandPassHeartbeatExtractor("PassBand",[0.8 1.5]);
 bphe.process(slowTimePhase)
 figure(991); bphe.plotResult()
 
-fa = FsstAnalyzer("WindowWidth",5);
-fa.transform(bphe)
-fa.detectRidge( ...
+fa1 = FsstAnalyzer("WindowWidth",5);
+fa1.transform(bphe)
+fa1.detectRidge( ...
     "NuberOfRidges",3, ...
     "SelectMethod","first", ...
     "JumpPenalty",20)
-figure(992); fa.plotResults("QuantileVal",0.5,"AllRidges",1)
+figure(992); fa1.plotResults("QuantileVal",0.5,"AllRidges",1)
 
 %% Reference
+referencePath = "C:\Users\bfalecki\Documents\challenge\reference\kalenji\2025-12-04.fit";
+hre = HeartRateReference(referencePath,"ManualTimeShift",1);
+figure(999);hre.plot("otherResults",[fa fa1])

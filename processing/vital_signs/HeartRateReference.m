@@ -33,7 +33,7 @@ classdef HeartRateReference < handle & HeartRateComparable
             hold on
             extractorNames = string([]);
             for k = 1:length(opts.otherResults)
-                plot(opts.otherResults(k).getTimeAxisDateTime(), opts.otherResults(k).getHeartRate())
+                plot(opts.otherResults(k).getTimeAxisDateTime(), opts.otherResults(k).getHeartRate()*60)
                 extractorNames(k) = string(class(opts.otherResults(k).timeFrequencyAnalyzable));
             end
             legend(["Reference", extractorNames])
