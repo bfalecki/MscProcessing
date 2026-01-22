@@ -49,6 +49,7 @@ classdef FsstAnalyzer < handle & HeartRateComparable
                 timeFrequencyAnalyzable TimeFrequencyAnalyzable
             end
 
+            
             obj.timeFrequencyAnalyzable = timeFrequencyAnalyzable;
             [obj.synchrosqueezed,obj.f_ax,obj.t_ax] = synchrosqueezing_general( ...
                 obj.timeFrequencyAnalyzable.getSignal(), ...
@@ -130,7 +131,7 @@ classdef FsstAnalyzer < handle & HeartRateComparable
             heartRate = obj.ridge;
         end
         function timeAxisDateTime = getTimeAxisDateTime(obj) % time axis in dateTime format
-            timeAxisDateTime = obj.timeFrequencyAnalyzable.startDateTime + seconds(obj.t_ax);
+            timeAxisDateTime = obj.timeFrequencyAnalyzable.getStartDateTime() + seconds(obj.t_ax);
         end
         function timeAxis = getTimeAxis(obj) % time axis in seconds
             timeAxis = obj.t_ax;
