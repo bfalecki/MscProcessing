@@ -10,6 +10,19 @@ Radar-Based Monitoring of Vital Signs: A Tutorial Overview
 https://ieeexplore.ieee.org/document/10049295
 40 pages, 2023, first google site
 
+Human Vital Signs Detection Methods and Potential Using Radars: A Review
+- przeglad pod katem wykorzystania radarow i innych sensorow
+
+
+===============================================
+OTHER NON-CONTACT HEARTBEAT MEASUREMENT APPROACHES
+===============================================
+
+Photoplethysmography revisited: from contact to noncontact, from point to imaging, 2017{
+	Non-contact Reflection Photoplethysmography Towards Effective Human Physiological Monitoring
+	2010, after []
+	- Non-contact Reflection Photopletysmography
+}
 
 
 ===============================================
@@ -53,6 +66,13 @@ A contactless human vital sign monitoring system using a Doppler radar
 https://www.sciencedirect.com/science/article/pii/S1746809425007347
 2025, very long
     heartbeat detection algorithm, seems deep and advenced
+    
+    
+A Deterministic Method for Contactless Monitoring <------------------------
+of Vital Signs Using Multiple FMCW Radars in the
+24 GHz Band
+2025, 31 pages
+proposed algorithm ... outperforms well known vital signs estimation methods
 
 
 ==============================================

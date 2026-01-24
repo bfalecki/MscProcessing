@@ -1,0 +1,86 @@
+
+
+\section{Introduction}
+
+
+Wzrost technologii radarowej w ostatnich dekadach zapewnił wspaniałe możliwości związane z remote sensing. 
+W szczególności, radar-based vital signs measurement jest atrakcyjnym zastosowaniem ze względu na non-contact operation, w odróżnieniu od electrocardiography, photoplethysmography, or phonocardiography in case of heartbeat, and spirometry, or chest diameter sensing in case of respiratory.
+Istnieją także inne metody, ale ich zastosowanie często wiązę sie
+
+
+- laser, visible-light and infrared cameras
+
+- vital signs measurement with 10 GHz ADALM-Phaser (ADI CN0566), a low-cost simplified phased array system.
+- Te słowa muszą się pojawić: Radar, heartbeat, breath/respiratory
+- Wykorzystanie wysokoczęstotliwościowych komponentów detekowanych używając time-frequency analysis, w porównaniu ze standardową metodą bazującą na podstawowych częstotliwościach pracy serca.
+- Przetwarzanie w MATLAB odporne na nieciągłość sygnału spowodowaną ograniczeniami hardware'u, wykorzystujące autoregresywną predykcję.
+- kilka nowych pozycji literaturowych, mogą być te zaawansowane
+- przeczytać kilka wprowadzeń aby zaczerpnąć więcej pomysłów...
+- First time, heartbeat and respiratorion measurement using ADALM-Phaser was reported in [1,2] as a part of the 2025 IEEE AESS Radar Challenge. This work provides a deeper inside tego zastosowania, pokazując potencjał ADALM-Phaser do detekcji human respiratory and sub-millimeter oscillations related to heartbeat.
+
+
+
+
+
+[1] - 	Healthcare Radar Project
+	Vital Signs Measurement Using ADI CN0566 Phased Array and MATLAB
+	Bartosz Falęcki, Rafał Najda, Radosław Maksymiuk, Alicja Misterka, Jan Dzwonnik
+[2] -	2025 IEEE RADAR CHALLENGE
+	BREATHING RATE ESTIMATION OF THE DETECTED INDIVIDUAL
+	 USING CN0566 10GHZ PHASED ARRAY RADAR PLATFORM
+	Okyanus Oral, Jyoti Bhatia, Seyedeh Fatemeh MIRHOSSEINI, Dipankar Saha
+
+
+\section{ADALM-Phaser}
+
+- A device developed by Jon Kraft, a 10 GHz low-cost simplified phased array system.
+- Great for educational and technology prototyping purposes.
+- Allows for analog beamforming
+- zdjęcie
+- W obecnej wersji sprzętu, pewnym ograniczeniem jest nagrywanie danych w ramkach, co skutkowało przerwami w sygnale. Jednakże, przy pomiarze parametrów życiowych ta drawback dość łatwo została mitigated, z wykorzystaniem autoregresywnej predykcji w przerwach w ramach post-processingu.
+
+\section{Pre-Processing}
+The pre-processing part is a common part for both reference and proposed method.
+It consists of:
+- filling gaps with zeros (Układanie segmentów wg sygnatury czasu w jeden sygnał z zerami w przerwach)
+- removing outstanding values using non-linear filter (Removing minor phase discontinuities)
+- phase extraction and unwrapping
+
+\section{Vital Signs Extraction}
+
+- respiratory: Unwrapped phase signal already represents the displacement waveform of the human chest due to the respiratory movement. It can be further improved by filtering out too high and too low frequencies.
+- heartbeat: differentiation of unwrapped phase
+
+
+\section{Extraction of Time-Varying Vital Parameters}
+
+- Common step for all used methods, both heartbeat and respiratory
+- Synchrosqueezed STFT
+- Formulas
+- Time-frequency ridge detection (tfridge function)
+- 
+
+\section{Experimental Results}
+
+
+
+
+
+
+Conclusions
+
+
+- The ability of ADALM-Phaser for vital signs measurements has been demostrated.
+- W przyszłości zostaną przeprowadzone testy detekcji człowieka przez jego sygnały życiowe, wykorzystując sterowanie wiązką odbiorczą.
+
+
+
+- Kody MATLABa dostępne są w repozytorium:
+
+
+Acknowledgment
+- Analog Devices for providing the ADALM-Phaser kit for this research.
+- Jon Kraft for help with the device during the project, Stephanie Bidon and others for coordinating the IEEE AESS Radar Challenge 2025.
+- MathWorks for providing the examples of using ADALM-Phaser controlled by MATLAB for the purpose of this contest.
+
+
