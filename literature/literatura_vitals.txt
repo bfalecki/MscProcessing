@@ -15,7 +15,7 @@ Human Vital Signs Detection Methods and Potential Using Radars: A Review
 
 
 ===============================================
-OTHER NON-CONTACT HEARTBEAT MEASUREMENT APPROACHES
+OTHER NON-CONTACT Heartbeat MEASUREMENT APPROACHES
 ===============================================
 
 Photoplethysmography revisited: from contact to noncontact, from point to imaging, 2017{
@@ -23,6 +23,18 @@ Photoplethysmography revisited: from contact to noncontact, from point to imagin
 	2010, after []
 	- Non-contact Reflection Photopletysmography
 }
+
+On-chip LASER DOPPLER VIBROMETER for arterial pulse wave velocity measurement
+- heartbeat, pomiar na szyi
+
+An Improved Vital Signal Extraction Method Based on Laser Doppler Effect, 2024, journal
+- hearbeat i respiratory, pozycja tak jak radar
+
+===============================================
+OTHER NON-CONTACT Respiratory MEASUREMENT APPROACHES
+===============================================
+
+An Evaluation of Non-Contact Photoplethysmography-Based Methods for Remote Respiratory Rate Estimation, 2023
 
 
 ===============================================
@@ -93,6 +105,8 @@ Remote Vital Sensing in Clinical Veterinary Medicine: A Comprehensive Review of 
 https://pmc.ncbi.nlm.nih.gov/articles/PMC11988085/
 - CW, FMCW, UWB for vital signs
 
+
+Fair non-contact BLOOD PRESSURE estimation using imaging photoplethysmography, 2024
 
 ===============================================
 ALL TYPES OF PROCESSING METHODS
