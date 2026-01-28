@@ -149,14 +149,14 @@ plot(fa.f_ax(locs)*60, 'k')
 plot(fa12.f_ax(locs12)*60, 'b', LineWidth=2)
 hold off
 
-%% Comparison with Reference: RMSE with Memory
+%% Comparison with Reference: RMSE with Memory ------- 
 referencePath = "C:\Users\bfalecki\Documents\challenge\reference\kalenji\2025-12-04.fit";
 hre = HeartRateReference(referencePath,"ManualTimeShift",1);
 figure(999);hre.plot("otherResults",[fa fa1 fa12])
 errors = hre.calucateError([fa fa1 fa12]);
 disp("RMSE with memory in BPM: " + join(string(errors)))
 
-%% Comparison with Reference: RMSE without Memory
+%% Comparison with Reference: RMSE without Memory - - -  -
 fa.ridge = fa.f_ax(locs);
 fa1.ridge = fa1.f_ax(locs1);
 fa12.ridge = fa12.f_ax(locs12);
