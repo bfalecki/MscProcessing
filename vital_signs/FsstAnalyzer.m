@@ -68,7 +68,7 @@ classdef FsstAnalyzer < handle & HeartRateComparable
                 opts.JumpPenalty = 0.02 ; % jump penalty
                 opts.NuberOfRidges = 1; % how many ridges to find
                 opts.SelectMethod = "first"; % method for selection one tfridge
-                        % "lowest" / "first" / "nearest"
+                        % "lowest" / "first" / "nearest" / "middle"
                 opts.DesiredNearestFrequency = [] ; % desired nearest frequency to select tfridge
                         % only when SelectMethod is "nearest"
             end
@@ -95,6 +95,10 @@ classdef FsstAnalyzer < handle & HeartRateComparable
                     obj.ridge_idx = 1;
                 case "nearest"
                     [~, obj.ridge_idx] =  min(abs(mean(obj.ridges) - opts.DesiredNearestFrequency));
+                case "middle"
+                    mean_values= mean(obj.ridges);
+                    median_mean = median(mean_values);
+                    [~, obj.ridge_idx] =  min(abs(mean_values - median_mean));
             end
             obj.ridge = obj.ridges(:,obj.ridge_idx);
 
@@ -106,6 +110,7 @@ classdef FsstAnalyzer < handle & HeartRateComparable
                 obj 
                 opts.QuantileVal = 0.2; % threshold quantile
                 opts.AllRidges = 1; % whether to plot all ridges, but only one more prominent
+                opts.PlotRidges = 1; % whether to plot any ridges
             end
 
             f_ax_bpm = obj.f_ax*60;
@@ -117,13 +122,15 @@ classdef FsstAnalyzer < handle & HeartRateComparable
             c.Label.String = 'Energy [dB]';
             ylabel("Frequency [BPM]"); xlabel("Time [s]");
             title("Synchrosqueezed STFT");
-            hold on
-            plot(obj.t_ax, ridges_bpm(:, 1:end == obj.ridge_idx),'Color','r','LineWidth',1.5,'LineStyle','--')
-            if(opts.AllRidges && size(ridges_bpm,2) > 1)
-                plot(obj.t_ax, ridges_bpm(:, 1:end ~= obj.ridge_idx),'Color','g','LineWidth',1.2,'LineStyle','--')
-                legend({'Selected', 'Rejected'})
+            if(opts.PlotRidges)
+                hold on
+                plot(obj.t_ax, ridges_bpm(:, 1:end == obj.ridge_idx),'Color','r','LineWidth',1.5,'LineStyle','--')
+                if(opts.AllRidges && size(ridges_bpm,2) > 1)
+                    plot(obj.t_ax, ridges_bpm(:, 1:end ~= obj.ridge_idx),'Color','g','LineWidth',1.2,'LineStyle','--')
+                    legend({'Selected', 'Rejected'})
+                end
+                hold off
             end
-            hold off
         end
 
         % Abstract methods implementations for HeartRateComparable
