@@ -40,3 +40,6 @@ git pull-processing
 ❌ Nie commituj bezpośrednio w repo-B
 ❌ Nie rób git clone do processing/
 ✅ Repo-A = jedyne źródło prawdy
+
+
+git subtree split --prefix=processing -b processing-split
