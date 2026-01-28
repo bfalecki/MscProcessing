@@ -94,7 +94,9 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
             % [signal,actual_fs, t_resampled]= set_fs(signal, PRF,desired_fs);
             
             % % we need then high-pass filter to cancel clutter and breath movement in spectrogram
-            signal = highpass(signal, obj.phaseCutoffFreqLow / (slowTimePhase.signalInfo.PRF/2));
+            if(obj.phaseCutoffFreqLow ~= 0)
+                signal = highpass(signal, obj.phaseCutoffFreqLow / (slowTimePhase.signalInfo.PRF/2));
+            end
             
             
             % STFT calculation
@@ -106,13 +108,14 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
                 "WindowWidth",obj.windowWidth, ...
                 "MaximumVisibleFrequency", obj.maximumVisibleFrequency);
             
-            % sp = sp ./ sum(abs(sp),2);
+            % obj.sp = obj.sp ./ sum(abs(obj.sp),2);
+            % obj.sp = db(obj.sp);
             % extract heart cycles signal
-            heart_cycles_detected = extract_env_sp(obj.sp,obj.f_ax, ...
+            obj.heartbeatSignal = extract_env_sp(obj.sp.^2,obj.f_ax, ...
                 "FreqRange",obj.heartOscillationFreqRange, ...
                 "LogScale",0);
 
-            obj.heartbeatSignal = highpass(heart_cycles_detected, ...
+            obj.heartbeatSignal = highpass(obj.heartbeatSignal, ...
                 obj.resultCutoffFreqLow / (obj.fs_stft/2));
 
             % if phaser, we do the autoregressive prediction
@@ -129,9 +132,9 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
                 obj.heartbeatSignalBreaks = obj.heartbeatSignal;
                 obj.heartbeatSignalBreaks(~segments_idxes_stft) = nan;
 
-                % now we must perform signal prediction in breaks
-                obj.heartbeatSignal = fill_gaps_ar_wrapped(obj.heartbeatSignal,...
-                    obj.fs_stft, segments_idxes_stft,slowTimePhase.segmentDuration,"PartConsidered",1);
+                % % now we must perform signal prediction in breaks
+                % obj.heartbeatSignal = fill_gaps_ar_wrapped(obj.heartbeatSignal,...
+                %     obj.fs_stft, segments_idxes_stft,slowTimePhase.segmentDuration,"PartConsidered",1);
                 
                 % also, we can zero-out sp in breaks
                 obj.sp(:,~segments_idxes_stft) = 0;
@@ -142,7 +145,7 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
 
         % Abstract methods implementations for TimeFrequencyAnalyzable
         function startDateTime = getStartDateTime(obj)
-            startDateTime = obj.slowTimePhase.signalInfo.timeStart;
+            startDateTime = obj.slowTimePhase.signalInfo.timeStart + seconds(min(obj.t_ax));
         end
         function samplingFrequency = getSamplingFrequency(obj)
             samplingFrequency = obj.fs_stft;

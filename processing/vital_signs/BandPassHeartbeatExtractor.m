@@ -1,6 +1,6 @@
 classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable
     %BANDPASSHEARTBEATEXTRACTOR 
-    % This function is the simplest way ever to extract heartbeat signal
+    % This method is the simplest way ever to extract heartbeat signal
     % It can state as a reference method for other, more complex methods to
     % clearly see whether there is an improvement or not.
     
@@ -75,6 +75,12 @@ classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable
         end
         function signal = getSignal(obj)
             signal = obj.heartbeatSignal;
+        end
+
+        function [startIndices, endIndices] = getSegmentsStartsEnds(obj)
+            sampling_freq_ratio = obj.getSamplingFrequency / obj.slowTimePhase.getSamplingFrequency;
+            startIndices = round(obj.slowTimePhase.segmentStartIndices * sampling_freq_ratio);
+            endIndices = round(obj.slowTimePhase.segmentEndIndices * sampling_freq_ratio);
         end
 
     end

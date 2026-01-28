@@ -77,3 +77,9 @@ Jeśli pisanie jest w lokalnym repozytorium, należy zaznaczyć tę treść i ws
 Aktualizować zmiany z poziomu komputera każdorazowo po zakończeniu pracy.
 
 Przed rozpoczęciem pracy na komputerze upewnić się, że zmiany na telefonie zostały wprowadzone do bierzącego miejsca pisania.
+
+
+link do kodów
+https://github.com/bfalecki/MscProcessing
+Oraz link do nagrań sygnałów życiowych Phaserem z trzech różnych odległości + referencyjny pomiar tętna pulsometrem
+https://wutwaw-my.sharepoint.com/:f:/g/personal/01158532_pw_edu_pl/IgCyLBGLlGBhQ58fUNB9YfwrAaHMXMbCEfpWDKbRD6HEAZU?e=sMKBe3

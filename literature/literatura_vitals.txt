@@ -13,6 +13,10 @@ https://ieeexplore.ieee.org/document/10049295
 Human Vital Signs Detection Methods and Potential Using Radars: A Review
 - przeglad pod katem wykorzystania radarow i innych sensorow
 
+Radar-based non-contact heart rate monitoring: A comprehensive review
+2026
+- porównanie roznych metod i radarow pod katem bledu pomiaru
+
 
 ===============================================
 OTHER NON-CONTACT Heartbeat MEASUREMENT APPROACHES
@@ -26,9 +30,21 @@ Photoplethysmography revisited: from contact to noncontact, from point to imagin
 
 On-chip LASER DOPPLER VIBROMETER for arterial pulse wave velocity measurement
 - heartbeat, pomiar na szyi
+- (vibrocardiography)
 
 An Improved Vital Signal Extraction Method Based on Laser Doppler Effect, 2024, journal
 - hearbeat i respiratory, pozycja tak jak radar
+
+https://cdn.intechopen.com/pdfs/27007/InTech-Non_contact_heart_monitoring.pdf
+- magnetic induction (Steffen & Leonhardt, 2007) (Close distance, on clothes)
+- capacitive coupling method (Kurita K, 2011) (Close distance, on clothes)
+- pressure oscillations sensed from a sensing mat placed under a pillow (only for sleep)
+- ultrasonic sensing of heart- and respiration-induced bed oscillations (only for sleep)
+- web-camera heartbeat and respiration measurement
+- typically radar-based solutions are < 1mW/cm2
+- laser-based methods require direct access while radar can penetrate through layers of different materials
+- laser-based methods są też wrażliwe na zanieczyszczenie obserwowanej powierzchni, które powoduje phase fluctuations
+- MW sensing > ECG: subject will feel comfortable and relaxed without any physical and psychological burden, which the waveforms of the heartbeat will more objective
 
 ===============================================
 OTHER NON-CONTACT Respiratory MEASUREMENT APPROACHES
@@ -108,12 +124,24 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC11988085/
 
 Fair non-contact BLOOD PRESSURE estimation using imaging photoplethysmography, 2024
 
+https://cdn.intechopen.com/pdfs/27007/InTech-Non_contact_heart_monitoring.pdf
+- przemieszczenia zwiazane z praca serca sa rzedu 600 um
+- the maximum gradient of skin  displacement has been shown to be proportional to the time derivative of the blood pressure  profile within the underlying vasculature
+- pokazanie synchronizacji ECG i prędkości chest wall
+
+https://en.wikipedia.org/wiki/Ballistocardiography
+- mechanical movement of the heart is a vital sign in the 1–20 Hz frequency range and can be recorded by noninvasive methods from the surface of the body
+
 ===============================================
 ALL TYPES OF PROCESSING METHODS
 ===============================================
 
 ======================
 HEART RATE ESTIMATION{
+
+Accurate Radar-Based Heartbeat Measurement Using Higher Harmonic Components, 2024
+- abs(s''(t)), where s(t) is raw complex signal
+
 źródła:
 https://ieeexplore.ieee.org/abstract/document/7214253
 

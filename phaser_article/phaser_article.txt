@@ -1,22 +1,37 @@
+Proponowany tytuł artykułu:
+Noncontact Heartbeat and Respiratory Measurement with X Band ADALM-Phaser.
+
+
 
 
 \section{Introduction}
 
 
 Wzrost technologii radarowej w ostatnich dekadach zapewnił wspaniałe możliwości związane z remote sensing. 
-W szczególności, radar-based vital signs measurement jest atrakcyjnym zastosowaniem ze względu na non-contact operation, w odróżnieniu od electrocardiography, photoplethysmography, or phonocardiography in case of heartbeat, and spirometry, or chest diameter sensing in case of respiratory.
-Istnieją także inne metody, ale ich zastosowanie często wiązę sie
+W szczególności, radar-based vital signs measurement jest atrakcyjnym zastosowaniem ze względu na non-contact operation [9,10,11], w odróżnieniu od electrocardiography, photoplethysmography, or phonocardiography in case of heartbeat, and spirometry, or a belt for chest diameter sensing in case of respiratory.
+Istnieją także inne, dobrze prosperujące bezdotykowe metody pomiaru tętna i szybkości oddechów, jednak ze względu na wykorzystywane w nich zjawiska, można dostrzec w nich wady, których nie ma pomiar radarowy [3].
+Na przykład, laser-based approaches such as vibrocardiography [5] and remote photoplethysmography [6] require direct access to skin while radar can penetrate through layers of different materials. Z kolei image-based approaches wykorzystujące RGB or infrared cameras [4] są związane z kwestią naruszenia prywatności użytkowników przez przechwytywanie ich ciała lub twarzy. Inne bezdotykowe podejścia wykorzystujące capacitive coupling [8] lub magnetic induction related to blood flow [7] wymagają pomiaru z odległości do kilku centymetrów, podczas gdy radar może operować nawet z kilku metrów.
+
+There are various types of radar architectures used for non-contact vital signs measurement [9].
+Urządzenia te mogą różnić się liczbą anten, operating frequency band, waveform shape, and bandwidth, co wpływa na możliwość sterowania wiązką, penetrację przez przeszkody, czułość na micro-Doppler, i range resolution.
+The device used in this work is 10 GHz ADALM-Phaser (ADI CN0566), a low-cost simplified phased array system.
+First time, heartbeat and respiration measurement using ADALM-Phaser was reported in [1,2] as part of the research of individual teams in the 2025 IEEE AESS Radar Challenge.
+This work provides a deeper inside tego zastosowania, pokazując potencjał ADALM-Phaser do detekcji human respiratory and sub-millimeter oscillations related to heartbeat.
+
+Głównym objective jest jednak przedstawienie novel, device-dedicated signal analysis pipeline, składającego się z trzech steps: pre-processing, ekstrakcji vital signs signals, and estymacji heart rate and respiratory rate. 
 
 
-- laser, visible-light and infrared cameras
+- laser, visible-light and infrared cameras - OK
+- Te słowa muszą się pojawić: Radar, heartbeat, breath/respiratory - OK
+- kilka nowych pozycji literaturowych, mogą być te zaawansowane - DODANO JOURNALE PRZEGLĄDOWE, ALE MOŻNA JESZCZE DODAĆ JAKIEŚ KONKRETNE PRACE
+- przeczytać kilka wprowadzeń aby zaczerpnąć więcej pomysłów... - JUŻ NIE TRZEBA
 
-- vital signs measurement with 10 GHz ADALM-Phaser (ADI CN0566), a low-cost simplified phased array system.
-- Te słowa muszą się pojawić: Radar, heartbeat, breath/respiratory
+- vital signs measurement with 10 GHz ADALM-Phaser (ADI CN0566), a low-cost simplified phased array system. - OK
+- First time, heartbeat and respiratorion measurement using ADALM-Phaser was reported in [1,2] as a part of the 2025 IEEE AESS Radar Challenge. This work provides a deeper inside tego zastosowania, pokazując potencjał ADALM-Phaser do detekcji human respiratory and sub-millimeter oscillations related to heartbeat. - OK
+
 - Wykorzystanie wysokoczęstotliwościowych komponentów detekowanych używając time-frequency analysis, w porównaniu ze standardową metodą bazującą na podstawowych częstotliwościach pracy serca.
-- Przetwarzanie w MATLAB odporne na nieciągłość sygnału spowodowaną ograniczeniami hardware'u, wykorzystujące autoregresywną predykcję.
-- kilka nowych pozycji literaturowych, mogą być te zaawansowane
-- przeczytać kilka wprowadzeń aby zaczerpnąć więcej pomysłów...
-- First time, heartbeat and respiratorion measurement using ADALM-Phaser was reported in [1,2] as a part of the 2025 IEEE AESS Radar Challenge. This work provides a deeper inside tego zastosowania, pokazując potencjał ADALM-Phaser do detekcji human respiratory and sub-millimeter oscillations related to heartbeat.
+- Przetwarzanie w środowisku MATLAB odporne na nieciągłość sygnału spowodowaną ograniczeniami hardware'u, wykorzystujące autoregresywną predykcję.
+
 
 
 
@@ -29,6 +44,17 @@ Istnieją także inne metody, ale ich zastosowanie często wiązę sie
 	BREATHING RATE ESTIMATION OF THE DETECTED INDIVIDUAL
 	 USING CN0566 10GHZ PHASED ARRAY RADAR PLATFORM
 	Okyanus Oral, Jyoti Bhatia, Seyedeh Fatemeh MIRHOSSEINI, Dipankar Saha
+[3] -	https://cdn.intechopen.com/pdfs/27007/InTech-Non_contact_heart_monitoring.pdf
+[4] -	https://pmc.ncbi.nlm.nih.gov/articles/PMC11207835/
+[5] -	An Improved Vital Signal Extraction Method Based on Laser Doppler Effect, 2024, journal
+[6] - 	Photoplethysmography revisited: from contact to noncontact, from point to imaging, 2017
+[7] - 	Kurita K (2011). Note: Human heartbeat measurement on the basis of current generated by electrostatic induction. Rev Sci Inst 82, 026105.
+[8] -	Steffen M, Aleksandrowicz A, Leonhardt S (2007). Mobile Noncontact Monitoring of Heart and Lung Activity. IEEE Transactions on Biomedical Circuits and Systems, 4(1):250-57
+[9] - 	Radar-Based Monitoring of Vital Signs: A Tutorial Overview
+[10] - 	Human Vital Signs Detection Methods and Potential Using Radars: A Review
+[11] - 	Radar-based non-contact heart rate monitoring: A comprehensive review
+
+
 
 
 \section{ADALM-Phaser}
@@ -82,5 +108,63 @@ Acknowledgment
 - Analog Devices for providing the ADALM-Phaser kit for this research.
 - Jon Kraft for help with the device during the project, Stephanie Bidon and others for coordinating the IEEE AESS Radar Challenge 2025.
 - MathWorks for providing the examples of using ADALM-Phaser controlled by MATLAB for the purpose of this contest.
+
+
+
+======================================================================================
+
+Zakres artykułu:
+ 
+Opisanie metod przetwarzania:
+ 
+Przetwarzanie wstępne
+- interpolacja fazy w przerwach
+- usuwanie nieciągłości fazy
+ 
+Wydobycie oddechu
+- filtr pasmowo-przepustowy np. 0,05 - 0,7 Hz na sygnale fazy
+ 
+Wydobycie pracy serca
+- STFT z pochodnej fazy
+- sumowanie zakresu częstotliwości
+- predykcja AR w przerwach
+ 
+Prosta referencyjna metoda wydobycia pracy serca (standardowo stosowana)
+- filtr pasmowo-przepustowy np. 0,8 - 1,5 Hz na pochodnej fazy
+ 
+Estymacja szybkości oddechów i tętna w BPM
+- transformacja synchrosqueezingowa STFT
+- detekcja interesującego komponentu na płaszczyźnie czasowo-częstotliwościowej
+ 
+Porównanie referencyjnej i naszej metody wydobycia tętna pod względem odchylenia  od pomiaru pulsometrem w formie opaski.
+- dla 0.5m, 1m, 2m odległości
+- czas trwania kazdego przypadku to ok. 3 minuty
+ 
+Porównanie będzie ciekawe, bo te metody wydobycia tętna opierają się na sygnale z zupełnie innego pasma. W nowej metodzie wykazana zostanie użyteczność pasma 5-30 Hz w porównaniu do standardowo używanego 0,8 - 1,5 Hz.
+Wniosek z tego będzie taki, że dopiero połączenie obu metod najprawdopodobniej dałoby najlepszy efekt.
+ 
+
+Co dziś można zrobić?
+1. synchronizacja komponentu sinusoidalnego i high frequency oscillations
+Wnioski: 
+Oscylacja ~10 Hz pojawia się przeważnie 0.15 s przed minimum prędkości
+jednak trzeba to zsynchronizować adaptacyjnie
+ZDECYDOWANIE TRZEBA TO POKAZAĆ JAKO DODATKOWĄ CECHĘ WSPOMAGAJĄCĄ POMIAR
+	- zsynchronizowano i zsumowano te sygnały i otrzymano chyba bardziej wyraźny sygnał
+
+2. Wzięcie maksimum z przekrojów FSST w punktach czasowych np. co 5 s
+Cechy:
+- odporność na zakłócenia, bo nie ma pamięci
+- (prawie) niezależność ramek powoduje bardziej wiarygodny error rate
+
+3. Parametry:
+Granice widoczności i detekcji tfridge na 30 ... 200 BPM, aby zapewnić rzeczywiste warunki działania dla całego ogółu przypadków
+
+4. Poeksperymentować z STFT, 
+- obliczyć moc lub skalę dB
+- normalizacja w osi częstotliwości też może być dobra, ale nie na całym sygnale tylko z oknem np. 3s
+	- ale generalnie to potencjalnie zwiększamy tym samym szum, chyba że bardziej nas interesują właśnie wyższe częstotliwości niż niższe to wtedy ok. Można zrobić drugą pochodną z fazy
+
+5. może jakieś 
 
 
