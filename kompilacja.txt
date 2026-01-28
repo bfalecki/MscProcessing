@@ -1,9 +1,0 @@
-latexmk -pdf -shell-escape -silent -use-make -f main.tex; latexmk -c
-
-
-
-lub
-
-pdflatex -shell-escape -use-make -f main.tex
-biber main
-pdflatex -shell-escape -use-make -f main.tex
