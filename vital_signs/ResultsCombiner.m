@@ -120,6 +120,7 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
             end
 
             time_ax = (0:(length(obj.getSignal())-1)) /  obj.getSamplingFrequency();
+            time_ax_sig2original = (0:(length(obj.sig2original)-1)) /  obj.getSamplingFrequency();
             legendEntries = strings([]);
             if(opts.PlotCombined)
                 plot(time_ax, obj.combinedSignal, Color='k',LineWidth=1.5)
@@ -137,7 +138,7 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
                 hold on
             end
             if(opts.PlotSIg2Original)
-                plot(time_ax, obj.sig2original, Color='r',LineStyle='--')
+                plot(time_ax_sig2original, obj.sig2original, Color='r',LineStyle='--')
                 legendEntries(end+1) = string(class(obj.tfa2)) + " orig.";
                 hold on
             end
