@@ -1,10 +1,10 @@
 folder = "C:\Users\bfalecki\Documents\challenge\rec\";
 
-% filename = "phaser_rec_04-Dec-2025_18-23-11_vs0.5m.mat";
-% range_cell = 0.3; % meters
+filename = "phaser_rec_04-Dec-2025_18-23-11_vs0.5m.mat";
+range_cell = 0.3; % meters
 
-filename = "phaser_rec_04-Dec-2025_18-39-31_vs1m.mat";
-range_cell = 1; % meters
+% filename = "phaser_rec_04-Dec-2025_18-39-31_vs1m.mat";
+% range_cell = 1; % meters
 
 % filename = "phaser_rec_04-Dec-2025_18-46-23_vs2m.mat";
 % range_cell = 2; % meters
@@ -51,7 +51,7 @@ pshe.process(slowTimePhase);
 figure(111); pshe.plotHeartbeatSignal;
 figure(121); pshe.plotStft;
 
-fa = FsstAnalyzer("WindowWidth",5,"FrequencyResolution",0.5/60,"MaximumVisibleFrequency",150/60);
+fa = FsstAnalyzer("WindowWidth",10,"FrequencyResolution",0.2/60,"MaximumVisibleFrequency",150/60);
 fa.transform(pshe)
 fa.detectRidge( ...
     "NuberOfRidges",3, ...
@@ -73,7 +73,7 @@ bphe = BandPassHeartbeatExtractor("PassBand",[0.8 1.8]);
 bphe.process(slowTimePhase)
 figure(991); bphe.plotResult()
 
-fa1 = FsstAnalyzer("WindowWidth",5,"FrequencyResolution",0.5/60,"MaximumVisibleFrequency",150/60);
+fa1 = FsstAnalyzer("WindowWidth",10,"FrequencyResolution",0.2/60,"MaximumVisibleFrequency",150/60);
 fa1.transform(bphe)
 fa1.detectRidge( ...
     "NuberOfRidges",3, ...
@@ -116,7 +116,7 @@ ibi = estimateIbi(combinedSignalEnvelopeNorm, rc.getSamplingFrequency, ...
     "EroseSize",0);
 
 %%
-fa12 = FsstAnalyzer("WindowWidth",5,"FrequencyResolution",0.5/60,"MaximumVisibleFrequency",150/60);
+fa12 = FsstAnalyzer("WindowWidth",10,"FrequencyResolution",0.2/60,"MaximumVisibleFrequency",150/60);
 fa12.transform(rc)
 fa12.detectRidge( ...
     "NuberOfRidges",3, ...
@@ -151,7 +151,7 @@ hold off
 
 %% Comparison with Reference: RMSE with Memory ------- 
 referencePath = "C:\Users\bfalecki\Documents\challenge\reference\kalenji\2025-12-04.fit";
-hre = HeartRateReference(referencePath,"ManualTimeShift",1);
+hre = HeartRateReference(referencePath,"ManualTimeShift",1-5/3600);
 figure(999);hre.plot("otherResults",[fa fa1 fa12])
 errors = hre.calucateError([fa fa1 fa12]);
 disp("RMSE with memory in BPM: " + join(string(errors)))
