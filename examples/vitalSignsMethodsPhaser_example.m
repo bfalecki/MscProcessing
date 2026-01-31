@@ -1,4 +1,5 @@
-folder = "C:\Users\bfalecki\Documents\challenge\rec\";
+% folder = "C:\Users\bfalecki\Documents\challenge\rec\";
+folder = "/home/user/Documents/praca_mgr/measurements/phaser/";
 
 filename = "phaser_rec_04-Dec-2025_18-23-11_vs0.5m.mat";
 range_cell = 0.3; % meters
@@ -130,15 +131,21 @@ figure(193); fa12.plotResults("QuantileVal",0.5,"AllRidges",1, "PlotRidges",1)
 
 
 %% check result without tfridge memory
-% [~, locs12] = findMiddlePeak(abs(fa12.synchrosqueezed));
-% [~, locs1] = findMiddlePeak(abs(fa1.synchrosqueezed));
-% [~, locs] = findMiddlePeak(abs(fa.synchrosqueezed));
-% [~, locs12] = findLowerPeak(abs(fa12.synchrosqueezed));
-% [~, locs1] = findLowerPeak(abs(fa1.synchrosqueezed));
-% [~, locs] = findLowerPeak(abs(fa.synchrosqueezed));
-[~, locs12] = findHighestPeak(abs(fa12.synchrosqueezed));
-[~, locs1] = findHighestPeak(abs(fa1.synchrosqueezed));
-[~, locs] = findHighestPeak(abs(fa.synchrosqueezed));
+% [~, locs12] = findMiddlePeak(abs(fa12.tfdistribution));
+% [~, locs1] = findMiddlePeak(abs(fa1.tfdistribution));
+% [~, locs] = findMiddlePeak(abs(fa.tfdistribution));
+% [~, locs12] = findLowerPeak(abs(fa12.tfdistribution));
+% [~, locs1] = findLowerPeak(abs(fa1.tfdistribution));
+% [~, locs] = findLowerPeak(abs(fa.tfdistribution));
+% [~, locs12] = findHighestPeak(abs(fa12.tfdistribution));
+% [~, locs1] = findHighestPeak(abs(fa1.tfdistribution));
+% [~, locs] = findHighestPeak(abs(fa.tfdistribution));
+freq_step_size = fa.f_ax(2) - fa.f_ax(1);
+distance = round(19.5/60/freq_step_size);
+distTolerance = 5;
+[~,locs, upper_locs, lower_locs] = findOptimumPeak(abs(fa.tfdistribution),distance, distTolerance);
+[~,locs1, upper_locs, lower_locs] = findOptimumPeak(abs(fa1.tfdistribution),distance, distTolerance);
+[~,locs12, upper_locs, lower_locs] = findOptimumPeak(abs(fa12.tfdistribution),distance, distTolerance);
 locs12 = fillmissing(locs12, "nearest");
 locs1 = fillmissing(locs1, "nearest");
 locs = fillmissing(locs, "nearest");
