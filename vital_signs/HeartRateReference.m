@@ -9,6 +9,9 @@ classdef HeartRateReference < handle & HeartRateComparable
         timeAxis
         ManualTimeShift
         path
+        adjustedHeartRate % adjusted heart rate form the last call of calucateError function
+        adjustedTimeStart
+        adjustedTimeAxis
     end
     
     methods
@@ -27,16 +30,28 @@ classdef HeartRateReference < handle & HeartRateComparable
         function plot(obj, opts)
             arguments
                 obj 
-                opts.otherResults % object implementing HeartRateComparable interface
+                opts.otherResults % object implementing HeartRateComparable interface, scalar / vector / cell
+                opts.showAdjusted = 1
             end
-            plot(obj.getTimeAxisDateTime(), obj.getHeartRate())
+            plot(obj.getTimeAxisDateTime(), obj.getHeartRate(), 'b*')
             hold on
+            legendEnties = "Reference";
+            if(opts.showAdjusted)
+                plot(obj.adjustedTimeAxis, obj.adjustedHeartRate, "b--")
+                legendEnties = [legendEnties "Reference Adjusted"];
+            end
             extractorNames = string([]);
             for k = 1:length(opts.otherResults)
-                plot(opts.otherResults(k).getTimeAxisDateTime(), opts.otherResults(k).getHeartRate()*60)
-                extractorNames(k) = string(class(opts.otherResults(k).timeFrequencyAnalyzable));
+                if(iscell(opts.otherResults))
+                    tempResult = opts.otherResults{k};
+                else
+                    tempResult = opts.otherResults(k);
+                end
+                plot(tempResult.getTimeAxisDateTime(), tempResult.getHeartRate()*60)
+                extractorNames(k) = string(class(tempResult.timeFrequencyAnalyzable));
             end
-            legend(["Reference", extractorNames])
+            legendEnties = [legendEnties extractorNames];
+            legend(legendEnties)
             hold off
         end
 
@@ -63,17 +78,25 @@ classdef HeartRateReference < handle & HeartRateComparable
             rms_error = zeros(1,length(heartRateComparables));
 
             for k = 1:length(heartRateComparables)
-                fs_des = 1/seconds(mean(diff(heartRateComparables(k).getTimeAxisDateTime)));
-                time_ax_dt_des = heartRateComparables(k).getTimeAxisDateTime;
+                if(iscell(heartRateComparables))
+                    tempHrc = heartRateComparables{k};
+                else
+                    tempHrc = heartRateComparables(k);
+                end
+                fs_des = 1/seconds(mean(diff(tempHrc.getTimeAxisDateTime)));
+                time_ax_dt_des = tempHrc.getTimeAxisDateTime;
                 time_start_des = time_ax_dt_des(1);
-                hr_adj = adjustSampling(obj.heartRate, fs,fs_des,time_start, time_start_des,'spline');
-                hr_adj = hr_adj(1:length(heartRateComparables(k).getHeartRate));
-                figure(4444)
-                plot(hr_adj)
-                hold on
-                plot(heartRateComparables(k).getHeartRate*60)
-                hold off
-                rms_error(k) = rms(hr_adj - heartRateComparables(k).getHeartRate*60);% in BPM;
+                obj.adjustedTimeStart = time_start_des;
+                obj.adjustedHeartRate = adjustSampling(obj.heartRate, fs,fs_des,time_start, time_start_des,'spline');
+                obj.adjustedHeartRate = obj.adjustedHeartRate(1:length(tempHrc.getHeartRate));
+                obj.adjustedTimeAxis = time_ax_dt_des;
+                rms_error(k) = rms(obj.adjustedHeartRate - tempHrc.getHeartRate*60);% in BPM;
+                % figure(4444)
+                % plot(hr_adj)
+                % hold on
+                % plot(tempHrc.getHeartRate*60)
+                % hold off
+
             end
 
         end

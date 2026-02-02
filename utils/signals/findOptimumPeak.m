@@ -97,11 +97,12 @@ for k = 1:size(matrix, 2)
             if(sum(relatedPairsIdxes) < 2) % no 2 related pairs found
                 continue
             end
-            if(sum(relatedPairsIdxes) > 2) % we need to consider separate triples
+            relatedPairs = potentialRelatedPairs(relatedPairsIdxes, :);
+            relatedUniqueVals = unique(relatedPairs);
+            if(length(relatedUniqueVals) > 2) % we need to consider separate triples
                 % we have ambiguiti in triples, we need to find middle
                 % values first, and add separate triples based on them
-                relatedPairs = potentialRelatedPairs(relatedPairsIdxes, :);
-                relatedUniqueVals = unique(relatedPairs);
+
                 min_val= min([pairsDoubleDistance(l,1), pairsDoubleDistance(l,2)]);
                 max_val = max([pairsDoubleDistance(l,1), pairsDoubleDistance(l,2)]);
                 possibleMidValues = relatedUniqueVals(relatedUniqueVals ~= min_val & relatedUniqueVals ~= max_val);
@@ -112,11 +113,6 @@ for k = 1:size(matrix, 2)
             else
                 relatedPairs = potentialRelatedPairs(relatedPairsIdxes, :);
                 unique_vals =  unique(relatedPairs);
-                if(length(unique_vals) > 3)
-                    disp("???error temporary fix") % 
-                    % temporary fix
-                    unique_vals = [unique_vals(1) unique_vals(2) unique_vals(end)];
-                end
                 triples(l, :) = unique_vals;
             end
         end
@@ -134,7 +130,14 @@ for k = 1:size(matrix, 2)
         acceptedTriples = triples(acceptedTriplesIdxes, :);
 
         if(isempty(acceptedTriples)) % then select pairs
-            acceptedPairsIdxes = any(column(pairs) >= threshold,2); 
+            pairs_values = column(pairs);
+            if(isvector(pairs_values))
+                pairs_values = pairs_values.';
+            end
+            acceptedPairsIdxes = any(pairs_values >= threshold,2); 
+            if(length(acceptedPairsIdxes) ~= size(pairs,1))
+                disp("error")
+            end
             acceptedPairs = pairs(acceptedPairsIdxes, :);
             if(isempty(acceptedPairs)) % then select maximum value and continue
                 [~,greaterPeakPosition] = max(peaks);
@@ -167,6 +170,7 @@ for k = 1:size(matrix, 2)
             peaksOfTriples = peaksOfTriples.';
         end
         tripleComparisonFunction = sum(peaksOfTriples,2); % sum or max
+        % tripleComparisonFunction = -sum(acceptedTriples,2); % lowest triple (to elliminate harmonics ?)
         [~, maxTripleIdx] = max(tripleComparisonFunction); % max of vector
         maxTriple = acceptedTriples(maxTripleIdx, :);
         selected_locs(k) = median(maxTriple); % middle value

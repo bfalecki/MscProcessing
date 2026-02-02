@@ -1,7 +1,7 @@
-classdef FsstAnalyzer < handle & HeartRateComparable
-    %FSSTANALYZER
+classdef TimeFreqAnalyzer < handle & HeartRateComparable
+    %TIMEFREQANALYZER
     % this class acts as a wrapper for functions related to transforming
-    % the signal into time-frequency domain using fsst().
+    % the signal into time-frequency domain using fsst() or stft.
     % Tt contains also time-frequency ridge detector using tfridge().
     % It also contains visualization methods.
     
@@ -11,19 +11,28 @@ classdef FsstAnalyzer < handle & HeartRateComparable
         FrequencyResolution
         MaximumVisibleFrequency
         WindowWidth
+        Synchrosqueezed
 
         % results
         tfdistribution
         f_ax
         t_ax
+
         ridge % selected ridge
         ridges % all ridges
         ridge_idx % selected ridge idx
+
+        % peaks (no memory)
+        freqLocs % selected frequencies of heart rate peaks [Hz]
+        upperFreqLocs % frequencies of heart rate upper harmonic [Hz], if detectPeaks(Method=="distanceBased")
+        lowerFreqLocs % frequencies of heart rate lower harmonic [Hz], if detectPeaks(Method=="distanceBased")
+
+        heartRateOutput % "ridge" (default) / "peaks" - choose port to HeartRateComparable interface
     end
     
     methods
-        function obj = FsstAnalyzer(opts)
-            %FSSTANALYZER Construct an instance of this class
+        function obj = TimeFreqAnalyzer(opts)
+            %TimeFreqAnalyzer Construct an instance of this class
             arguments
                 opts.FrequencyResolution = 1/60; % Desired Frequency Resolution 
                         % (pixel size of freq axis) of the distribution (Hz)
@@ -33,10 +42,13 @@ classdef FsstAnalyzer < handle & HeartRateComparable
                         % Typical desired value in case of heart rate
                         % estimation is 3 Hz
                 opts.WindowWidth = 4; % FWHM of the gaussian window function [s]
+                opts.Synchrosqueezed = 0; % use fsst function insted of stft
             end
             obj.FrequencyResolution = opts.FrequencyResolution ;
             obj.MaximumVisibleFrequency = opts.MaximumVisibleFrequency ;
             obj.WindowWidth = opts.WindowWidth ;
+            obj.Synchrosqueezed = opts.Synchrosqueezed;
+            obj.heartRateOutput = "ridge";
 
         end
         
@@ -51,20 +63,73 @@ classdef FsstAnalyzer < handle & HeartRateComparable
 
             
             obj.timeFrequencyAnalyzable = timeFrequencyAnalyzable;
+            if(obj.Synchrosqueezed)
+                [obj.tfdistribution,obj.f_ax,obj.t_ax] = synchrosqueezing_general( ...
+                    obj.timeFrequencyAnalyzable.getSignal(), ...
+                    obj.timeFrequencyAnalyzable.getSamplingFrequency(),...
+                    "FrequencyResolution",obj.FrequencyResolution, ...
+                    "MaximumVisibleFrequency",obj.MaximumVisibleFrequency, ...
+                    "WindowWidth",obj.WindowWidth);
+            else
+                [obj.tfdistribution,obj.f_ax,obj.t_ax] = stft_general( ...
+                    obj.timeFrequencyAnalyzable.getSignal(), ...
+                    obj.timeFrequencyAnalyzable.getSamplingFrequency(), ...
+                    "FrequencyResolution",obj.FrequencyResolution, ...
+                    "MaximumVisibleFrequency",obj.MaximumVisibleFrequency, ...
+                    "WindowWidth",obj.WindowWidth);
+            end
 
-            % [obj.tfdistribution,obj.f_ax,obj.t_ax] = stft_general( ...
-            %     obj.timeFrequencyAnalyzable.getSignal(), ...
-            %     obj.timeFrequencyAnalyzable.getSamplingFrequency(), ...
-            %     "FrequencyResolution",obj.FrequencyResolution, ...
-            %     "MaximumVisibleFrequency",obj.MaximumVisibleFrequency, ...
-            %     "WindowWidth",obj.WindowWidth);
 
-            [obj.tfdistribution,obj.f_ax,obj.t_ax] = synchrosqueezing_general( ...
-                obj.timeFrequencyAnalyzable.getSignal(), ...
-                obj.timeFrequencyAnalyzable.getSamplingFrequency(),...
-                "FrequencyResolution",obj.FrequencyResolution, ...
-                "MaximumVisibleFrequency",obj.MaximumVisibleFrequency, ...
-                "WindowWidth",obj.WindowWidth);
+        end
+
+        function setHeartRateOutput(obj,outputType)
+            arguments
+                obj 
+                outputType % "ridge" / "peaks"
+            end
+            if(strcmp(outputType,  "ridge"))
+                obj.heartRateOutput = "ridge";
+            elseif(strcmp(outputType,  "peaks"))
+                obj.heartRateOutput = "peaks";
+            else
+                error("Invalid type: " + outputType)
+            end
+        end
+
+        function detectPeaks(obj, opts)
+            % something like detectRidge, but without memory
+            arguments
+                obj 
+                opts.Method % "highest" / "lower" / "middle" / "distanceBased"
+                opts.ExactDistance % [Hz], input for findOptimumPeak if Method=="distanceBased"
+                opts.DistanceTolerance % Hz, input for findOptimumPeak if Method=="distanceBased"
+            end
+            if(strcmp(opts.Method, "highest"))
+                obj.upperFreqLocs = nan;
+                obj.lowerFreqLocs = nan;
+                [~, locs] = findHighestPeak(abs(obj.tfdistribution));
+                obj.freqLocs = obj.f_ax(fillmissing(locs,"constant",1));
+            elseif(strcmp(opts.Method, "lower"))
+                obj.upperFreqLocs = nan;
+                obj.lowerFreqLocs = nan;
+                [~, locs] = findLowerPeak(abs(obj.tfdistribution));
+                obj.freqLocs = obj.f_ax(fillmissing(locs,"constant",1));
+            elseif(strcmp(opts.Method, "middle"))
+                obj.upperFreqLocs = nan;
+                obj.lowerFreqLocs = nan;
+                [~, locs] = findMiddlePeak(abs(obj.tfdistribution));
+                obj.freqLocs = obj.f_ax(fillmissing(locs,"constant",1));
+            elseif(strcmp(opts.Method, "distanceBased"))
+                freqStepSize = obj.f_ax(2) - obj.f_ax(1);
+                distanceSamples = round(opts.ExactDistance/freqStepSize);
+                distToleranceSamples = round(opts.DistanceTolerance/freqStepSize);
+                [~,locs, upperLocs, lowerLocs] = findOptimumPeak(abs(obj.tfdistribution),distanceSamples, distToleranceSamples);
+                obj.freqLocs = obj.f_ax(fillmissing(locs,"constant",1));
+                obj.upperFreqLocs = obj.f_ax(fillmissing(upperLocs,"constant",1));
+                obj.lowerFreqLocs = obj.f_ax(fillmissing(lowerLocs,"constant",1));
+            else
+                error("Unknown Method: " + opts.Method)
+            end
         end
 
         function detectRidge(obj, opts)
@@ -119,6 +184,8 @@ classdef FsstAnalyzer < handle & HeartRateComparable
                 opts.QuantileVal = 0.2; % threshold quantile
                 opts.AllRidges = 1; % whether to plot all ridges, but only one more prominent
                 opts.PlotRidges = 1; % whether to plot any ridges
+                opts.PlotPeaks = 1; % whether to plot no-memory ridges (peaks)
+                opts.PlotPeaksHarmonics = 1; % whether to plot no-memory upperFreqLocs and lowerFreqLocs
             end
 
             f_ax_bpm = obj.f_ax*60;
@@ -130,20 +197,37 @@ classdef FsstAnalyzer < handle & HeartRateComparable
             c.Label.String = 'Energy [dB]';
             ylabel("Frequency [BPM]"); xlabel("Time [s]");
             title("Synchrosqueezed STFT");
+            legendEntries = strings([]);
             if(opts.PlotRidges)
                 hold on
                 plot(obj.t_ax, ridges_bpm(:, 1:end == obj.ridge_idx),'Color','r','LineWidth',1.5,'LineStyle','--')
                 if(opts.AllRidges && size(ridges_bpm,2) > 1)
                     plot(obj.t_ax, ridges_bpm(:, 1:end ~= obj.ridge_idx),'Color','g','LineWidth',1.2,'LineStyle','--')
-                    legend({'Selected', 'Rejected'})
+                    legendEntries = [legendEntries, "Selected Ridge", "Rejected Ridges", strings(1,size(ridges_bpm,2)-2)];
                 end
                 hold off
             end
+            if(opts.PlotPeaks)
+                hold on
+                plot(obj.t_ax, obj.freqLocs*60, '*r')
+                legendEntries = [legendEntries, "Selected Peaks"];
+                if(opts.PlotPeaksHarmonics && ~any(isnan(obj.lowerFreqLocs)))
+                    plot(obj.t_ax,obj.lowerFreqLocs*60, '*g')
+                    plot(obj.t_ax,obj.upperFreqLocs*60, '*b')
+                    legendEntries = [legendEntries, "Lower Peaks", "Upper Peaks"];
+                end
+                hold off
+            end
+            legend(legendEntries)
         end
 
         % Abstract methods implementations for HeartRateComparable
         function heartRate = getHeartRate(obj)% heart rate signal [BPM]
-            heartRate = obj.ridge;
+            if(strcmp(obj.heartRateOutput, "ridge"))
+                heartRate = obj.ridge;
+            elseif(strcmp(obj.heartRateOutput, "peaks"))
+                heartRate = obj.freqLocs;
+            end
         end
         function timeAxisDateTime = getTimeAxisDateTime(obj) % time axis in dateTime format
             timeAxisDateTime = obj.timeFrequencyAnalyzable.getStartDateTime() + seconds(obj.t_ax);
