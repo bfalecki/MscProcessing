@@ -1,0 +1,129 @@
+{
+  "errors": {
+    "methods": [
+      "pshe",
+      "bphe",
+      "rc"
+    ],
+    "memory": [
+      0.88885687954473014,
+      0.86325077043125131,
+      0.92614061028483263
+    ],
+    "noMemory": [
+      14.378857572632091,
+      4.1669607052051152,
+      13.687709682094285
+    ]
+  },
+  "tfa": [
+    {
+      "detectPeaksMethod": "distanceBased",
+      "detectRidgeSelectMethod": "middle",
+      "Synchrosqueezed": 1,
+      "WindowWidth": 10,
+      "FrequencyResolution": 0.0033333333333333335,
+      "MaximumVisibleFrequency": 2.5,
+      "detectRidgePossibleLowFrequency": 0.66666666666666663,
+      "detectRidgePossibleHighFrequency": 2.5,
+      "detectRidgeJumpPenalty": 1,
+      "detectRidgeNuberOfRidges": 3,
+      "detectRidgeDesiredNearestFrequency": 1.3333333333333333,
+      "detectPeaksExactDistance": 0.32498781927123366,
+      "detectPeaksDistanceTolerance": 0.016249390963561684
+    },
+    {
+      "detectPeaksMethod": "distanceBased",
+      "detectRidgeSelectMethod": "middle",
+      "Synchrosqueezed": 1,
+      "WindowWidth": 10,
+      "FrequencyResolution": 0.0033333333333333335,
+      "MaximumVisibleFrequency": 2.5,
+      "detectRidgePossibleLowFrequency": 0.66666666666666663,
+      "detectRidgePossibleHighFrequency": 2.5,
+      "detectRidgeJumpPenalty": 1,
+      "detectRidgeNuberOfRidges": 3,
+      "detectRidgeDesiredNearestFrequency": 1.3333333333333333,
+      "detectPeaksExactDistance": 0.32498781927123366,
+      "detectPeaksDistanceTolerance": 0.016249390963561684
+    },
+    {
+      "detectPeaksMethod": "distanceBased",
+      "detectRidgeSelectMethod": "middle",
+      "Synchrosqueezed": 1,
+      "WindowWidth": 10,
+      "FrequencyResolution": 0.0033333333333333335,
+      "MaximumVisibleFrequency": 2.5,
+      "detectRidgePossibleLowFrequency": 0.66666666666666663,
+      "detectRidgePossibleHighFrequency": 2.5,
+      "detectRidgeJumpPenalty": 1,
+      "detectRidgeNuberOfRidges": 3,
+      "detectRidgeDesiredNearestFrequency": 1.3333333333333333,
+      "detectPeaksExactDistance": 0.32498781927123366,
+      "detectPeaksDistanceTolerance": 0.016249390963561684
+    }
+  ],
+  "loading": {
+    "lengthSeconds": 180,
+    "offsetSeconds": 30,
+    "filename": "phaser_rec_04-Dec-2025_18-23-11_vs0.5m.mat"
+  },
+  "preprocessing": {
+    "range_cell": 0.3,
+    "fast_time_data_start": 1,
+    "fast_time_data_end": 2045,
+    "FastTimeWindow": "hann",
+    "phaseUnwrappingMethod": "atan",
+    "phaseDiscontCompParams": {
+      "ThresholdQuantile": 0.9,
+      "ThresholdMultiplier": 5,
+      "SegmentsBounds": [
+        1,
+        23734
+      ],
+      "NeighborSize": 2
+    }
+  },
+  "pshe": {
+    "desiredTimeRes": 0.025,
+    "windowWidth": 0.25,
+    "frequencyResolution": 0.5,
+    "maximumVisibleFrequency": 40,
+    "heartOscillationFreqRange": [
+      5,
+      15
+    ],
+    "phaseCutoffFreqLow": 5,
+    "resultCutoffFreqLow": 0.5
+  },
+  "bphe": {
+    "PassBand": [
+      0.8,
+      1.8
+    ],
+    "UpsamplingFactor": 4
+  },
+  "rc": {
+    "input": {
+      "weight1": 1,
+      "weight2": 1,
+      "timeDelay2": 0,
+      "estimateDelay": 1
+    },
+    "prediction": {
+      "estimateSign": 0,
+      "tfAnalysisOutput": "predicted",
+      "PartConsidered": 1,
+      "ErosePart": 0.15
+    },
+    "adjustment": {
+      "windowWidth": 5,
+      "windowStep": 2.5,
+      "maxAllowableShift": 0.4
+    }
+  },
+  "hre": {
+    "path": "C:\\Users\\bfalecki\\Documents\\challenge\\reference\\kalenji\\2025-12-04.fit",
+    "ManualTimeShift": "00:59:55"
+  }
+}

@@ -21,11 +21,20 @@ classdef TimeFreqAnalyzer < handle & HeartRateComparable
         ridge % selected ridge
         ridges % all ridges
         ridge_idx % selected ridge idx
+        detectRidgePossibleLowFrequency
+        detectRidgePossibleHighFrequency
+        detectRidgeJumpPenalty
+        detectRidgeNuberOfRidges
+        detectRidgeSelectMethod
+        detectRidgeDesiredNearestFrequency
 
         % peaks (no memory)
         freqLocs % selected frequencies of heart rate peaks [Hz]
         upperFreqLocs % frequencies of heart rate upper harmonic [Hz], if detectPeaks(Method=="distanceBased")
         lowerFreqLocs % frequencies of heart rate lower harmonic [Hz], if detectPeaks(Method=="distanceBased")
+        detectPeaksMethod % related with detectPeaks
+        detectPeaksExactDistance % related with detectPeaks
+        detectPeaksDistanceTolerance % related with detectPeaks
 
         heartRateOutput % "ridge" (default) / "peaks" - choose port to HeartRateComparable interface
     end
@@ -104,6 +113,10 @@ classdef TimeFreqAnalyzer < handle & HeartRateComparable
                 opts.ExactDistance % [Hz], input for findOptimumPeak if Method=="distanceBased"
                 opts.DistanceTolerance % Hz, input for findOptimumPeak if Method=="distanceBased"
             end
+            obj.detectPeaksMethod = opts.Method;
+            obj.detectPeaksExactDistance = opts.ExactDistance;
+            obj.detectPeaksDistanceTolerance = opts.DistanceTolerance;
+
             if(strcmp(opts.Method, "highest"))
                 obj.upperFreqLocs = nan;
                 obj.lowerFreqLocs = nan;
@@ -145,6 +158,13 @@ classdef TimeFreqAnalyzer < handle & HeartRateComparable
                 opts.DesiredNearestFrequency = [] ; % desired nearest frequency to select tfridge
                         % only when SelectMethod is "nearest"
             end
+            obj.detectRidgePossibleLowFrequency = opts.PossibleLowFrequency;
+            obj.detectRidgePossibleHighFrequency = opts.PossibleHighFrequency;
+            obj.detectRidgeJumpPenalty = opts.JumpPenalty;
+            obj.detectRidgeNuberOfRidges = opts.NuberOfRidges;
+            obj.detectRidgeSelectMethod = opts.SelectMethod;
+            obj.detectRidgeDesiredNearestFrequency = opts.DesiredNearestFrequency;
+
 
             if(isempty(opts.DesiredNearestFrequency) && strcmp(opts.SelectMethod, "nearest"))
                 error("Need to specify DesiredNearestFrequency!")

@@ -51,7 +51,7 @@ classdef SlowTimeSignal < SlowTimeSignalAny
             t_ax = 0: 1/obj.signalInfo.PRF : (size(obj.signal,2)-1) / obj.signalInfo.PRF;
         end
 
-        function slowTimePhase_filt = removePhaseDiscontinuities(obj, opts)
+        function [slowTimePhase_filt, params] = removePhaseDiscontinuities(obj, opts)
             % remove phase discontinuities
             % TO DO: add filter_noise_peaks parameters
 
@@ -67,6 +67,11 @@ classdef SlowTimeSignal < SlowTimeSignalAny
                 opts.NeighborSize = 2  % See filter_noise_peaks docs
                 opts.Display = 0  % See filter_noise_peaks docs
             end
+            params.ThresholdQuantile = opts.ThresholdQuantile;
+            params.ThresholdMultiplier = opts.ThresholdMultiplier;
+            params.SegmentsBounds = opts.SegmentsBounds;
+            params.NeighborSize = opts.NeighborSize;
+
             if(obj.phaseDiscontinuitiesRemoved) % check if it is already done, put some warning, and continue! :)
                 warning("removePhaseDiscontinuities already done. Computing once again! :)")
             end

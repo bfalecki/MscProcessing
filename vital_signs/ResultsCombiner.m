@@ -19,6 +19,13 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
         sig2Adj % adjustment of sampling rate, time delay, and sampling modulation
         sig2original % only amplitude and sampling rate adjustment
 
+        % prediction-related
+        combinedSignalPredicted % combinedSignal predicted in gaps using autoregressive prediction (after calling predictGaps)
+        predictedIdxes % binary idxes where the signal was predicted
+        tfAnalysisOutput % output for time-freq analysis - default or predicted
+        PartConsidered % related with predictGaps
+        ErosePart % related with predictGaps
+
         % input to adjustment parameters estimation
         windowWidth % FWHM [s], gaussian window for signals correlation
         windowStep % slide step of window [s]
@@ -29,12 +36,55 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
         inversionWeigths
         windowTimeCenters
 
+
+
     end
     
     methods
         function obj = ResultsCombiner()
             %RESULTSCOMBINER Construct an instance of this class
+            obj.tfAnalysisOutput = "default";
+        end
 
+        function setTfAnalysisOutput(obj,outputType)
+            % set output for time-freq analysis
+            arguments
+                obj 
+                outputType % "default" (combinedSignal) / "predicted" (combinedSignalPredicted)
+            end
+            if(strcmp(outputType, "default"))
+                obj.tfAnalysisOutput = "default";
+            elseif(strcmp(outputType, "predicted"))
+                obj.tfAnalysisOutput = "predicted";
+            else
+                error("Invalid type: " + outputType)
+            end
+        end
+
+        function predictGaps(obj, opts)
+            % predict gaps using autoregrssive prediction (in case of Phaser)
+            arguments
+                obj 
+                opts.PartConsidered = 1 % part of segment considered to predict break (0 ... 1)
+                opts.ErosePart = 0; % part of segment to bidirectional erosion to supress edge effects
+            end
+            obj.PartConsidered = opts.PartConsidered;
+            obj.ErosePart = opts.ErosePart;
+
+            [start_samples ,end_samples]= obj.getSegmentsStartsEnds();
+            segments_idxes = get_segments_idxes(start_samples,end_samples, length(obj.combinedSignal));
+            oneDirectionalEroseLength = obj.tfa1.slowTimePhase.segmentDuration * ...
+                obj.getSamplingFrequency * ...
+                opts.ErosePart /2;
+            oneDirectionalEroseLength = round(oneDirectionalEroseLength);
+
+
+            obj.predictedIdxes = ~side_by_side_vector_erose(segments_idxes, oneDirectionalEroseLength);
+            obj.combinedSignalPredicted  = fill_gaps_ar_wrapped(obj.combinedSignal ,...
+                obj.getSamplingFrequency,segments_idxes ,obj.tfa1.slowTimePhase.segmentDuration, ...
+                "PartConsidered",opts.PartConsidered,"edge_ignore_length",oneDirectionalEroseLength);
+
+            
         end
 
         function combine(obj,tfa1,tfa2,opts)
@@ -117,13 +167,20 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
                 opts.PlotSig2Adjusted = 1;
                 opts.PlotSig2Sign = 1;
                 opts.PlotSIg2Original = 1;
+                opts.PlotPredicted = 0;
             end
 
             time_ax = (0:(length(obj.getSignal())-1)) /  obj.getSamplingFrequency();
             time_ax_sig2original = (0:(length(obj.sig2original)-1)) /  obj.getSamplingFrequency();
             legendEntries = strings([]);
             if(opts.PlotCombined)
-                plot(time_ax, obj.combinedSignal, Color='k',LineWidth=1.5)
+                if(opts.PlotPredicted)
+                    combinedSignalWithBreaks = obj.combinedSignal;
+                    combinedSignalWithBreaks(obj.predictedIdxes) = nan;
+                    plot(time_ax, combinedSignalWithBreaks, Color='k',LineWidth=1.5)
+                else
+                    plot(time_ax, obj.combinedSignal, Color='k',LineWidth=1.5)
+                end
                 legendEntries(end+1) = "Combined";
                 hold on
             end
@@ -147,6 +204,11 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
                 legendEntries(end+1) = string(class(obj.tfa2)) + " sign";
                 hold on
             end
+            if(opts.PlotPredicted && ~isempty(obj.combinedSignalPredicted))
+                plot(time_ax, obj.combinedSignalPredicted, Color='k',LineStyle='-.')
+                legendEntries(end+1) = "Combined Predicted";
+                hold on
+            end
             hold off
             legend(legendEntries)
 
@@ -167,7 +229,11 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
             samplingFrequency = obj.samplingFrequency;
         end
         function signal = getSignal(obj)
-            signal = obj.combinedSignal;
+            if(strcmp(obj.tfAnalysisOutput,"default"))
+                signal = obj.combinedSignal;
+            elseif(strcmp(obj.tfAnalysisOutput,"predicted"))
+                signal = obj.combinedSignalPredicted;
+            end
         end
 
         function [startIndices, endIndices] = getSegmentsStartsEnds(obj)
