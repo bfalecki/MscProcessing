@@ -21,6 +21,9 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
         f_ax % [Hz] frequency axis of stft
         sp % stft IQ samples
         fs_stft % sampling frequency of the stft (along time axis)
+
+        start_samples_stft
+        end_samples_stft
     end
     
     methods
@@ -95,7 +98,10 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
             
             % % we need then high-pass filter to cancel clutter and breath movement in spectrogram
             if(obj.phaseCutoffFreqLow ~= 0)
+                padlength = 50; % this padding removes the edge effect of filter
+                signal = fillmissing(padarray(signal(:),padlength,nan, "post").', "nearest");
                 signal = highpass(signal, obj.phaseCutoffFreqLow / (slowTimePhase.signalInfo.PRF/2));
+                signal = signal(1:length(signal)-padlength);
             end
             
             
@@ -115,18 +121,23 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
                 "FreqRange",obj.heartOscillationFreqRange, ...
                 "LogScale",0);
 
-            obj.heartbeatSignal = highpass(obj.heartbeatSignal, ...
-                obj.resultCutoffFreqLow / (obj.fs_stft/2));
+            if(obj.resultCutoffFreqLow ~= 0)
+                padlength = 50; % this padding removes the edge effect of filter
+                obj.heartbeatSignal = fillmissing(padarray(obj.heartbeatSignal(:),padlength,nan, "post").', "nearest");
+                obj.heartbeatSignal = highpass(obj.heartbeatSignal, ...
+                    obj.resultCutoffFreqLow / (obj.fs_stft/2));
+                obj.heartbeatSignal = obj.heartbeatSignal(1:length(obj.heartbeatSignal)-padlength);
+            end
 
             % if phaser, we do the autoregressive prediction
             if(strcmp(slowTimePhase.signalInfo.device, "phaser"))
                 % we need to determine segments start/end idxes on stft
-                [start_samples_stft,end_samples_stft] = convert_segments_sp(...
+                [obj.start_samples_stft,obj.end_samples_stft] = convert_segments_sp(...
                     slowTimePhase.segmentStartIndices, ...
                     slowTimePhase.segmentEndIndices, ...
                     slowTimePhase.signalInfo.PRF, obj.fs_stft, overlap_len);
                 % also binary idxes are necessary
-                segments_idxes_stft = get_segments_idxes(start_samples_stft,end_samples_stft, length(obj.heartbeatSignal));
+                segments_idxes_stft = get_segments_idxes(obj.start_samples_stft,obj.end_samples_stft, length(obj.heartbeatSignal));
 
                 % save signal with breaks
                 obj.heartbeatSignalBreaks = obj.heartbeatSignal;
@@ -152,6 +163,17 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
         end
         function signal = getSignal(obj)
             signal = obj.heartbeatSignal;
+        end
+
+        function [startIndices, endIndices] = getSegmentsStartsEnds(obj) % get segment start-end indices
+            startIndices = obj.start_samples_stft;
+            endIndices = obj.end_samples_stft;
+        end
+        function signalToPredict = getSignalToPredict(obj) % double vector
+            signalToPredict = obj.heartbeatSignal;
+        end
+        function segmentDuration = getSegmentDuration(obj) % [s]
+            segmentDuration = obj.slowTimePhase.segmentDuration;
         end
 
     end

@@ -67,6 +67,7 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
                 obj 
                 opts.PartConsidered = 1 % part of segment considered to predict break (0 ... 1)
                 opts.ErosePart = 0; % part of segment to bidirectional erosion to supress edge effects
+
             end
             obj.PartConsidered = opts.PartConsidered;
             obj.ErosePart = opts.ErosePart;
@@ -244,6 +245,13 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
             time_difference = seconds(obj.getStartDateTime - obj.tfa1.getStartDateTime);
             startIndices = round(startIndices_temp * sampling_freq_ratio - obj.samplingFrequency * time_difference);
             endIndices = round(endIndices_temp * sampling_freq_ratio - obj.samplingFrequency * time_difference);
+        end
+
+        function signalToPredict = getSignalToPredict(obj) % double vector
+
+        end
+        function segmentDuration = getSegmentDuration(obj) % [s]
+
         end
 
     end

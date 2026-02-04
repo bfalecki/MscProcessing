@@ -50,7 +50,10 @@ classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable
             [obj.heartbeatSignal,obj.actual_fs, obj.t_resampled]= set_fs(obj.heartbeatSignal, slowTimePhase.signalInfo.PRF,desired_fs);
             
             % high pass filter
+            padlength = 50; % this padding removes the edge effect of filter
+            obj.heartbeatSignal = fillmissing(padarray(obj.heartbeatSignal(:),padlength,nan, "post").', "nearest");
             obj.heartbeatSignal = highpass(obj.heartbeatSignal, obj.PassBand(1) / (obj.actual_fs/2));
+            obj.heartbeatSignal = obj.heartbeatSignal(1:length(obj.heartbeatSignal)-padlength);
             % for faster implementation, lowpass can be skept by using
             % lower desired_fs value
             if(obj.UpsamplingFactor - 1 > 0.05)
@@ -81,6 +84,14 @@ classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable
             sampling_freq_ratio = obj.getSamplingFrequency / obj.slowTimePhase.getSamplingFrequency;
             startIndices = round(obj.slowTimePhase.segmentStartIndices * sampling_freq_ratio);
             endIndices = round(obj.slowTimePhase.segmentEndIndices * sampling_freq_ratio);
+        end
+
+
+        function signalToPredict = getSignalToPredict(obj) % double vector
+            signalToPredict = obj.getSignal();
+        end
+        function segmentDuration = getSegmentDuration(obj) % [s]
+            segmentDuration = obj.slowTimePhase.segmentDuration;
         end
 
     end
