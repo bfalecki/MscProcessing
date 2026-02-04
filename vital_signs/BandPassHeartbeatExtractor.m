@@ -1,4 +1,4 @@
-classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable
+classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable & Predictable
     %BANDPASSHEARTBEATEXTRACTOR 
     % This method is the simplest way ever to extract heartbeat signal
     % It can state as a reference method for other, more complex methods to
@@ -29,6 +29,7 @@ classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable
             end
             obj.PassBand = opts.PassBand;
             obj.UpsamplingFactor = opts.UpsamplingFactor;
+            obj.furtherAnalysisOutput = "nonpredicted";
         end
         
         function process(obj,slowTimePhase)
@@ -76,9 +77,6 @@ classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable
         function samplingFrequency = getSamplingFrequency(obj)
             samplingFrequency = obj.actual_fs;
         end
-        function signal = getSignal(obj)
-            signal = obj.heartbeatSignal;
-        end
 
         function [startIndices, endIndices] = getSegmentsStartsEnds(obj)
             sampling_freq_ratio = obj.getSamplingFrequency / obj.slowTimePhase.getSamplingFrequency;
@@ -88,7 +86,7 @@ classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable
 
 
         function signalToPredict = getSignalToPredict(obj) % double vector
-            signalToPredict = obj.getSignal();
+            signalToPredict = obj.heartbeatSignal;
         end
         function segmentDuration = getSegmentDuration(obj) % [s]
             segmentDuration = obj.slowTimePhase.segmentDuration;

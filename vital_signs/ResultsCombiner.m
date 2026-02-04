@@ -1,4 +1,4 @@
-classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
+classdef ResultsCombiner < handle & TimeFrequencyAnalyzable & Predictable
     %RESULTSCOMBINER 
     % This utility can combine the signal from two different signals
     
@@ -19,13 +19,6 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
         sig2Adj % adjustment of sampling rate, time delay, and sampling modulation
         sig2original % only amplitude and sampling rate adjustment
 
-        % prediction-related
-        combinedSignalPredicted % combinedSignal predicted in gaps using autoregressive prediction (after calling predictGaps)
-        predictedIdxes % binary idxes where the signal was predicted
-        tfAnalysisOutput % output for time-freq analysis - default or predicted
-        PartConsidered % related with predictGaps
-        ErosePart % related with predictGaps
-
         % input to adjustment parameters estimation
         windowWidth % FWHM [s], gaussian window for signals correlation
         windowStep % slide step of window [s]
@@ -43,49 +36,7 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
     methods
         function obj = ResultsCombiner()
             %RESULTSCOMBINER Construct an instance of this class
-            obj.tfAnalysisOutput = "default";
-        end
-
-        function setTfAnalysisOutput(obj,outputType)
-            % set output for time-freq analysis
-            arguments
-                obj 
-                outputType % "default" (combinedSignal) / "predicted" (combinedSignalPredicted)
-            end
-            if(strcmp(outputType, "default"))
-                obj.tfAnalysisOutput = "default";
-            elseif(strcmp(outputType, "predicted"))
-                obj.tfAnalysisOutput = "predicted";
-            else
-                error("Invalid type: " + outputType)
-            end
-        end
-
-        function predictGaps(obj, opts)
-            % predict gaps using autoregrssive prediction (in case of Phaser)
-            arguments
-                obj 
-                opts.PartConsidered = 1 % part of segment considered to predict break (0 ... 1)
-                opts.ErosePart = 0; % part of segment to bidirectional erosion to supress edge effects
-
-            end
-            obj.PartConsidered = opts.PartConsidered;
-            obj.ErosePart = opts.ErosePart;
-
-            [start_samples ,end_samples]= obj.getSegmentsStartsEnds();
-            segments_idxes = get_segments_idxes(start_samples,end_samples, length(obj.combinedSignal));
-            oneDirectionalEroseLength = obj.tfa1.slowTimePhase.segmentDuration * ...
-                obj.getSamplingFrequency * ...
-                opts.ErosePart /2;
-            oneDirectionalEroseLength = round(oneDirectionalEroseLength);
-
-
-            obj.predictedIdxes = ~side_by_side_vector_erose(segments_idxes, oneDirectionalEroseLength);
-            obj.combinedSignalPredicted  = fill_gaps_ar_wrapped(obj.combinedSignal ,...
-                obj.getSamplingFrequency,segments_idxes ,obj.tfa1.slowTimePhase.segmentDuration, ...
-                "PartConsidered",opts.PartConsidered,"edge_ignore_length",oneDirectionalEroseLength);
-
-            
+            obj.furtherAnalysisOutput = "nonpredicted";
         end
 
         function combine(obj,tfa1,tfa2,opts)
@@ -205,8 +156,8 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
                 legendEntries(end+1) = string(class(obj.tfa2)) + " sign";
                 hold on
             end
-            if(opts.PlotPredicted && ~isempty(obj.combinedSignalPredicted))
-                plot(time_ax, obj.combinedSignalPredicted, Color='k',LineStyle='-.')
+            if(opts.PlotPredicted && ~isempty(obj.getPredicted))
+                plot(time_ax, obj.getPredicted, Color='k',LineStyle='-.')
                 legendEntries(end+1) = "Combined Predicted";
                 hold on
             end
@@ -229,13 +180,6 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
         function samplingFrequency = getSamplingFrequency(obj)
             samplingFrequency = obj.samplingFrequency;
         end
-        function signal = getSignal(obj)
-            if(strcmp(obj.tfAnalysisOutput,"default"))
-                signal = obj.combinedSignal;
-            elseif(strcmp(obj.tfAnalysisOutput,"predicted"))
-                signal = obj.combinedSignalPredicted;
-            end
-        end
 
         function [startIndices, endIndices] = getSegmentsStartsEnds(obj)
             sampling_freq_ratio = obj.getSamplingFrequency / obj.tfa1.getSamplingFrequency;
@@ -248,10 +192,10 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable
         end
 
         function signalToPredict = getSignalToPredict(obj) % double vector
-
+            signalToPredict = obj.combinedSignal;
         end
         function segmentDuration = getSegmentDuration(obj) % [s]
-
+            segmentDuration = obj.tfa1.slowTimePhase.segmentDuration;
         end
 
     end

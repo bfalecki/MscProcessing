@@ -8,6 +8,10 @@ classdef AutoregressivePredictor < handle
         ErosePartLeft
         ErosePartRight
         PartConsidered
+
+        % results
+        predictedIdxes
+        predicted
     end
     
     methods
@@ -21,14 +25,36 @@ classdef AutoregressivePredictor < handle
             obj.ErosePartLeft =  opts.ErosePartRight;
             obj.ErosePartRight =  opts.ErosePartRight;
             obj.PartConsidered =  opts.PartConsidered;
-
         end
-        
-        function predicted = predict(obj,predictable)
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
-            obj.predictable = predictable;
 
+        
+        function predict(obj,predictable)
+            %This function performs prediction
+            arguments
+                obj
+                predictable Predictable
+            end
+            obj.predictable = predictable;
+            [start_samples ,end_samples]= predictable.getSegmentsStartsEnds();
+            segments_idxes = get_segments_idxes(start_samples,end_samples, length(predictable.getSignalToPredict));
+
+            eroseLengthLeft = predictable.getSegmentDuration * ...
+                predictable.getSamplingFrequency * ...
+                obj.ErosePartLeft /2;
+            eroseLengthLeft = round(eroseLengthLeft);
+
+            eroseLengthRight = predictable.getSegmentDuration * ...
+                predictable.getSamplingFrequency * ...
+                obj.ErosePartRight /2;
+            eroseLengthRight = round(eroseLengthRight);
+
+            segments_idxes_er = side_by_side_vector_erose(segments_idxes, eroseLengthLeft, "left");
+            segments_idxes_er = side_by_side_vector_erose(segments_idxes_er, eroseLengthRight, "right");
+            obj.predictedIdxes = ~segments_idxes_er;
+
+            obj.predicted = fill_gaps_ar_wrapped(predictable.getSignalToPredict ,...
+                predictable.getSamplingFrequency,segments_idxes_er ,predictable.getSegmentDuration, ...
+                "PartConsidered",obj.PartConsidered,"edge_ignore_length",0);
         end
     end
 end

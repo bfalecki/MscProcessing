@@ -1,4 +1,4 @@
-classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
+classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable & Predictable
     %PHASESTFTHEARBEATEXTRACTOR Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -46,6 +46,7 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
             obj.heartOscillationFreqRange = opts.heartOscillationFreqRange ;
             obj.phaseCutoffFreqLow = opts.phaseCutoffFreqLow ;
             obj.resultCutoffFreqLow = opts.resultCutoffFreqLow ;
+            obj.furtherAnalysisOutput = "nonpredicted";
         end
 
         function plotStft(obj)
@@ -160,9 +161,6 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable
         end
         function samplingFrequency = getSamplingFrequency(obj)
             samplingFrequency = obj.fs_stft;
-        end
-        function signal = getSignal(obj)
-            signal = obj.heartbeatSignal;
         end
 
         function [startIndices, endIndices] = getSegmentsStartsEnds(obj) % get segment start-end indices
