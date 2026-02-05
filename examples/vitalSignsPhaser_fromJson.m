@@ -1,19 +1,17 @@
-% folder = "C:\Users\bfalecki\Documents\challenge\rec\";
-folder = "/home/user/Documents/praca_mgr/measurements/phaser/";
+configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
+configFilename = "rec_04-Dec-2025__dist2m_synchr0_pred1_ridge-first_peaks-distanceBased_4rmse-nomem.json";
+experiment = readJson(configDir + configFilename);
 
-filename = "phaser_rec_04-Dec-2025_18-23-11_vs0.5m.mat";
-range_cell = 0.3; % meters
+folder = "C:\Users\bfalecki\Documents\challenge\rec\";
+% folder = "/home/user/Documents/praca_mgr/measurements/phaser/";
 
-% filename = "phaser_rec_04-Dec-2025_18-39-31_vs1m.mat";
-% range_cell = 1; % meters
-
-% filename = "phaser_rec_04-Dec-2025_18-46-23_vs2m.mat";
-% range_cell = 2; % meters
+filename = experiment.loading.filename;
+range_cell = experiment.preprocessing.range_cell; % meters
 
 rangeCellMeters = [0.25 2.5];
 
-lengthSeconds = 180;
-offsetSeconds = 30;
+lengthSeconds = experiment.loading.lengthSeconds;
+offsetSeconds = experiment.loading.offsetSeconds;
 rawData = readRawPhaser(folder+filename,"lengthSeconds",lengthSeconds,"offsetSeconds",offsetSeconds);
 loadConfig = SignalLoadingConfig(lengthSeconds,offsetSeconds,filename);
 
@@ -23,13 +21,16 @@ loadConfig = SignalLoadingConfig(lengthSeconds,offsetSeconds,filename);
 
 %% 
 
-fast_time_data_start = 1;
-fast_time_data_end = 2045;
-FastTimeWindow = "hann";
-rangeTimeMap = raw2rtm(rawData,"fast_time_data_start",fast_time_data_start, "fast_time_data_end",fast_time_data_end,"Window",FastTimeWindow);
+fast_time_data_start = experiment.preprocessing.fast_time_data_start;
+fast_time_data_end = experiment.preprocessing.fast_time_data_end;
+FastTimeWindow = experiment.preprocessing.FastTimeWindow;
+rangeTimeMap = raw2rtm(rawData, ...
+    "fast_time_data_start",fast_time_data_start, ...
+    "fast_time_data_end",fast_time_data_end, ...
+    "Window",FastTimeWindow);
 slowTimeSignal = rtm2sts(rangeTimeMap,rangeCellMeters);
 slowTimeSignal.selectSingleCell(range_cell);
-phaseUnwrappingMethod = "atan";
+phaseUnwrappingMethod = experiment.preprocessing.phaseUnwrappingMethod;
 slowTimePhase = sts2stp(slowTimeSignal,"method",phaseUnwrappingMethod);
 
 
@@ -39,16 +40,26 @@ figure(5); slowTimePhase.plotPhaseDiff()
 
 
 %% preprocessing
-figure(6); [slowTimePhase, phaseDiscontCompParams] = slowTimeSignal.removePhaseDiscontinuities("Display",1,"ThresholdMultiplier",5);
+figure(6); [slowTimePhase, phaseDiscontCompParams] = ...
+    slowTimeSignal.removePhaseDiscontinuities( ...
+    "Display",1, ...
+    "ThresholdQuantile",experiment.preprocessing.phaseDiscontCompParams.ThresholdQuantile, ...
+    "ThresholdMultiplier",experiment.preprocessing.phaseDiscontCompParams.ThresholdMultiplier, ...
+    "NeighborSize",experiment.preprocessing.phaseDiscontCompParams.NeighborSize, ...
+    "SegmentsBounds",experiment.preprocessing.phaseDiscontCompParams.SegmentsBounds);
 preprocConfig = PreprocessingConfig(range_cell,fast_time_data_start,fast_time_data_end,FastTimeWindow,phaseUnwrappingMethod,phaseDiscontCompParams);
-
 
 %% optional save pre-processed signal to file
 preprocDir = "data" + filesep;
 filepathPreprocessed = makeOutputFilename(filename, "preproc", preprocDir, "extension",".mat");
 save(filepathPreprocessed, "slowTimeSignal","slowTimePhase","loadConfig","preprocConfig")
 
-%% optional read pre-processed signal from file
+%% optional start: read pre-processed signal from file
+
+configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
+configFilename = "trial-params.json";
+experiment = readJson(configDir + configFilename);
+
 filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-23-11_vs0.5m__preproc.mat";
 % filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-39-31_vs1m__preproc.mat";
 % filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-46-23_vs2m__preproc.mat";
@@ -60,67 +71,53 @@ slowTimePhase =  preprocFile.slowTimePhase;
 slowTimeSignal =  preprocFile.slowTimeSignal;
 
 
-%% Breath rate extraction
-% tfa0 = TimeFreqAnalyzer("WindowWidth",10,"FrequencyResolution",1/60/4,"MaximumVisibleFrequency",1,"Synchrosqueezed",1);
-% tfa0.transform(slowTimePhase)
-% tfa0.detectRidge( ...
-%     "NuberOfRidges",1, ...
-%     "SelectMethod","first", ...
-%     "JumpPenalty",2, ...
-%     "PossibleHighFrequency",0.8,  "PossibleLowFrequency",0.05)
-% figure(7); tfa0.plotResults("QuantileVal",0.8,"AllRidges",1,"PlotPeaks",0)
-
 %% PhaseStftHearbeatExtractor
-pshe = PhaseStftHearbeatExtractor("heartOscillationFreqRange", [0 40], ...
-    "frequencyResolution",0.5, ...
-    "phaseCutoffFreqLow",2, ...
-    "windowWidth", 0.3, ...
-    "resultCutoffFreqLow",0.5);
+pshe = PhaseStftHearbeatExtractor( ...
+    "heartOscillationFreqRange", experiment.pshe.heartOscillationFreqRange, ...
+    "frequencyResolution",experiment.pshe.frequencyResolution, ...
+    "phaseCutoffFreqLow",experiment.pshe.phaseCutoffFreqLow, ...
+    "windowWidth", experiment.pshe.windowWidth, ...
+    "resultCutoffFreqLow",experiment.pshe.resultCutoffFreqLow, ...
+    "desiredTimeRes",experiment.pshe.desiredTimeRes, ...
+    "maximumVisibleFrequency",experiment.pshe.maximumVisibleFrequency);
 pshe.process(slowTimePhase);
 figure(111); pshe.plotHeartbeatSignal;
 figure(121); pshe.plotStft;
 
 %% BandPassHeartbeatExtractor
-bphe = BandPassHeartbeatExtractor("PassBand",[0.8 1.8]);
+bphe = BandPassHeartbeatExtractor( ...
+    "PassBand",experiment.bphe.PassBand, ...
+    "UpsamplingFactor",experiment.bphe.UpsamplingFactor);
 bphe.process(slowTimePhase)
 figure(991); bphe.plotResult()
-
-% %% predict before combination
-% predictables = {bphe, pshe};
-% cellfun(@(x) x.predict("ErosePartLeft",0.1,"ErosePartRight",0.2,"PartConsidered",0.4),predictables)
-% cellfun(@(x) x.setTfAnalysisOutput("predicted"),predictables)
 
 %% Combined BandPassHeartbeatExtractor and PhaseStftHearbeatExtractor
 
 rc = ResultsCombiner();
-% rc.combine(bphe, pshe,"timeDelay2",0.15, "weights",[-1, 1]);
-rc.combine(bphe, pshe,"estimateDelay",1,"estimateSign",0, ...
-    "weights",[1, 1],"windowWidth",4,"windowStep",2,"maxAllowableShift",0.4);
+rc.combine(bphe, pshe, ...
+    "estimateDelay",experiment.rc.input.estimateDelay, ...
+    "estimateSign",experiment.rc.input.estimateSign, ...
+    "weights",[experiment.rc.input.weight1, experiment.rc.input.weight2], ...
+    "windowWidth",experiment.rc.adjustment.windowWidth, ...
+    "windowStep",experiment.rc.adjustment.windowStep, ...
+    "maxAllowableShift",experiment.rc.adjustment.maxAllowableShift, ...
+    "timeDelay2",experiment.rc.input.timeDelay2);
 
 figure(191); rc.plotEstimatedDelay()
 figure(192); rc.plotResult()
 
 %% prediction in breaks
 predictables = {bphe, pshe,rc};
+predictionParameters = {experiment.bphe.prediction, experiment.pshe.prediction,experiment.rc.prediction};
 figure_nrs = [115,995,195];
 for k = 1:length(predictables)
-    predictables{k}.predict("ErosePartLeft",0,"ErosePartRight",0.15,"PartConsidered",0.4);
+    predictables{k}.predict( ...
+        "ErosePartLeft",predictionParameters{k}.ErosePartLeft, ...
+        "ErosePartRight",predictionParameters{k}.ErosePartRight, ...
+        "PartConsidered",predictionParameters{k}.PartConsidered);
     figure(figure_nrs(k)); predictables{k}.plotPredictionResult()
-    predictables{k}.setTfAnalysisOutput("predicted"); % "nonpredicted" / "predicted" 
+    predictables{k}.setTfAnalysisOutput(predictionParameters{k}.furtherAnalysisOutput); % "nonpredicted" / "predicted" 
 end
-
-% %% envelope normalization
-% normWindow = 2; % seconds
-% windowWidth = round(normWindow*rc.getSamplingFrequency);
-% combinedSignalEnvelopeNorm = normalizeEnvelope(rc.combinedSignal,windowWidth);
-% rc.combinedSignal = combinedSignalEnvelopeNorm;
-
-% %% Inter-beat interval estimation
-% [start_samples,end_samples] =  rc.getSegmentsStartsEnds;
-% ibi = estimateIbi(combinedSignalEnvelopeNorm, rc.getSamplingFrequency, ...
-%     "StartSamples",start_samples, ...
-%     "EndSamples",end_samples, ...
-%     "EroseSize",0);
 
 %% Time-Frequency Analysis
 tfAnalyzables = {pshe,bphe, rc};
@@ -129,26 +126,26 @@ fig_nr = [1211 992 193];
 
 for k = 1:length(tfAnalyzables)
     tfaVect{k} = TimeFreqAnalyzer( ...
-        "WindowWidth",10, ...
-        "FrequencyResolution",0.5/60, ...
-        "MaximumVisibleFrequency",150/60, ...
-        "Synchrosqueezed",1);
+        "WindowWidth",experiment.tfa(k).WindowWidth, ...
+        "FrequencyResolution",experiment.tfa(k).FrequencyResolution, ...
+        "MaximumVisibleFrequency",experiment.tfa(k).MaximumVisibleFrequency, ...
+        "Synchrosqueezed",experiment.tfa(k).Synchrosqueezed);
     tfaVect{k}.transform(tfAnalyzables{k})
     % find time-frequency ridge with memory
     tfaVect{k}.detectRidge( ...
-    "NuberOfRidges",3, ...
-    "PossibleLowFrequency",40/60,...
-    "PossibleHighFrequency",150/60,...
-    "JumpPenalty",1, ...
-    "SelectMethod","first", ... "lowest" / "first" / "nearest" / "middle"
-    "DesiredNearestFrequency", 80/60 ...
+    "NuberOfRidges",experiment.tfa(k).detectRidgeNuberOfRidges, ...
+    "PossibleLowFrequency",experiment.tfa(k).detectRidgePossibleLowFrequency,...
+    "PossibleHighFrequency",experiment.tfa(k).detectRidgePossibleHighFrequency,...
+    "JumpPenalty",experiment.tfa(k).detectRidgeJumpPenalty, ...
+    "SelectMethod",experiment.tfa(k).detectRidgeSelectMethod, ... "lowest" / "first" / "nearest" / "middle"
+    "DesiredNearestFrequency", experiment.tfa(k).detectRidgeDesiredNearestFrequency ...
     );
     % find time-frequency ridge without memory
     frequencyDistanceToHarmonics = 1/mean(diff(slowTimeSignal.signalInfo.frameStartTimes)); % frame-length dependent
     tfaVect{k}.detectPeaks( ...
-        "Method", "middle", ...  "highest" / "lower" / "middle" / "distanceBased"
-        "ExactDistance",frequencyDistanceToHarmonics, ...
-        "DistanceTolerance",0.3 * frequencyDistanceToHarmonics ...
+        "Method", experiment.tfa(k).detectPeaksMethod, ...  "highest" / "lower" / "middle" / "distanceBased"
+        "ExactDistance",experiment.tfa(k).detectPeaksExactDistance, ...
+        "DistanceTolerance",experiment.tfa(k).detectPeaksDistanceTolerance ...
         );
     figure(fig_nr(k));
     tfaVect{k}.plotResults( ...
@@ -158,7 +155,7 @@ end
 %% Comparison with Reference: RMSE with Memory ------- 
 % referencePath = "C:\Users\bfalecki\Documents\challenge\reference\kalenji\2025-12-04.fit";
 referencePath = "/home/user/Documents/praca_mgr/measurements/reference/2025-12-04.fit";
-hre = HeartRateReference(referencePath,"ManualTimeShift",1-5/3600);
+hre = HeartRateReference(referencePath,"ManualTimeShift",hours(duration(experiment.hre.ManualTimeShift)));
 cellfun(@(x) x.setHeartRateOutput("ridge"),tfaVect)
 errors_memory = hre.calucateError(tfaVect);
 figure(10101);hre.plot("otherResults",tfaVect, "showAdjusted",1)
@@ -196,6 +193,7 @@ suffix = sprintf("dist%s_synchr%d_pred%d_ridge-%s_peaks-%s", ...
 baseName = "rec_04-Dec-2025";
 custom_suffix = "";
 suffix = suffix + custom_suffix;
+
 save2file = 0;
 if(save2file)
     outPathJson = makeOutputFilename(baseName, suffix, outDir,"extension",".json");

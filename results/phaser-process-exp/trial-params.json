@@ -1,28 +1,11 @@
 {
-  "errors": {
-    "methods": [
-      "pshe",
-      "bphe",
-      "rc"
-    ],
-    "memory": [
-      30.910535132071825,
-      3.5019602902722751,
-      4.8848766565574895
-    ],
-    "noMemory": [
-      21.839139719996286,
-      15.081119941779841,
-      15.105026084002366
-    ]
-  },
   "tfa": [
     {
       "detectPeaksMethod": "distanceBased",
-      "detectRidgeSelectMethod": "middle",
+      "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0033333333333333335,
+      "FrequencyResolution": 0.0041666666666666666,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
@@ -30,14 +13,14 @@
       "detectRidgeNuberOfRidges": 3,
       "detectRidgeDesiredNearestFrequency": 1.3333333333333333,
       "detectPeaksExactDistance": 0.32537602292164391,
-      "detectPeaksDistanceTolerance": 0.016268801146082198
+      "detectPeaksDistanceTolerance": 0.097612806876493166
     },
     {
       "detectPeaksMethod": "distanceBased",
-      "detectRidgeSelectMethod": "middle",
+      "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0033333333333333335,
+      "FrequencyResolution": 0.0041666666666666666,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
@@ -45,14 +28,14 @@
       "detectRidgeNuberOfRidges": 3,
       "detectRidgeDesiredNearestFrequency": 1.3333333333333333,
       "detectPeaksExactDistance": 0.32537602292164391,
-      "detectPeaksDistanceTolerance": 0.016268801146082198
+      "detectPeaksDistanceTolerance": 0.097612806876493166
     },
     {
       "detectPeaksMethod": "distanceBased",
-      "detectRidgeSelectMethod": "middle",
+      "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0033333333333333335,
+      "FrequencyResolution": 0.0041666666666666666,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
@@ -60,7 +43,7 @@
       "detectRidgeNuberOfRidges": 3,
       "detectRidgeDesiredNearestFrequency": 1.3333333333333333,
       "detectPeaksExactDistance": 0.32537602292164391,
-      "detectPeaksDistanceTolerance": 0.016268801146082198
+      "detectPeaksDistanceTolerance": 0.097612806876493166
     }
   ],
   "loading": {
@@ -86,44 +69,57 @@
   },
   "pshe": {
     "desiredTimeRes": 0.025,
-    "windowWidth": 0.25,
+    "windowWidth": 0.3,
     "frequencyResolution": 0.5,
     "maximumVisibleFrequency": 40,
     "heartOscillationFreqRange": [
-      5,
-      15
+      0,
+      40
     ],
-    "phaseCutoffFreqLow": 5,
-    "resultCutoffFreqLow": 0.5
+    "phaseCutoffFreqLow": 2,
+    "resultCutoffFreqLow": 0.5,
+    "prediction": {
+      "ErosePartLeft": 0.15,
+      "ErosePartRight": 0.15,
+      "furtherAnalysisOutput": "predicted",
+      "PartConsidered": 0.5
+    }
   },
   "bphe": {
     "PassBand": [
       0.8,
       1.8
     ],
-    "UpsamplingFactor": 4
+    "UpsamplingFactor": 4,
+    "prediction": {
+      "ErosePartLeft": 0.15,
+      "ErosePartRight": 0.15,
+      "furtherAnalysisOutput": "predicted",
+      "PartConsidered": 0.5
+    }
   },
   "rc": {
     "input": {
       "weight1": 1,
       "weight2": 1,
       "timeDelay2": 0,
-      "estimateDelay": 1
+      "estimateDelay": 1,
+      "estimateSign": 0
     },
     "prediction": {
-      "estimateSign": 0,
-      "tfAnalysisOutput": "default",
-      "PartConsidered": 1,
-      "ErosePart": 0.15
+      "ErosePartLeft": 0.15,
+      "ErosePartRight": 0.15,
+      "furtherAnalysisOutput": "predicted",
+      "PartConsidered": 0.5
     },
     "adjustment": {
-      "windowWidth": 5,
-      "windowStep": 2.5,
+      "windowWidth": 4,
+      "windowStep": 2,
       "maxAllowableShift": 0.4
     }
   },
   "hre": {
-    "path": "C:\\Users\\bfalecki\\Documents\\challenge\\reference\\kalenji\\2025-12-04.fit",
+    "path": "/home/user/Documents/praca_mgr/measurements/reference/2025-12-04.fit",
     "ManualTimeShift": "00:59:55"
   }
 }
