@@ -91,7 +91,9 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable & Predict
             % save it for informative purposes
             obj.slowTimePhase = slowTimePhase;
 
+            % signal = diff(slowTimePhase.phase); % or filtered before
             signal = slowTimePhase.phase; % or filtered before
+            warning("TO DO : check if the results can be better with phase differentation")
 
             % % we need to set proper fs
             % desired_fs = 100;
@@ -103,6 +105,8 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable & Predict
                 signal = fillmissing(padarray(signal(:),padlength,nan, "post").', "nearest");
                 signal = highpass(signal, obj.phaseCutoffFreqLow / (slowTimePhase.signalInfo.PRF/2));
                 signal = signal(1:length(signal)-padlength);
+            else % remove DC only
+                signal = signal - mean(signal);
             end
             
             

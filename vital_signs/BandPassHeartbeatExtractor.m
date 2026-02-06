@@ -48,7 +48,7 @@ classdef BandPassHeartbeatExtractor < handle & TimeFrequencyAnalyzable & Predict
             obj.heartbeatSignal = fdoppler2vel(obj.heartbeatSignal, slowTimePhase.signalInfo.carrierFrequency);
 
             % reducing sampling frequency
-            [obj.heartbeatSignal,obj.actual_fs, obj.t_resampled]= set_fs(obj.heartbeatSignal, slowTimePhase.signalInfo.PRF,desired_fs);
+            [obj.heartbeatSignal,obj.actual_fs, obj.t_resampled] = set_fs(obj.heartbeatSignal, slowTimePhase.signalInfo.PRF,desired_fs);
             
             % high pass filter
             padlength = 50; % this padding removes the edge effect of filter

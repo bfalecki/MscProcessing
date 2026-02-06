@@ -53,8 +53,6 @@ classdef SlowTimeSignal < SlowTimeSignalAny
 
         function [slowTimePhase_filt, params] = removePhaseDiscontinuities(obj, opts)
             % remove phase discontinuities
-            % TO DO: add filter_noise_peaks parameters
-
             % output:
             % slowTimePhase_filt - SlowTimePhase instance with filtering
             % applied (extracted using atan method)

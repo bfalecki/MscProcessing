@@ -3,7 +3,7 @@
     {
       "detectPeaksMethod": "distanceBased",
       "detectRidgeSelectMethod": "first",
-      "Synchrosqueezed": 0,
+      "Synchrosqueezed": 1,
       "WindowWidth": 10,
       "FrequencyResolution": 0.0041666666666666666,
       "MaximumVisibleFrequency": 2.5,
@@ -74,7 +74,7 @@
     "maximumVisibleFrequency": 40,
     "heartOscillationFreqRange": [
       0,
-      40
+      30
     ],
     "phaseCutoffFreqLow": 2,
     "resultCutoffFreqLow": 0.5,

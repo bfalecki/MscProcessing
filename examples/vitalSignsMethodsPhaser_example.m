@@ -30,18 +30,17 @@ rangeTimeMap = raw2rtm(rawData,"fast_time_data_start",fast_time_data_start, "fas
 slowTimeSignal = rtm2sts(rangeTimeMap,rangeCellMeters);
 slowTimeSignal.selectSingleCell(range_cell);
 phaseUnwrappingMethod = "atan";
-slowTimePhase = sts2stp(slowTimeSignal,"method",phaseUnwrappingMethod);
-
-
-figure(3); slowTimeSignal.plotSignal()
-figure(4); slowTimePhase.plotPhase()
-figure(5); slowTimePhase.plotPhaseDiff()
-
+% slowTimePhase = sts2stp(slowTimeSignal,"method",phaseUnwrappingMethod);
 
 %% preprocessing
 figure(6); [slowTimePhase, phaseDiscontCompParams] = slowTimeSignal.removePhaseDiscontinuities("Display",1,"ThresholdMultiplier",5);
 preprocConfig = PreprocessingConfig(range_cell,fast_time_data_start,fast_time_data_end,FastTimeWindow,phaseUnwrappingMethod,phaseDiscontCompParams);
 
+slowTimePhase.removeLinearPhase()
+
+figure(3); slowTimeSignal.plotSignal()
+figure(4); slowTimePhase.plotPhase()
+figure(5); slowTimePhase.plotPhaseDiff()
 
 %% optional save pre-processed signal to file
 preprocDir = "data" + filesep;

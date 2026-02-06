@@ -49,6 +49,11 @@ classdef SlowTimePhase < SlowTimeSignalAny
             ylabel("Unwrapped Phase Diff. [rad/s]")
         end
 
+        function removeLinearPhase(obj)
+            % substract linear phase component
+            obj.phase = subtractLinearComponent(obj.phase.');
+        end
+
         function t_ax = getTimeAx(obj)
             t_ax = 0: 1/obj.signalInfo.PRF : (size(obj.phase,2)-1) / obj.signalInfo.PRF;
         end

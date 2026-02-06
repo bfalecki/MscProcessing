@@ -33,10 +33,13 @@ function slowTimePhase= sts2stp(slowTimeSignal,opts)
         for k = 1:size(phasesRaw,1)
             % get rid of big first difference sample
             phaseRaw = phasesRaw(k, :);
-            phaseRaw = reset_accumulated_phase(phaseRaw, ...
-                slowTimeSignal.segmentStartIndices, ...
-                slowTimeSignal.segmentEndIndices);  % save this for further possible processing
-            
+
+            % after recent fix in fix_edges function, this function does
+            % not change anything
+            % phaseRaw = reset_accumulated_phase(phaseRaw, ...
+            %     slowTimeSignal.segmentStartIndices, ...
+            %     slowTimeSignal.segmentEndIndices);  % save this for further possible processing
+
             % differentiation
             phaseDiffRaw = compl_diff(diff(phaseRaw)); % save this for further possible processing
     
@@ -67,9 +70,9 @@ function slowTimePhase= sts2stp(slowTimeSignal,opts)
             final_phases(k,:) = final_phase;
 
         end
-        % in case of phaser signal, most often we have also some linear
-        % phase componenet which can be subtracted here
-        final_phases = subtractLinearComponent(final_phases.').';
+        % % in case of phaser signal, most often we have also some linear
+        % % phase componenet which can be subtracted here
+        % final_phases = subtractLinearComponent(final_phases.').';
 
         slowTimePhase.setPhase(final_phases);
         

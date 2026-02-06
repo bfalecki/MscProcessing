@@ -1,9 +1,9 @@
 configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
-configFilename = "rec_04-Dec-2025__dist2m_synchr0_pred1_ridge-first_peaks-distanceBased_4rmse-nomem.json";
+configFilename = "rec_04-Dec-2025__dist0.5m_synchr0_pred1_ridge-first_peaks-highest_selected.json";
 experiment = readJson(configDir + configFilename);
 
-folder = "C:\Users\bfalecki\Documents\challenge\rec\";
-% folder = "/home/user/Documents/praca_mgr/measurements/phaser/";
+% folder = "C:\Users\bfalecki\Documents\challenge\rec\";
+folder = "/home/user/Documents/praca_mgr/measurements/phaser/";
 
 filename = experiment.loading.filename;
 range_cell = experiment.preprocessing.range_cell; % meters
@@ -30,14 +30,7 @@ rangeTimeMap = raw2rtm(rawData, ...
     "Window",FastTimeWindow);
 slowTimeSignal = rtm2sts(rangeTimeMap,rangeCellMeters);
 slowTimeSignal.selectSingleCell(range_cell);
-phaseUnwrappingMethod = experiment.preprocessing.phaseUnwrappingMethod;
-slowTimePhase = sts2stp(slowTimeSignal,"method",phaseUnwrappingMethod);
-
-
-figure(3); slowTimeSignal.plotSignal()
-figure(4); slowTimePhase.plotPhase()
-figure(5); slowTimePhase.plotPhaseDiff()
-
+phaseUnwrappingMethod = experiment.preprocessing.phaseUnwrappingMethod; % not used, it is always 'atan' after removePhaseDiscontinuities
 
 %% preprocessing
 figure(6); [slowTimePhase, phaseDiscontCompParams] = ...
@@ -49,6 +42,12 @@ figure(6); [slowTimePhase, phaseDiscontCompParams] = ...
     "SegmentsBounds",experiment.preprocessing.phaseDiscontCompParams.SegmentsBounds);
 preprocConfig = PreprocessingConfig(range_cell,fast_time_data_start,fast_time_data_end,FastTimeWindow,phaseUnwrappingMethod,phaseDiscontCompParams);
 
+slowTimePhase.removeLinearPhase()
+
+figure(3); slowTimeSignal.plotSignal()
+figure(4); slowTimePhase.plotPhase()
+figure(5); slowTimePhase.plotPhaseDiff()
+
 %% optional save pre-processed signal to file
 preprocDir = "data" + filesep;
 filepathPreprocessed = makeOutputFilename(filename, "preproc", preprocDir, "extension",".mat");
@@ -57,7 +56,7 @@ save(filepathPreprocessed, "slowTimeSignal","slowTimePhase","loadConfig","prepro
 %% optional start: read pre-processed signal from file
 
 configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
-configFilename = "trial-params.json";
+configFilename = "rec_04-Dec-2025__dist2m_synchr0_pred1_ridge-first_peaks-highest_selected.json";
 experiment = readJson(configDir + configFilename);
 
 filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-23-11_vs0.5m__preproc.mat";
