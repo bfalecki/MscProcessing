@@ -81,13 +81,14 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable & Predictable
             obj.sig2Adj = sig2(1:maxLen);
 
             % normalization
-            obj.sig1Adj = obj.sig1Adj / rms(obj.sig1Adj);
-            obj.sig2Adj = obj.sig2Adj / rms(obj.sig2Adj);
-            obj.sig2original = obj.sig2original / rms(obj.sig2original);
             obj.sig1Adj = obj.sig1Adj - mean(obj.sig1Adj);
-            obj.sig2Adj = obj.sig2Adj - mean(obj.sig2Adj);
-            obj.sig2original = obj.sig2original - mean(obj.sig2original);
+            obj.sig1Adj = obj.sig1Adj / rms(obj.sig1Adj);
 
+            obj.sig2Adj = obj.sig2Adj - mean(obj.sig2Adj);
+            obj.sig2Adj = obj.sig2Adj / rms(obj.sig2Adj);
+            
+            obj.sig2original = obj.sig2original - mean(obj.sig2original);
+            obj.sig2original = obj.sig2original / rms(obj.sig2original);
 
             obj.sig1Adj = obj.sig1Adj*obj.weight1;
             obj.sig2Adj = obj.sig2Adj*obj.weight2;
@@ -185,7 +186,6 @@ classdef ResultsCombiner < handle & TimeFrequencyAnalyzable & Predictable
             sampling_freq_ratio = obj.getSamplingFrequency / obj.tfa1.getSamplingFrequency;
             [startIndices_temp, endIndices_temp] = obj.tfa1.getSegmentsStartsEnds;
 
-            % NOT TESTED, possible errors
             time_difference = seconds(obj.getStartDateTime - obj.tfa1.getStartDateTime);
             startIndices = round(startIndices_temp * sampling_freq_ratio - obj.samplingFrequency * time_difference);
             endIndices = round(endIndices_temp * sampling_freq_ratio - obj.samplingFrequency * time_difference);

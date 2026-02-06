@@ -148,6 +148,8 @@ classdef PhaseStftHearbeatExtractor < handle & TimeFrequencyAnalyzable & Predict
                 obj.heartbeatSignalBreaks = obj.heartbeatSignal;
                 obj.heartbeatSignalBreaks(~segments_idxes_stft) = nan;
 
+                % PREDICTION IS PERFORMED IN A SEPARATE INTERFACE CLASS 'Predictable'
+                % 
                 % % now we must perform signal prediction in breaks
                 % obj.heartbeatSignal = fill_gaps_ar_wrapped(obj.heartbeatSignal,...
                 %     obj.fs_stft, segments_idxes_stft,slowTimePhase.segmentDuration,"PartConsidered",1);

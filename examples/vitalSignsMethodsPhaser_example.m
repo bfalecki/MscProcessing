@@ -48,9 +48,9 @@ filepathPreprocessed = makeOutputFilename(filename, "preproc", preprocDir, "exte
 save(filepathPreprocessed, "slowTimeSignal","slowTimePhase","loadConfig","preprocConfig")
 
 %% optional read pre-processed signal from file
-filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-23-11_vs0.5m__preproc.mat";
+% filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-23-11_vs0.5m__preproc.mat";
 % filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-39-31_vs1m__preproc.mat";
-% filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-46-23_vs2m__preproc.mat";
+filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-46-23_vs2m__preproc.mat";
 
 preprocFile = load(filepathPreprocessed);
 loadConfig = preprocFile.loadConfig;
@@ -60,14 +60,19 @@ slowTimeSignal =  preprocFile.slowTimeSignal;
 
 
 %% Breath rate extraction
-% tfa0 = TimeFreqAnalyzer("WindowWidth",10,"FrequencyResolution",1/60/4,"MaximumVisibleFrequency",1,"Synchrosqueezed",1);
-% tfa0.transform(slowTimePhase)
-% tfa0.detectRidge( ...
-%     "NuberOfRidges",1, ...
-%     "SelectMethod","first", ...
-%     "JumpPenalty",2, ...
-%     "PossibleHighFrequency",0.8,  "PossibleLowFrequency",0.05)
-% figure(7); tfa0.plotResults("QuantileVal",0.8,"AllRidges",1,"PlotPeaks",0)
+bpbe = BandPassBreathExtractor("PassBand",[0.1 0.8],"UpsamplingFactor",4);
+bpbe.process(slowTimePhase)
+figure(311)
+bpbe.plotResult
+
+tfa0 = TimeFreqAnalyzer("WindowWidth",15,"FrequencyResolution",1/60/4,"MaximumVisibleFrequency",1,"Synchrosqueezed",0);
+tfa0.transform(slowTimePhase)
+tfa0.detectRidge( ...
+    "NuberOfRidges",1, ...
+    "SelectMethod","first", ...
+    "JumpPenalty",1, ...
+    "PossibleHighFrequency",0.8,  "PossibleLowFrequency",0.1)
+figure(312); tfa0.plotResults("QuantileVal",0.8,"AllRidges",1,"PlotPeaks",0)
 
 %% PhaseStftHearbeatExtractor
 pshe = PhaseStftHearbeatExtractor("heartOscillationFreqRange", [0 40], ...
