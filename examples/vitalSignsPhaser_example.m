@@ -70,6 +70,21 @@ figure(5); slowTimePhase.plotPhaseDiff()
 % slowTimeSignal =  preprocFile.slowTimeSignal;
 % 
 
+%% Breath rate extraction
+bpbe = BandPassBreathExtractor("PassBand",[0.1 0.8],"UpsamplingFactor",4);
+bpbe.process(slowTimePhase)
+figure(311)
+bpbe.plotResult
+
+tfa0 = TimeFreqAnalyzer("WindowWidth",15,"FrequencyResolution",1/60/4,"MaximumVisibleFrequency",1,"Synchrosqueezed",0);
+tfa0.transform(slowTimePhase)
+tfa0.detectRidge( ...
+    "NuberOfRidges",1, ...
+    "SelectMethod","first", ...
+    "JumpPenalty",1, ...
+    "PossibleHighFrequency",0.8,  "PossibleLowFrequency",0.1)
+figure(312); tfa0.plotResults("QuantileVal",0.8,"AllRidges",1,"PlotPeaks",0)
+
 %% PhaseStftHearbeatExtractor
 configFilename = "trial-params.json";
 experiment = readJson(configDir + configFilename);
