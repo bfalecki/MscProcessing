@@ -1,11 +1,11 @@
 {
   "tfa": [
     {
-      "detectPeaksMethod": "distanceBased",
+      "detectPeaksMethod": "highest",
       "detectRidgeSelectMethod": "first",
-      "Synchrosqueezed": 1,
+      "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0041666666666666666,
+      "FrequencyResolution": 0.0083333333333333332,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
@@ -16,11 +16,11 @@
       "detectPeaksDistanceTolerance": 0.097612806876493166
     },
     {
-      "detectPeaksMethod": "distanceBased",
+      "detectPeaksMethod": "highest",
       "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0041666666666666666,
+      "FrequencyResolution": 0.0083333333333333332,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
@@ -31,11 +31,11 @@
       "detectPeaksDistanceTolerance": 0.097612806876493166
     },
     {
-      "detectPeaksMethod": "distanceBased",
+      "detectPeaksMethod": "highest",
       "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0041666666666666666,
+      "FrequencyResolution": 0.0083333333333333332,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
@@ -69,20 +69,20 @@
   },
   "pshe": {
     "desiredTimeRes": 0.025,
-    "windowWidth": 0.3,
+    "windowWidth": 0.25,
     "frequencyResolution": 0.5,
     "maximumVisibleFrequency": 40,
     "heartOscillationFreqRange": [
       0,
       30
     ],
-    "phaseCutoffFreqLow": 2,
+    "phaseCutoffFreqLow": 5,
     "resultCutoffFreqLow": 0.5,
     "prediction": {
-      "ErosePartLeft": 0.15,
+      "ErosePartLeft": 0.0,
       "ErosePartRight": 0.15,
       "furtherAnalysisOutput": "predicted",
-      "PartConsidered": 0.5
+      "PartConsidered": 0.1
     }
   },
   "bphe": {
@@ -92,10 +92,10 @@
     ],
     "UpsamplingFactor": 4,
     "prediction": {
-      "ErosePartLeft": 0.15,
+      "ErosePartLeft": 0.0,
       "ErosePartRight": 0.15,
       "furtherAnalysisOutput": "predicted",
-      "PartConsidered": 0.5
+      "PartConsidered": 0.1
     }
   },
   "rc": {
@@ -107,14 +107,14 @@
       "estimateSign": 0
     },
     "prediction": {
-      "ErosePartLeft": 0.15,
+      "ErosePartLeft": 0.0,
       "ErosePartRight": 0.15,
       "furtherAnalysisOutput": "predicted",
-      "PartConsidered": 0.5
+      "PartConsidered": 0.1
     },
     "adjustment": {
-      "windowWidth": 4,
-      "windowStep": 2,
+      "windowWidth": 5,
+      "windowStep": 2.5,
       "maxAllowableShift": 0.4
     }
   },

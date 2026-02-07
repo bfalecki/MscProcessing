@@ -1,5 +1,5 @@
 configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
-configFilename = "rec_04-Dec-2025__dist0.5m_synchr0_pred1_ridge-first_peaks-highest_selected.json";
+configFilename = "trial-params.json";
 experiment = readJson(configDir + configFilename);
 
 % folder = "C:\Users\bfalecki\Documents\challenge\rec\";
@@ -48,29 +48,32 @@ figure(3); slowTimeSignal.plotSignal()
 figure(4); slowTimePhase.plotPhase()
 figure(5); slowTimePhase.plotPhaseDiff()
 
-%% optional save pre-processed signal to file
-preprocDir = "data" + filesep;
-filepathPreprocessed = makeOutputFilename(filename, "preproc", preprocDir, "extension",".mat");
-save(filepathPreprocessed, "slowTimeSignal","slowTimePhase","loadConfig","preprocConfig")
+% %% optional save pre-processed signal to file
+% preprocDir = "data" + filesep;
+% filepathPreprocessed = makeOutputFilename(filename, "preproc", preprocDir, "extension",".mat");
+% save(filepathPreprocessed, "slowTimeSignal","slowTimePhase","loadConfig","preprocConfig")
 
-%% optional start: read pre-processed signal from file
-
-configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
-configFilename = "rec_04-Dec-2025__dist2m_synchr0_pred1_ridge-first_peaks-highest_selected.json";
-experiment = readJson(configDir + configFilename);
-
+% %% optional start: read pre-processed signal from file
+% 
+% configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
+% configFilename = "trial-params.json";
+% experiment = readJson(configDir + configFilename);
+% 
 % filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-23-11_vs0.5m__preproc.mat";
-% filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-39-31_vs1m__preproc.mat";
-filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-46-23_vs2m__preproc.mat";
-
-preprocFile = load(filepathPreprocessed);
-loadConfig = preprocFile.loadConfig;
-preprocConfig = preprocFile.preprocConfig;
-slowTimePhase =  preprocFile.slowTimePhase;
-slowTimeSignal =  preprocFile.slowTimeSignal;
-
+% % filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-39-31_vs1m__preproc.mat";
+% % filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-46-23_vs2m__preproc.mat";
+% 
+% preprocFile = load(filepathPreprocessed);
+% loadConfig = preprocFile.loadConfig;
+% preprocConfig = preprocFile.preprocConfig;
+% slowTimePhase =  preprocFile.slowTimePhase;
+% slowTimeSignal =  preprocFile.slowTimeSignal;
+% 
 
 %% PhaseStftHearbeatExtractor
+configFilename = "trial-params.json";
+experiment = readJson(configDir + configFilename);
+
 pshe = PhaseStftHearbeatExtractor( ...
     "heartOscillationFreqRange", experiment.pshe.heartOscillationFreqRange, ...
     "frequencyResolution",experiment.pshe.frequencyResolution, ...
@@ -80,6 +83,7 @@ pshe = PhaseStftHearbeatExtractor( ...
     "desiredTimeRes",experiment.pshe.desiredTimeRes, ...
     "maximumVisibleFrequency",experiment.pshe.maximumVisibleFrequency);
 pshe.process(slowTimePhase);
+
 figure(111); pshe.plotHeartbeatSignal;
 figure(121); pshe.plotStft;
 
@@ -106,6 +110,8 @@ figure(191); rc.plotEstimatedDelay()
 figure(192); rc.plotResult()
 
 %% prediction in breaks
+configFilename = "trial-params.json";
+experiment = readJson(configDir + configFilename);
 predictables = {bphe, pshe,rc};
 predictionParameters = {experiment.bphe.prediction, experiment.pshe.prediction,experiment.rc.prediction};
 figure_nrs = [115,995,195];
@@ -166,16 +172,15 @@ errors_nomemory =  hre.calucateError(tfaVect);
 figure(10102);hre.plot("otherResults",tfaVect)
 disp("RMSE without memory in BPM: " + join(string(errors_nomemory)))
 
-experiment = createExperimentStruct( ...
-    errors_memory,errors_nomemory, ...
-    tfaVect,loadConfig,preprocConfig, ...
-    pshe,bphe,rc,hre);
 
 table(errors_memory', errors_nomemory', ...
-      'RowNames', experiment.errors.methods)
+      'RowNames', ["pshe","bphe","rc"])
 
 %% Save Parameters and Estimation Errors
 % outDir = "results" + filesep + "phaser-process-exp" + filesep;
+
+
+
 outDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
 
 % suffix
@@ -190,11 +195,17 @@ suffix = sprintf("dist%s_synchr%d_pred%d_ridge-%s_peaks-%s", ...
 
 % prefix
 baseName = "rec_04-Dec-2025";
-custom_suffix = "";
+custom_suffix = "_best";
 suffix = suffix + custom_suffix;
 
 save2file = 0;
 if(save2file)
+
+    experiment = createExperimentStruct( ...
+        errors_memory,errors_nomemory, ...
+        tfaVect,loadConfig,preprocConfig, ...
+        pshe,bphe,rc,hre);
+
     outPathJson = makeOutputFilename(baseName, suffix, outDir,"extension",".json");
     saveJson(outPathJson, experiment);
 end

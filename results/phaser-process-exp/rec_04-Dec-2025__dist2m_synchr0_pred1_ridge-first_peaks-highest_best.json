@@ -6,14 +6,14 @@
       "rc"
     ],
     "memory": [
-      37.671636608274753,
-      3.4332212887545643,
-      3.6044939710985808
+      36.848111343942882,
+      8.2993704381825886,
+      3.8595740359866837
     ],
     "noMemory": [
-      23.765015505238669,
-      8.91078138243543,
-      7.3859876352602667
+      20.731275983545952,
+      10.148721079293562,
+      10.096778910179941
     ]
   },
   "tfa": [
@@ -96,10 +96,10 @@
     "phaseCutoffFreqLow": 5,
     "resultCutoffFreqLow": 0.5,
     "prediction": {
-      "ErosePartLeft": 0.1,
+      "ErosePartLeft": 0,
       "ErosePartRight": 0.15,
       "furtherAnalysisOutput": "predicted",
-      "PartConsidered": 0.6
+      "PartConsidered": 0.1
     }
   },
   "bphe": {
@@ -109,25 +109,25 @@
     ],
     "UpsamplingFactor": 4,
     "prediction": {
-      "ErosePartLeft": 0.1,
+      "ErosePartLeft": 0,
       "ErosePartRight": 0.15,
       "furtherAnalysisOutput": "predicted",
-      "PartConsidered": 0.6
+      "PartConsidered": 0.1
     }
   },
   "rc": {
     "input": {
-      "weight1": 2,
+      "weight1": 1,
       "weight2": 1,
       "timeDelay2": 0,
       "estimateDelay": 1,
       "estimateSign": 0
     },
     "prediction": {
-      "ErosePartLeft": 0.1,
+      "ErosePartLeft": 0,
       "ErosePartRight": 0.15,
       "furtherAnalysisOutput": "predicted",
-      "PartConsidered": 0.6
+      "PartConsidered": 0.1
     },
     "adjustment": {
       "windowWidth": 5,

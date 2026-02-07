@@ -48,9 +48,9 @@ filepathPreprocessed = makeOutputFilename(filename, "preproc", preprocDir, "exte
 save(filepathPreprocessed, "slowTimeSignal","slowTimePhase","loadConfig","preprocConfig")
 
 %% optional read pre-processed signal from file
-% filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-23-11_vs0.5m__preproc.mat";
+filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-23-11_vs0.5m__preproc.mat";
 % filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-39-31_vs1m__preproc.mat";
-filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-46-23_vs2m__preproc.mat";
+% filepathPreprocessed = "data"+filesep+"phaser_rec_04-Dec-2025_18-46-23_vs2m__preproc.mat";
 
 preprocFile = load(filepathPreprocessed);
 loadConfig = preprocFile.loadConfig;

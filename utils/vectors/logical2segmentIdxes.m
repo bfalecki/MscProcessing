@@ -5,6 +5,8 @@ function [startIdxes, endIdxes] = logical2segmentIdxes(logicalSegmentIdxes)
 % % example
 % logicalSegmentIdxes = [1     0     0     1     1     0     0     0     0     1     1     1    ];
 
+logicalSegmentIdxes = logicalSegmentIdxes(:).';
+
 startIdxes = find(diff([0 logicalSegmentIdxes]) == 1);
 endIdxes = find(diff([logicalSegmentIdxes 0]) == -1);
 

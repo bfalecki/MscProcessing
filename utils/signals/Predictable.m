@@ -19,13 +19,22 @@ classdef (Abstract) Predictable < handle
     end
     
     methods
+
+        function fixDiscontinuities(obj)
+            obj.predicted = compl_diff(diff(obj.predicted));
+            obj.predicted = filter_noise_peaks(obj.predicted, "Display",0);
+            obj.predicted = cumsum(obj.predicted);
+            obj.predicted = highpass(obj.predicted, 1/obj.getSamplingFrequency);
+
+        end
+
         function predict(obj,opts)
             %This function performs prediction
             arguments
                 obj
                 opts.ErosePartLeft = 0 % left erose part of segment
                 opts.ErosePartRight = 0 % right erose part of segment
-                opts.PartConsidered = 1 % remaining part of segment which is taken into account during prediction
+                opts.PartConsidered = 1 % part of segment which is taken into account during prediction
             end
             obj.ErosePartLeft =  opts.ErosePartLeft;
             obj.ErosePartRight =  opts.ErosePartRight;
@@ -43,8 +52,22 @@ classdef (Abstract) Predictable < handle
                 obj.ErosePartRight;
             eroseLengthRight = round(eroseLengthRight);
 
-            segments_idxes_er = side_by_side_vector_erose(obj.segmentsIdxes, eroseLengthLeft, "left");
-            segments_idxes_er = side_by_side_vector_erose(segments_idxes_er, eroseLengthRight, "right");
+            if(eroseLengthLeft < 0)
+                segments_idxes_er = ~side_by_side_vector_erose([~obj.segmentsIdxes(:).' 1],-eroseLengthLeft, "right");
+                segments_idxes_er = segments_idxes_er(1:end-1);
+            else
+                segments_idxes_er = side_by_side_vector_erose(obj.segmentsIdxes, eroseLengthLeft, "left");
+            end
+
+            % erosion can be negative
+            if(eroseLengthRight < 0)
+                segments_idxes_er = ~side_by_side_vector_erose([1 ~obj.segmentsIdxes(:).'],-eroseLengthRight, "left");
+                segments_idxes_er = segments_idxes_er(2:end);
+            else
+                segments_idxes_er = side_by_side_vector_erose(segments_idxes_er, eroseLengthRight, "right");
+            end
+            
+            
             obj.predictedIdxes = ~segments_idxes_er;
 
             [obj.predicted, obj.rank] = fill_gaps_ar_wrapped(obj.getSignalToPredict ,...
@@ -63,8 +86,8 @@ classdef (Abstract) Predictable < handle
                 opts.PlotOriginal = 1 % plot full signal to predict
                 opts.PlotBounds = 0 % mark prediction bounds
                 opts.PlotAvailable = 1 % plot available signal with breaks cut exactly
-                opts.PlotSeen = obj.PartConsidered ~= 1 % plot signal seen to predictor
-                opts.PlotConsidered = 1 % plot signal part used by predictor
+                opts.PlotSeen = obj.PartConsidered ~= 1 % plot signal seen to predictor / training samples
+                opts.PlotConsidered = 1 % plot signal part used by predictor / p last samples
             end
             time_ax = (0:(length(obj.getPredicted)-1)) /  obj.getSamplingFrequency();
             legendEntries = strings([]);
