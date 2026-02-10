@@ -1,9 +1,13 @@
-configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
-configFilename = "trial-params.json";
+% configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
+configDir = "C:\Users\bfalecki\Documents\praca_mgr\processing\results\phaser-process-exp\";
+configFilename = "rec_04-Dec-2025__dist0.5m_synchr0_pred1_ridge-first_peaks-highest_best.json";
+% configFilename = "rec_04-Dec-2025__dist2m_synchr0_pred1_ridge-first_peaks-highest_best.json";
+% configFilename = "rec_04-Dec-2025__dist1m_synchr0_pred1_ridge-first_peaks-highest_best.json";
+
 experiment = readJson(configDir + configFilename);
 
-% folder = "C:\Users\bfalecki\Documents\challenge\rec\";
-folder = "/home/user/Documents/praca_mgr/measurements/phaser/";
+folder = "C:\Users\bfalecki\Documents\challenge\rec\";
+% folder = "/home/user/Documents/praca_mgr/measurements/phaser/";
 
 filename = experiment.loading.filename;
 range_cell = experiment.preprocessing.range_cell; % meters
@@ -83,11 +87,12 @@ tfa0.detectRidge( ...
     "SelectMethod","first", ...
     "JumpPenalty",1, ...
     "PossibleHighFrequency",0.8,  "PossibleLowFrequency",0.1)
-figure(312); tfa0.plotResults("QuantileVal",0.8,"AllRidges",1,"PlotPeaks",0)
+tfa0.detectPeaks("Method","highest")
+figure(312); tfa0.plotResults("QuantileVal",0.8,"AllRidges",1,"PlotPeaks",1, "PlotRidges",1)
 
 %% PhaseStftHearbeatExtractor
-configFilename = "trial-params.json";
-experiment = readJson(configDir + configFilename);
+% configFilename = "trial-params.json";
+% experiment = readJson(configDir + configFilename);
 
 pshe = PhaseStftHearbeatExtractor( ...
     "heartOscillationFreqRange", experiment.pshe.heartOscillationFreqRange, ...
@@ -125,8 +130,8 @@ figure(191); rc.plotEstimatedDelay()
 figure(192); rc.plotResult()
 
 %% prediction in breaks
-configFilename = "trial-params.json";
-experiment = readJson(configDir + configFilename);
+% configFilename = "trial-params.json";
+% experiment = readJson(configDir + configFilename);
 predictables = {bphe, pshe,rc};
 predictionParameters = {experiment.bphe.prediction, experiment.pshe.prediction,experiment.rc.prediction};
 figure_nrs = [115,995,195];
@@ -169,22 +174,22 @@ for k = 1:length(tfAnalyzables)
         );
     figure(fig_nr(k));
     tfaVect{k}.plotResults( ...
-        "QuantileVal",0.4,"AllRidges",1, "PlotRidges",1,"PlotPeaks",1,"PlotPeaksHarmonics",1)
+        "QuantileVal",0.4,"AllRidges",0, "PlotRidges",1,"PlotPeaks",1,"PlotPeaksHarmonics",0)
 end
 
 %% Comparison with Reference: RMSE with Memory ------- 
-% referencePath = "C:\Users\bfalecki\Documents\challenge\reference\kalenji\2025-12-04.fit";
-referencePath = "/home/user/Documents/praca_mgr/measurements/reference/2025-12-04.fit";
+referencePath = "C:\Users\bfalecki\Documents\challenge\reference\kalenji\2025-12-04.fit";
+% referencePath = "/home/user/Documents/praca_mgr/measurements/reference/2025-12-04.fit";
 hre = HeartRateReference(referencePath,"ManualTimeShift",hours(duration(experiment.hre.ManualTimeShift)));
 cellfun(@(x) x.setHeartRateOutput("ridge"),tfaVect)
 errors_memory = hre.calucateError(tfaVect);
-figure(10101);hre.plot("otherResults",tfaVect, "showAdjusted",1)
+figure(10101);hre.plot("otherResults",tfaVect(2:3), "showAdjusted",1)
 disp("RMSE with memory in BPM: " + join(string(errors_memory)))
 
 % Comparison with Reference: RMSE without Memory - - -  -
 cellfun(@(x) x.setHeartRateOutput("peaks"),tfaVect)
 errors_nomemory =  hre.calucateError(tfaVect);
-figure(10102);hre.plot("otherResults",tfaVect)
+figure(10102);hre.plot("otherResults",tfaVect(2:3))
 disp("RMSE without memory in BPM: " + join(string(errors_nomemory)))
 
 
@@ -193,10 +198,8 @@ table(errors_memory', errors_nomemory', ...
 
 %% Save Parameters and Estimation Errors
 % outDir = "results" + filesep + "phaser-process-exp" + filesep;
-
-
-
-outDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
+% outDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
+outDir = configDir;
 
 % suffix
 token = regexp(loadConfig.filename, '_vs([0-9.]+m)', 'tokens');
@@ -213,7 +216,7 @@ baseName = "rec_04-Dec-2025";
 custom_suffix = "_best";
 suffix = suffix + custom_suffix;
 
-save2file = 0;
+save2file = 1;
 if(save2file)
 
     experiment = createExperimentStruct( ...

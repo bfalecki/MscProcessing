@@ -6,7 +6,6 @@ classdef HeartRateReference < handle & HeartRateComparable
     properties
         heartRate
         timeAxisDateTime
-        timeAxis
         ManualTimeShift
         path
         adjustedHeartRate % adjusted heart rate form the last call of calucateError function
@@ -33,12 +32,17 @@ classdef HeartRateReference < handle & HeartRateComparable
                 opts.otherResults % object implementing HeartRateComparable interface, scalar / vector / cell
                 opts.showAdjusted = 1
             end
-            plot(obj.getTimeAxisDateTime(), obj.getHeartRate(), 'b*')
+
+            colors = ["#FF4500", "#008000", "c"];
+
+            zero_time =  obj.getTimeAxisAdjusted();
+            zero_time = zero_time(1);
+            plot(obj.getTimeAxis() - zero_time, obj.getHeartRate(), 'b*')
             hold on
-            legendEnties = "Reference";
+            legendEnties = "Reference Sensor";
             if(opts.showAdjusted)
-                plot(obj.adjustedTimeAxis, obj.adjustedHeartRate, "b--")
-                legendEnties = [legendEnties "Reference Adjusted"];
+                plot(obj.getTimeAxisAdjusted() - zero_time, obj.adjustedHeartRate, Color="#00BFFF", LineWidth=1.2, LineStyle='--')
+                legendEnties = [legendEnties "Reference Interpol."];
             end
             extractorNames = string([]);
             for k = 1:length(opts.otherResults)
@@ -47,12 +51,15 @@ classdef HeartRateReference < handle & HeartRateComparable
                 else
                     tempResult = opts.otherResults(k);
                 end
-                plot(tempResult.getTimeAxisDateTime(), tempResult.getHeartRate()*60)
+                [~, timeStart] = getTimeAxis(obj);
+                tax_Sec = seconds(tempResult.getTimeAxisDateTime() - timeStart);
+                plot(tax_Sec - zero_time, tempResult.getHeartRate()*60,Color=colors(k), LineWidth=1.2)
                 extractorNames(k) = string(class(tempResult.timeFrequencyAnalyzable));
             end
             legendEnties = [legendEnties extractorNames];
             legend(legendEnties)
             hold off
+            xlabel("Time [s]"); ylabel("Heart Rate [BPM]")
         end
 
         % Abstract methods implementations
@@ -62,8 +69,14 @@ classdef HeartRateReference < handle & HeartRateComparable
         function timeAxisDateTime = getTimeAxisDateTime(obj) % time axis in dateTime format
             timeAxisDateTime = obj.timeAxisDateTime; 
         end
-        function timeAxis = getTimeAxis(obj) % time axis in seconds
-            timeAxis = obj.timeAxis;
+        function [timeAxSeconds, timeStart] = getTimeAxis(obj) % time axis in seconds
+            timeStart = obj.getTimeAxisDateTime();
+            timeStart = timeStart(1);
+            timeAxSeconds = seconds(obj.getTimeAxisDateTime() - timeStart);
+        end
+        function [timeAxSeconds, timeStart] = getTimeAxisAdjusted(obj) % time axis in seconds (adjusted)
+            [~, timeStart] = getTimeAxis(obj);
+            timeAxSeconds = seconds(obj.adjustedTimeAxis - timeStart);
         end
 
         function rms_error = calucateError(obj, heartRateComparables)

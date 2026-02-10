@@ -6,14 +6,14 @@
       "rc"
     ],
     "memory": [
-      0.83677198858232293,
-      0.84689767757621026,
-      0.912520646599758
+      0.74634658354654138,
+      0.88030316618619286,
+      0.87123440377981853
     ],
     "noMemory": [
-      0.85507227004130271,
-      0.86558441356974714,
-      0.92249544968927366
+      2.955367167133427,
+      0.8984359687264909,
+      0.91048786953161631
     ]
   },
   "tfa": [
@@ -22,7 +22,7 @@
       "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0083333333333333332,
+      "FrequencyResolution": 0.0020833333333333333,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
@@ -37,7 +37,7 @@
       "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0083333333333333332,
+      "FrequencyResolution": 0.0020833333333333333,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
@@ -52,7 +52,7 @@
       "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0083333333333333332,
+      "FrequencyResolution": 0.0020833333333333333,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
@@ -136,7 +136,7 @@
     }
   },
   "hre": {
-    "path": "/home/user/Documents/praca_mgr/measurements/reference/2025-12-04.fit",
+    "path": "C:\\Users\\bfalecki\\Documents\\challenge\\reference\\kalenji\\2025-12-04.fit",
     "ManualTimeShift": "00:59:55"
   }
 }

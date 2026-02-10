@@ -110,8 +110,8 @@ classdef TimeFreqAnalyzer < handle & HeartRateComparable
             arguments
                 obj 
                 opts.Method % "highest" / "lower" / "middle" / "distanceBased"
-                opts.ExactDistance % [Hz], input for findOptimumPeak if Method=="distanceBased"
-                opts.DistanceTolerance % Hz, input for findOptimumPeak if Method=="distanceBased"
+                opts.ExactDistance = [] % [Hz], input for findOptimumPeak if Method=="distanceBased"
+                opts.DistanceTolerance = [] % Hz, input for findOptimumPeak if Method=="distanceBased"
             end
             obj.detectPeaksMethod = opts.Method;
             obj.detectPeaksExactDistance = opts.ExactDistance;
@@ -218,26 +218,30 @@ classdef TimeFreqAnalyzer < handle & HeartRateComparable
             ylabel("Frequency [BPM]"); xlabel("Time [s]");
             title("Synchrosqueezed STFT");
             legendEntries = strings([]);
-            if(opts.PlotRidges)
-                hold on
-                plot(obj.t_ax, ridges_bpm(:, 1:end == obj.ridge_idx),'Color','r','LineWidth',1.5,'LineStyle','--')
-                if(opts.AllRidges && size(ridges_bpm,2) > 1)
-                    plot(obj.t_ax, ridges_bpm(:, 1:end ~= obj.ridge_idx),'Color','g','LineWidth',1.2,'LineStyle','--')
-                    legendEntries = [legendEntries, "Selected Ridge", "Rejected Ridges", strings(1,size(ridges_bpm,2)-2)];
-                end
-                hold off
-            end
+
             if(opts.PlotPeaks)
                 hold on
-                plot(obj.t_ax, obj.freqLocs*60, '*r')
+                ms = 6;
+                plot(obj.t_ax, obj.freqLocs*60, '.r',MarkerSize=ms)
                 legendEntries = [legendEntries, "Selected Peaks"];
                 if(opts.PlotPeaksHarmonics && ~any(isnan(obj.lowerFreqLocs)))
-                    plot(obj.t_ax,obj.lowerFreqLocs*60, '*g')
-                    plot(obj.t_ax,obj.upperFreqLocs*60, '*b')
+                    plot(obj.t_ax,obj.lowerFreqLocs*60, 'og',MarkerSize=ms)
+                    plot(obj.t_ax,obj.upperFreqLocs*60, 'ob',MarkerSize=ms)
                     legendEntries = [legendEntries, "Lower Peaks", "Upper Peaks"];
                 end
                 hold off
             end
+            if(opts.PlotRidges)
+                hold on
+                plot(obj.t_ax, ridges_bpm(:, 1:end == obj.ridge_idx),'Color','g','LineWidth',1.5,'LineStyle','--')
+                legendEntries = [legendEntries, "Ridge Detection"];
+                if(opts.AllRidges && size(ridges_bpm,2) > 1)
+                    plot(obj.t_ax, ridges_bpm(:, 1:end ~= obj.ridge_idx),'Color','r','LineWidth',1.2,'LineStyle','--')
+                    legendEntries = [legendEntries, "Rejected Ridges", strings(1,size(ridges_bpm,2)-2)];
+                end
+                hold off
+            end
+
             legend(legendEntries)
         end
 
