@@ -6,14 +6,14 @@
       "rc"
     ],
     "memory": [
-      2.9074329741675968,
-      2.12075254687153,
-      2.0856988521331572
+      33.877458530778824,
+      2.73095231701079,
+      2.71517873840851
     ],
     "noMemory": [
-      16.616602454786676,
-      9.6082613339209288,
-      2.2585719018619965
+      20.135543961775873,
+      5.8336073443392955,
+      6.4393968901354377
     ]
   },
   "tfa": [
@@ -22,54 +22,54 @@
       "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0041666666666666666,
+      "FrequencyResolution": 0.002083333333333,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
       "detectRidgeJumpPenalty": 0.1,
       "detectRidgeNuberOfRidges": 3,
       "detectRidgeDesiredNearestFrequency": 1.3333333333333333,
-      "detectPeaksExactDistance": 0.32533959501748122,
-      "detectPeaksDistanceTolerance": 0.032533959501748123
+      "detectPeaksExactDistance": 0.32537602292164391,
+      "detectPeaksDistanceTolerance": 0.097612806876493166
     },
     {
       "detectPeaksMethod": "highest",
       "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0041666666666666666,
+      "FrequencyResolution": 0.002083333333333,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
       "detectRidgeJumpPenalty": 0.1,
       "detectRidgeNuberOfRidges": 3,
       "detectRidgeDesiredNearestFrequency": 1.3333333333333333,
-      "detectPeaksExactDistance": 0.32533959501748122,
-      "detectPeaksDistanceTolerance": 0.032533959501748123
+      "detectPeaksExactDistance": 0.32537602292164391,
+      "detectPeaksDistanceTolerance": 0.097612806876493166
     },
     {
       "detectPeaksMethod": "highest",
       "detectRidgeSelectMethod": "first",
       "Synchrosqueezed": 0,
       "WindowWidth": 10,
-      "FrequencyResolution": 0.0041666666666666666,
+      "FrequencyResolution": 0.002083333333333,
       "MaximumVisibleFrequency": 2.5,
       "detectRidgePossibleLowFrequency": 0.66666666666666663,
       "detectRidgePossibleHighFrequency": 2.5,
       "detectRidgeJumpPenalty": 0.1,
       "detectRidgeNuberOfRidges": 3,
       "detectRidgeDesiredNearestFrequency": 1.3333333333333333,
-      "detectPeaksExactDistance": 0.32533959501748122,
-      "detectPeaksDistanceTolerance": 0.032533959501748123
+      "detectPeaksExactDistance": 0.32537602292164391,
+      "detectPeaksDistanceTolerance": 0.097612806876493166
     }
   ],
   "loading": {
     "lengthSeconds": 180,
     "offsetSeconds": 40,
-    "filename": "phaser_rec_04-Dec-2025_18-39-31_vs1m.mat"
+    "filename": "phaser_rec_04-Dec-2025_18-46-23_vs2m.mat"
   },
   "preprocessing": {
-    "range_cell": 1,
+    "range_cell": 2,
     "fast_time_data_start": 1,
     "fast_time_data_end": 2045,
     "FastTimeWindow": "hann",
@@ -79,10 +79,11 @@
       "ThresholdMultiplier": 5,
       "SegmentsBounds": [
         1,
-        23299
+        23297
       ],
       "NeighborSize": 2
-    }
+    },
+    "rangeCellAutoSelectionWindow": 10
   },
   "pshe": {
     "desiredTimeRes": 0.025,
@@ -90,40 +91,53 @@
     "frequencyResolution": 0.5,
     "maximumVisibleFrequency": 40,
     "heartOscillationFreqRange": [
-      5,
-      15
+      0,
+      30
     ],
     "phaseCutoffFreqLow": 5,
-    "resultCutoffFreqLow": 0.5
+    "resultCutoffFreqLow": 0.5,
+    "prediction": {
+      "ErosePartLeft": 0,
+      "ErosePartRight": 0.15,
+      "furtherAnalysisOutput": "predicted",
+      "PartConsidered": 0.1
+    }
   },
   "bphe": {
     "PassBand": [
       0.8,
       1.8
     ],
-    "UpsamplingFactor": 4
+    "UpsamplingFactor": 4,
+    "prediction": {
+      "ErosePartLeft": 0,
+      "ErosePartRight": 0.15,
+      "furtherAnalysisOutput": "predicted",
+      "PartConsidered": 0.1
+    }
   },
   "rc": {
     "input": {
       "weight1": 1,
       "weight2": 1,
       "timeDelay2": 0,
-      "estimateDelay": 1
+      "estimateDelay": 1,
+      "estimateSign": 0
     },
     "prediction": {
-      "estimateSign": 0,
-      "tfAnalysisOutput": "predicted",
-      "PartConsidered": 1,
-      "ErosePart": 0.2
+      "ErosePartLeft": 0,
+      "ErosePartRight": 0.15,
+      "furtherAnalysisOutput": "predicted",
+      "PartConsidered": 0.1
     },
     "adjustment": {
-      "windowWidth": 10,
-      "windowStep": 5,
+      "windowWidth": 5,
+      "windowStep": 2.5,
       "maxAllowableShift": 0.4
     }
   },
   "hre": {
-    "path": "C:\\Users\\bfalecki\\Documents\\challenge\\reference\\kalenji\\2025-12-04.fit",
+    "path": "/home/user/Documents/praca_mgr/measurements/reference/2025-12-04.fit",
     "ManualTimeShift": "00:59:55"
   }
 }

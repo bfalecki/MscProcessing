@@ -48,7 +48,7 @@ function rangeTimeMap = raw2rtm(rawData, opts)
     t_ax = linspace(0, t_max ,size(RT,2));
 
     if(strcmp(rawData.signalInfo.device,"phaser")) % cut some range cells from the beggining
-        ncuts = 3;
+        ncuts = 2;
         range_ax = range_ax(1:end-ncuts);
         RT = RT(ncuts+1:end,:);
     end

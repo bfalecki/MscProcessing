@@ -17,12 +17,12 @@ classdef SlowTimePhase < SlowTimeSignalAny
             obj.phase = phase;
         end
 
-        function selectSingleCell(obj, rangeCellMeters)
-            % see documentation for selectSingleCell@SlowTimeSignalAny
-            relativeIdx = selectSingleCell@SlowTimeSignalAny(obj,rangeCellMeters);
-            obj.phase = obj.phase(relativeIdx, :);
-            
-        end
+        % function selectSingleCell(obj, rangeCellMeters)
+        %     % see documentation for selectSingleCell@SlowTimeSignalAny
+        %     relativeIdx = selectSingleCell@SlowTimeSignalAny(obj,rangeCellMeters);
+        %     obj.phase = obj.phase(relativeIdx, :);
+        % 
+        % end
 
         function plotPhase(obj)
             % display phase signal
@@ -51,7 +51,9 @@ classdef SlowTimePhase < SlowTimeSignalAny
 
         function removeLinearPhase(obj)
             % substract linear phase component
-            obj.phase = subtractLinearComponent(obj.phase.');
+            for k = 1:size(obj.phase,1)
+                obj.phase(k, :) = subtractLinearComponent(obj.phase(k, :).');
+            end
         end
 
         function t_ax = getTimeAx(obj)
@@ -70,6 +72,9 @@ classdef SlowTimePhase < SlowTimeSignalAny
         end
         function signal = getSignal(obj)
             signal = obj.phase;
+        end
+        function setSignal(obj, signal)
+            obj.phase = signal;
         end
     end
 end

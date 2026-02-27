@@ -19,12 +19,11 @@ classdef SlowTimeSignal < SlowTimeSignalAny
             
         end
 
-        function selectSingleCell(obj, rangeCellMeters)
-            % see documentation for selectSingleCell@SlowTimeSignalAny
-            relativeIdx = selectSingleCell@SlowTimeSignalAny(obj,rangeCellMeters);
-            obj.signal = obj.signal(relativeIdx, :);
-            
-        end
+        % function selectSingleCell(obj, rangeCellMeters)
+        %     % see documentation for selectSingleCell@SlowTimeSignalAny
+        %     relativeIdx = selectSingleCell@SlowTimeSignalAny(obj,rangeCellMeters);
+        %     obj.signal = obj.signal(relativeIdx, :);
+        % end
 
         function plotSignal(obj)
             % display phase signal
@@ -74,22 +73,24 @@ classdef SlowTimeSignal < SlowTimeSignalAny
                 warning("removePhaseDiscontinuities already done. Computing once again! :)")
             end
 
-            slowTimePhase_filt = sts2stp(obj,"method","atan");
-            unwrapped_phase_diff = compl_diff(diff(slowTimePhase_filt.phase));
-            filtered_phase_diff = filter_noise_peaks(unwrapped_phase_diff, ...
-                "NeighborSize",opts.NeighborSize, ...
-                "Display", opts.Display , ...
-                "ThresholdMultiplier",opts.ThresholdMultiplier, ...
-                "ThresholdQuantile", opts.ThresholdQuantile, ...
-                "SegmentsBounds",opts.SegmentsBounds);
-
-            % for additional return value
-            slowTimePhase_filt.phase = cumsum(filtered_phase_diff);
-            slowTimePhase_filt.phaseDiscontinuitiesRemoved = 1;
-
-            % actual change of IQ signal
-            obj.signal = filter_phase_jumps(obj.signal, unwrapped_phase_diff,filtered_phase_diff);
-            obj.phaseDiscontinuitiesRemoved = 1;
+            for k = 1:size(obj.signal,1)
+                slowTimePhase_filt = sts2stp(obj,"method","atan");
+                unwrapped_phase_diff = compl_diff(diff(slowTimePhase_filt.phase(k, :)));
+                filtered_phase_diff = filter_noise_peaks(unwrapped_phase_diff, ...
+                    "NeighborSize",opts.NeighborSize, ...
+                    "Display", opts.Display , ...
+                    "ThresholdMultiplier",opts.ThresholdMultiplier, ...
+                    "ThresholdQuantile", opts.ThresholdQuantile, ...
+                    "SegmentsBounds",opts.SegmentsBounds);
+    
+                % for additional return value
+                slowTimePhase_filt.phase(k, :) = cumsum(filtered_phase_diff);
+                slowTimePhase_filt.phaseDiscontinuitiesRemoved = 1;
+    
+                % actual change of IQ signal
+                obj.signal(k, :) = filter_phase_jumps(obj.signal(k, :), unwrapped_phase_diff,filtered_phase_diff);
+                obj.phaseDiscontinuitiesRemoved = 1;
+            end
         end
 
         % abstract methods implementations

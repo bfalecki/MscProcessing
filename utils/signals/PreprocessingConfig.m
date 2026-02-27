@@ -9,10 +9,11 @@ classdef PreprocessingConfig
         FastTimeWindow
         phaseUnwrappingMethod
         phaseDiscontCompParams
+        rangeCellAutoSelectionWindow
     end
     
     methods
-        function obj = PreprocessingConfig(range_cell,fast_time_data_start,fast_time_data_end,FastTimeWindow,phaseUnwrappingMethod,phaseDiscontCompParams)
+        function obj = PreprocessingConfig(range_cell,fast_time_data_start,fast_time_data_end,FastTimeWindow,phaseUnwrappingMethod,phaseDiscontCompParams, rangeCellAutoSelectionWindow)
             %PREPROCESSINGCONFIG Construct an instance of this class
             obj.range_cell =range_cell ;
             obj.fast_time_data_start =fast_time_data_start ;
@@ -20,6 +21,7 @@ classdef PreprocessingConfig
             obj.FastTimeWindow =FastTimeWindow ;
             obj.phaseUnwrappingMethod =phaseUnwrappingMethod ;
             obj.phaseDiscontCompParams =phaseDiscontCompParams ;
+            obj.rangeCellAutoSelectionWindow = rangeCellAutoSelectionWindow;
         end
 
     end

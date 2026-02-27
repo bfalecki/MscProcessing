@@ -1,20 +1,22 @@
-% configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
-configDir = "C:\Users\bfalecki\Documents\praca_mgr\processing\results\phaser-process-exp\";
-configFilename = "rec_04-Dec-2025__dist0.5m_synchr0_pred1_ridge-first_peaks-highest_best.json";
-% configFilename = "rec_04-Dec-2025__dist2m_synchr0_pred1_ridge-first_peaks-highest_best.json";
-% configFilename = "rec_04-Dec-2025__dist1m_synchr0_pred1_ridge-first_peaks-highest_best.json";
+configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
+% configDir = "C:\Users\bfalecki\Documents\praca_mgr\processing\results\phaser-process-exp\";
+% configFilename = "rec_04-Dec-2025__dist0.5m_synchr0_pred1_ridge-first_peaks-highest_best_autoRC.json";
+% configFilename = "rec_04-Dec-2025__dist1m_synchr0_pred1_ridge-first_peaks-highest_best_autoRC.json";
+configFilename = "rec_04-Dec-2025__dist2m_synchr0_pred1_ridge-first_peaks-highest_best_autoRC.json";
 
 experiment = readJson(configDir + configFilename);
 
-folder = "C:\Users\bfalecki\Documents\challenge\rec\";
-% folder = "/home/user/Documents/praca_mgr/measurements/phaser/";
+% folder = "C:\Users\bfalecki\Documents\challenge\rec\";
+folder = "/home/user/Documents/praca_mgr/measurements/phaser/";
 
 filename = experiment.loading.filename;
 range_cell = experiment.preprocessing.range_cell; % meters
 
-rangeCellMeters = [0.25 2.5];
+rangeCellMeters = [0.0 3];
+% rangeCellMeters = [0.25 2.5];
 
 lengthSeconds = experiment.loading.lengthSeconds;
+% lengthSeconds = 60;
 offsetSeconds = experiment.loading.offsetSeconds;
 rawData = readRawPhaser(folder+filename,"lengthSeconds",lengthSeconds,"offsetSeconds",offsetSeconds);
 loadConfig = SignalLoadingConfig(lengthSeconds,offsetSeconds,filename);
@@ -33,10 +35,15 @@ rangeTimeMap = raw2rtm(rawData, ...
     "fast_time_data_end",fast_time_data_end, ...
     "Window",FastTimeWindow);
 slowTimeSignal = rtm2sts(rangeTimeMap,rangeCellMeters);
-slowTimeSignal.selectSingleCell(range_cell);
 phaseUnwrappingMethod = experiment.preprocessing.phaseUnwrappingMethod; % not used, it is always 'atan' after removePhaseDiscontinuities
 
+% Select signle range cell (automatically)
+rangeCellAutoSelectionWindow = experiment.preprocessing.rangeCellAutoSelectionWindow;
+% rangeCellAutoSelectionWindow = 10; % s
+slowTimeSignal.selectSingleCell("autoSelectMethod","maxrms","WindowWidth",rangeCellAutoSelectionWindow);
+figure(441); slowTimePhase.plotSelectedRangeCell
 %% preprocessing
+
 figure(6); [slowTimePhase, phaseDiscontCompParams] = ...
     slowTimeSignal.removePhaseDiscontinuities( ...
     "Display",1, ...
@@ -44,13 +51,24 @@ figure(6); [slowTimePhase, phaseDiscontCompParams] = ...
     "ThresholdMultiplier",experiment.preprocessing.phaseDiscontCompParams.ThresholdMultiplier, ...
     "NeighborSize",experiment.preprocessing.phaseDiscontCompParams.NeighborSize, ...
     "SegmentsBounds",experiment.preprocessing.phaseDiscontCompParams.SegmentsBounds);
-preprocConfig = PreprocessingConfig(range_cell,fast_time_data_start,fast_time_data_end,FastTimeWindow,phaseUnwrappingMethod,phaseDiscontCompParams);
+preprocConfig = PreprocessingConfig(range_cell,fast_time_data_start,fast_time_data_end, ...
+    FastTimeWindow,phaseUnwrappingMethod,phaseDiscontCompParams, rangeCellAutoSelectionWindow);
 
 slowTimePhase.removeLinearPhase()
 
 figure(3); slowTimeSignal.plotSignal()
 figure(4); slowTimePhase.plotPhase()
-figure(5); slowTimePhase.plotPhaseDiff()
+figure(44); slowTimePhase.plotPhaseDiff()
+% figure(444); slowTimePhase.plotSpectrum()
+% figure(33); slowTimeSignal.plotSpectrum()
+
+%% Plot spectrum of multiple range cells
+
+% slowTimeSignal.selectSingleCell(range_cell);
+% slowTimePhase.selectSingleCell(range_cell);
+% figure(30); slowTimeSignal.plotSignal()
+% figure(40); slowTimePhase.plotPhase()
+% figure(50); slowTimePhase.plotPhaseDiff()
 
 % %% optional save pre-processed signal to file
 % preprocDir = "data" + filesep;
@@ -178,8 +196,8 @@ for k = 1:length(tfAnalyzables)
 end
 
 %% Comparison with Reference: RMSE with Memory ------- 
-referencePath = "C:\Users\bfalecki\Documents\challenge\reference\kalenji\2025-12-04.fit";
-% referencePath = "/home/user/Documents/praca_mgr/measurements/reference/2025-12-04.fit";
+% referencePath = "C:\Users\bfalecki\Documents\challenge\reference\kalenji\2025-12-04.fit";
+referencePath = "/home/user/Documents/praca_mgr/measurements/reference/2025-12-04.fit";
 hre = HeartRateReference(referencePath,"ManualTimeShift",hours(duration(experiment.hre.ManualTimeShift)));
 cellfun(@(x) x.setHeartRateOutput("ridge"),tfaVect)
 errors_memory = hre.calucateError(tfaVect);
@@ -213,7 +231,7 @@ suffix = sprintf("dist%s_synchr%d_pred%d_ridge-%s_peaks-%s", ...
 
 % prefix
 baseName = "rec_04-Dec-2025";
-custom_suffix = "_best";
+custom_suffix = "_best_autoRC";
 suffix = suffix + custom_suffix;
 
 save2file = 1;
