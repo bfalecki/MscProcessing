@@ -1,8 +1,8 @@
 configDir = "/home/user/Documents/praca_mgr/processing/results/phaser-process-exp/";
 % configDir = "C:\Users\bfalecki\Documents\praca_mgr\processing\results\phaser-process-exp\";
-% configFilename = "rec_04-Dec-2025__dist0.5m_synchr0_pred1_ridge-first_peaks-highest_best_autoRC.json";
+configFilename = "rec_04-Dec-2025__dist0.5m_synchr0_pred1_ridge-first_peaks-highest_best_autoRC.json";
 % configFilename = "rec_04-Dec-2025__dist1m_synchr0_pred1_ridge-first_peaks-highest_best_autoRC.json";
-configFilename = "rec_04-Dec-2025__dist2m_synchr0_pred1_ridge-first_peaks-highest_best_autoRC.json";
+% configFilename = "rec_04-Dec-2025__dist2m_synchr0_pred1_ridge-first_peaks-highest_best_autoRC.json";
 
 experiment = readJson(configDir + configFilename);
 
@@ -200,19 +200,25 @@ end
 referencePath = "/home/user/Documents/praca_mgr/measurements/reference/2025-12-04.fit";
 hre = HeartRateReference(referencePath,"ManualTimeShift",hours(duration(experiment.hre.ManualTimeShift)));
 cellfun(@(x) x.setHeartRateOutput("ridge"),tfaVect)
-errors_memory = hre.calucateError(tfaVect);
+errors_memory_RMSE = hre.calucateError(tfaVect, "Method","RMSE");
+errors_memory_MAE = hre.calucateError(tfaVect, "Method","MAE");
 figure(10101);hre.plot("otherResults",tfaVect(2:3), "showAdjusted",1)
-disp("RMSE with memory in BPM: " + join(string(errors_memory)))
+disp("RMSE with memory in BPM: " + join(string(errors_memory_RMSE)))
 
 % Comparison with Reference: RMSE without Memory - - -  -
 cellfun(@(x) x.setHeartRateOutput("peaks"),tfaVect)
-errors_nomemory =  hre.calucateError(tfaVect);
+errors_nomemory_RMSE =  hre.calucateError(tfaVect, "Method","RMSE");
+errors_nomemory_MAE = hre.calucateError(tfaVect, "Method","MAE");
 figure(10102);hre.plot("otherResults",tfaVect(2:3))
-disp("RMSE without memory in BPM: " + join(string(errors_nomemory)))
+disp("RMSE without memory in BPM: " + join(string(errors_nomemory_RMSE)))
 
-
-table(errors_memory', errors_nomemory', ...
-      'RowNames', ["pshe","bphe","rc"])
+disp("RMSE:")
+disp(table(errors_memory_RMSE', errors_nomemory_RMSE', ...
+      'RowNames', ["pshe","bphe","rc"]))
+disp("MAE:")
+disp(table(errors_memory_MAE', errors_nomemory_MAE', ...
+      'RowNames', ["pshe","bphe","rc"]))
+errors = Errors(errors_memory_RMSE, errors_memory_MAE, errors_nomemory_RMSE, errors_nomemory_MAE);
 
 %% Save Parameters and Estimation Errors
 % outDir = "results" + filesep + "phaser-process-exp" + filesep;
@@ -238,7 +244,7 @@ save2file = 1;
 if(save2file)
 
     experiment = createExperimentStruct( ...
-        errors_memory,errors_nomemory, ...
+        errors, ...
         tfaVect,loadConfig,preprocConfig, ...
         pshe,bphe,rc,hre);
 

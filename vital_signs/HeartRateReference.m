@@ -79,11 +79,12 @@ classdef HeartRateReference < handle & HeartRateComparable
             timeAxSeconds = seconds(obj.adjustedTimeAxis - timeStart);
         end
 
-        function rms_error = calucateError(obj, heartRateComparables)
+        function rms_error = calucateError(obj, heartRateComparables, opts)
             % calculate error between heart rates
             arguments
                 obj 
                 heartRateComparables
+                opts.Method = "RMSE" % "RMSE" - rootm mean square error / "MAE" - mean absolute error
             end
             fs = 1/seconds(mean(diff(obj.timeAxisDateTime)));
             time_ax_dt = obj.getTimeAxisDateTime;
@@ -103,7 +104,15 @@ classdef HeartRateReference < handle & HeartRateComparable
                 obj.adjustedHeartRate = adjustSampling(obj.heartRate, fs,fs_des,time_start, time_start_des,'spline');
                 obj.adjustedHeartRate = obj.adjustedHeartRate(1:length(tempHrc.getHeartRate));
                 obj.adjustedTimeAxis = time_ax_dt_des;
-                rms_error(k) = rms(obj.adjustedHeartRate - tempHrc.getHeartRate*60);% in BPM;
+                if(strcmp(opts.Method, "RMSE"))
+                    rms_error(k) = rms(obj.adjustedHeartRate - tempHrc.getHeartRate*60);% in BPM;
+                elseif(strcmp(opts.Method, "MAE"))
+                    rms_error(k) = mean(abs(obj.adjustedHeartRate - tempHrc.getHeartRate*60));% in BPM;
+                else
+                    error("Unkown method: " + opts.Method)
+                end
+
+
                 % figure(4444)
                 % plot(hr_adj)
                 % hold on
